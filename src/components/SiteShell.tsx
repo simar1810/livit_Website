@@ -5,14 +5,22 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
+import type { CartState } from "@/types/cart";
+import { defaultCartState } from "@/lib/defaultCartState";
+import { COPY } from "@/config/copy";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 type CookieChoice = "accepted" | "rejected" | null;
 
 type CartContextValue = {
   openCart: () => void;
   closeCart: () => void;
+  cartState: CartState;
+  setCartState: (state: CartState | ((prev: CartState) => CartState)) => void;
+  showCartToast: (message: string) => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -25,6 +33,8 @@ export function useCart() {
   return ctx;
 }
 
+const TOAST_DURATION_MS = 2500;
+
 export default function SiteShell({
   children,
 }: {
@@ -32,6 +42,25 @@ export default function SiteShell({
 }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cookieChoice, setCookieChoice] = useState<CookieChoice>(null);
+  const [cartState, setCartState] = useState<CartState>(defaultCartState);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const emiratesOffcanvasRef = useFocusTrap(isCartOpen);
+
+  const showCartToast = useCallback((message: string) => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    setToastMessage(message);
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage(null);
+      toastTimeoutRef.current = null;
+    }, TOAST_DURATION_MS);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
 
   // Cookie consent stored in localStorage
   useEffect(() => {
@@ -75,10 +104,20 @@ export default function SiteShell({
   const cartContextValue: CartContextValue = {
     openCart: openCartOffcanvas,
     closeCart: closeCartOffcanvas,
+    cartState,
+    setCartState,
+    showCartToast,
   };
 
   return (
     <CartContext.Provider value={cartContextValue}>
+      {/* Cart summary toast */}
+      {toastMessage && (
+        <div className="cart-toast" role="status" aria-live="polite">
+          {toastMessage}
+        </div>
+      )}
+
       {/* Cookie banner */}
       {cookieChoice === null && (
         <div id="cookie-consent-banner" className="cookie-banner">
@@ -111,7 +150,9 @@ export default function SiteShell({
       <header className="page-header">
         <div className="header-wrap">
           <div className="top-header">
-            <a className="top_tag">Announce Something Here</a>
+            <a className="top_tag">
+              Nature-driven meal plans to fit your day.
+            </a>
           </div>
           <div className="bottom-header">
             <div className="warp_desktop">
@@ -120,8 +161,8 @@ export default function SiteShell({
                   <div className="logo">
                     <a className="navbar-brand" href="/Home/ViewIndex">
                       <img
-                        src="https://livit.ae/WebAssets/img/logo.png"
-                        alt="Livit logo"
+                        src="/nature-fit/logo-primary.jpg"
+                        alt="Nature Fit logo"
                       />
                     </a>
                   </div>
@@ -164,8 +205,8 @@ export default function SiteShell({
                       <div className="logo">
                         <a className="navbar-brand" href="/Home/ViewIndex">
                           <img
-                            src="https://livit.ae/WebAssets//img/logo.png"
-                            alt="Livit logo"
+                            src="/nature-fit/logo-primary.jpg"
+                            alt="Nature Fit logo"
                           />
                         </a>
                       </div>
@@ -225,8 +266,8 @@ export default function SiteShell({
                   </div>
                   <a className="navbar-brand" href="/Home/ViewIndex">
                     <img
-                      src="https://livit.ae/WebAssets/img/logo.png"
-                      alt="Livit logo"
+                      src="/nature-fit/logo-primary.jpg"
+                      alt="Nature Fit logo"
                     />
                   </a>
                   <a className="pro_f" href="/Home/Registration">
@@ -246,10 +287,10 @@ export default function SiteShell({
       {children}
 
       {/* Join the community marquee */}
-      <div className="join_com">
+      <div className="join_com" aria-hidden="true">
         <div className="scroll-content">
           {Array.from({ length: 16 }).map((_, index) => (
-            <span key={index}>join the community</span>
+            <span key={index}>{COPY.joinMarquee}</span>
           ))}
         </div>
       </div>
@@ -262,14 +303,14 @@ export default function SiteShell({
               <div className="ftr_desc">
                 <div className="ftr_logo">
                   <img
-                    src="https://livit.ae/WebAssets/img/logo.png"
-                    alt="Livit Logo"
+                    src="/nature-fit/logo-primary.jpg"
+                    alt="Nature Fit logo"
                   />
                 </div>
                 <p>
-                  EVERY MEAL IS MORE THAN FOOD,
+                  {COPY.footerTaglineLine1}
                   <br />
-                  IT’S YOUR DAILY RITUAL.
+                  {COPY.footerTaglineLine2}
                 </p>
               </div>
               <div
@@ -317,16 +358,16 @@ export default function SiteShell({
             </div>
             <div className="col-md-4">
               <div className="ftr_point">
-                <h3>JOIN OUR COMMUNITY</h3>
-                <p>
-                  BE THE FIRST TO KNOW WHEN WE UNVEIL YOUR NEW DAILY RITUAL.
-                </p>
-                <form>
+                <h3 id="footer-join-title">{COPY.footerJoinTitle}</h3>
+                <p>{COPY.footerJoinSubtitle}</p>
+                <form aria-labelledby="footer-join-title">
                   <div className="form_group">
-                    <input type="text" placeholder="Name" />
-                    <input type="text" placeholder="Email" />
+                    <label htmlFor="footer-join-name" className="visually-hidden">Name</label>
+                    <input id="footer-join-name" type="text" placeholder="Name" aria-label="Name" />
+                    <label htmlFor="footer-join-email" className="visually-hidden">Email</label>
+                    <input id="footer-join-email" type="email" placeholder="Email" aria-label="Email" />
                     <div className="btn_center">
-                      <button type="submit">Join Now</button>
+                      <button type="submit">{COPY.footerJoinCta}</button>
                     </div>
                   </div>
                 </form>
@@ -335,7 +376,7 @@ export default function SiteShell({
           </div>
         </div>
         <div className="copyright">
-          <p>© LIVIT 2025</p>
+          <p>{COPY.footerCopyright}</p>
         </div>
       </footer>
 
@@ -343,17 +384,22 @@ export default function SiteShell({
       <div
         id="cartOffcanvas"
         className={`custom-cart-offcanvas ${isCartOpen ? "active" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cartOffcanvasTitle"
+        aria-hidden={!isCartOpen}
       >
-        <div className="cart-content">
+        <div className="cart-content" ref={emiratesOffcanvasRef}>
           <div className="cart-content-ed">
             <div className="cart-header_ad">
-              <span>Emirates</span>
+              <span id="cartOffcanvasTitle">Emirates</span>
               <button
                 type="button"
                 onClick={closeCartOffcanvas}
                 className="close-cart-btn"
+                aria-label="Close Emirates selection"
               >
-                <i className="fa fa-times" />
+                <i className="fa fa-times" aria-hidden />
               </button>
             </div>
             <div className="emirates-grid cart-rad">
@@ -366,13 +412,15 @@ export default function SiteShell({
                 "Fujairah",
                 "Abu Dhabi",
               ].map((em) => (
-                <h3
+                <button
                   key={em}
+                  type="button"
                   className="emirate-card"
                   onClick={() => handleEmirateClick(em)}
+                  aria-label={`Select ${em}`}
                 >
                   {em}
-                </h3>
+                </button>
               ))}
             </div>
           </div>

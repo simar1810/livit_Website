@@ -4,7 +4,7 @@
 type AppRoutes = "/" | "/Home/Cart" | "/Home/CheckOut" | "/Home/OurStory" | "/Home/PrivacyPolicy" | "/Home/Program" | "/Home/Registration"
 type PageRoutes = never
 type LayoutRoutes = "/"
-type RedirectRoutes = never
+type RedirectRoutes = "/Home/ViewIndex"
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
 
@@ -17,6 +17,7 @@ interface ParamMap {
   "/Home/PrivacyPolicy": {}
   "/Home/Program": {}
   "/Home/Registration": {}
+  "/Home/ViewIndex": {}
 }
 
 

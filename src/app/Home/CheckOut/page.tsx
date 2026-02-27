@@ -1,49 +1,24 @@
-export { default } from "@/app/Home/CheckOut/page";
-
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import CartFlowHeader from "@/components/CartFlowHeader";
+import OrderSummaryPanel from "@/components/OrderSummaryPanel";
+import TabButtons from "@/components/TabButtons";
+import { useCart } from "@/components/SiteShell";
+import { buildOrderSummaryFromCartState } from "@/lib/cartUtils";
 
 type CheckoutTab = "guest" | "register" | "signin";
 
-interface OrderSummary {
-  programName: string;
-  dietaryPreference: string;
-  mealsPerDay: string;
-  caloriePerMeal: number;
-  caloriePerDay: number;
-  programLength: string;
-  daysOfFood: number;
-  weeksOfFood: number;
-  startDate: string;
-  deliveryTimeSlot: string;
-  subTotal: number;
-  vat: number;
-  deliveryCharge: number;
-  promoAmt: number;
+/** Inline validation: non-empty string, email format for email. */
+function isValidEmail(s: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
 }
 
-const initialSummary: OrderSummary = {
-  programName: "Signature Program",
-  dietaryPreference: "CHICKEN, BEEF",
-  mealsPerDay: "BREAKFAST, LUNCH, DINNER, SNACK",
-  caloriePerMeal: 400,
-  caloriePerDay: 1600,
-  programLength: "2 WEEKS",
-  daysOfFood: 10,
-  weeksOfFood: 2,
-  startDate: "2026-03-09",
-  deliveryTimeSlot: "",
-  subTotal: 1854.75,
-  vat: 92.74,
-  deliveryCharge: 0,
-  promoAmt: 0,
-};
-
 export default function CheckOutPage() {
+  const { cartState } = useCart();
   const [activeTab, setActiveTab] = useState<CheckoutTab>("guest");
-  const [summary, setSummary] = useState<OrderSummary>(initialSummary);
   const [promoCode, setPromoCode] = useState("");
+  const [promoAmt, setPromoAmt] = useState(0);
   const [referralCode, setReferralCode] = useState("");
   const [guestFirst, setGuestFirst] = useState("");
   const [guestLast, setGuestLast] = useState("");
@@ -51,16 +26,35 @@ export default function CheckOutPage() {
   const [guestPhone, setGuestPhone] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
+  const [touched, setTouched] = useState({ guest: false, delivery: false });
+
+  const summary = useMemo(
+    () =>
+      buildOrderSummaryFromCartState(cartState, {
+        deliveryTimeSlot: timeSlot,
+        promoAmt,
+      }),
+    [cartState, timeSlot, promoAmt],
+  );
 
   const handleApplyPromo = () => {
-    // UI-only: simple mock discount when any promo is entered.
     const hasPromo = promoCode.trim().length > 0;
-    const promoAmt = hasPromo ? 50 : 0;
-    setSummary((prev) => ({ ...prev, promoAmt }));
+    setPromoAmt(hasPromo ? 50 : 0);
   };
 
   const payable =
     summary.subTotal + summary.vat + summary.deliveryCharge - summary.promoAmt;
+
+  const guestValid =
+    guestFirst.trim() !== "" &&
+    guestLast.trim() !== "" &&
+    isValidEmail(guestEmail) &&
+    guestPhone.trim().length >= 8;
+  const deliveryValid = timeSlot.trim() !== "";
+  const orderNowDisabled =
+    activeTab === "guest"
+      ? !guestValid || !deliveryValid
+      : !deliveryValid;
 
   const handleOrderNow = () => {
     // Placeholder: later this will trigger real checkout API.
@@ -77,32 +71,17 @@ export default function CheckOutPage() {
     });
   };
 
+  const checkoutTabs = [
+    { key: "guest", label: "Continue as Guest" },
+    { key: "register", label: "Register" },
+    { key: "signin", label: "Sign in" },
+  ];
+
   return (
     <main>
-      {/* Checkout nav strip */}
-      <section className="cart-img">
-        <div className="cart-header">
-          <div id="cartNav" className="cart-nav">
-            <div className="cart-nav-wrap">
-              <span className="ct-wrp">
-                <span className="ct-icon">
-                  <i className="fa fa-check" />
-                </span>
-                <a href="/Home/ViewIndex">Select</a>
-              </span>
-              <span className="ct-wrp">
-                <span className="ct-icon">
-                  <i className="fa fa-check" />
-                </span>
-                <a href="/Home/Cart">Customize</a>
-              </span>
-              <span className="ct-wrp">
-                <span className="circ" />
-                <a href="/Home/CheckOut">Check out</a>
-              </span>
-            </div>
-          </div>
-        </div>
+      <h1 id="checkout-page-title" className="visually-hidden">Checkout</h1>
+      <section className="cart-img" aria-labelledby="checkout-page-title">
+        <CartFlowHeader currentStep="checkout" />
       </section>
 
       {/* Checkout main content */}
@@ -118,41 +97,11 @@ export default function CheckOutPage() {
                     <h2>CHECKOUT</h2>
                   </div>
                   <div className="tab-container">
-                    <div className="tab-buttons regist">
-                      <button
-                        className={
-                          activeTab === "guest"
-                            ? "tab-button active"
-                            : "tab-button"
-                        }
-                        type="button"
-                        onClick={() => setActiveTab("guest")}
-                      >
-                        Continue as Guest
-                      </button>
-                      <button
-                        className={
-                          activeTab === "register"
-                            ? "tab-button active"
-                            : "tab-button"
-                        }
-                        type="button"
-                        onClick={() => setActiveTab("register")}
-                      >
-                        Register
-                      </button>
-                      <button
-                        className={
-                          activeTab === "signin"
-                            ? "tab-button active"
-                            : "tab-button"
-                        }
-                        type="button"
-                        onClick={() => setActiveTab("signin")}
-                      >
-                        Sign in
-                      </button>
-                    </div>
+                    <TabButtons
+                      tabs={checkoutTabs}
+                      activeKey={activeTab}
+                      onSelect={(key) => setActiveTab(key as CheckoutTab)}
+                    />
 
                     {/* Guest tab */}
                     <div
@@ -167,6 +116,7 @@ export default function CheckOutPage() {
                         <form
                           onSubmit={(e) => {
                             e.preventDefault();
+                            setTouched((p) => ({ ...p, guest: true }));
                           }}
                         >
                           <div className="row">
@@ -185,7 +135,14 @@ export default function CheckOutPage() {
                                   onChange={(e) =>
                                     setGuestFirst(e.target.value)
                                   }
+                                  onBlur={() =>
+                                    setTouched((p) => ({ ...p, guest: true }))
+                                  }
+                                  aria-invalid={touched.guest && guestFirst.trim() === ""}
                                 />
+                                {touched.guest && guestFirst.trim() === "" && (
+                                  <p className="field-error">First name is required.</p>
+                                )}
                               </div>
                             </div>
                             <div className="col-md-6">
@@ -203,7 +160,14 @@ export default function CheckOutPage() {
                                   onChange={(e) =>
                                     setGuestLast(e.target.value)
                                   }
+                                  onBlur={() =>
+                                    setTouched((p) => ({ ...p, guest: true }))
+                                  }
+                                  aria-invalid={touched.guest && guestLast.trim() === ""}
                                 />
+                                {touched.guest && guestLast.trim() === "" && (
+                                  <p className="field-error">Last name is required.</p>
+                                )}
                               </div>
                             </div>
                             <div className="col-md-12">
@@ -214,14 +178,26 @@ export default function CheckOutPage() {
                                 </label>
                                 <input
                                   id="GuestEmail"
-                                  type="text"
+                                  type="email"
                                   placeholder="Enter Email"
-                                  autoComplete="off"
+                                  autoComplete="email"
                                   value={guestEmail}
                                   onChange={(e) =>
                                     setGuestEmail(e.target.value)
                                   }
+                                  onBlur={() =>
+                                    setTouched((p) => ({ ...p, guest: true }))
+                                  }
+                                  aria-invalid={
+                                    touched.guest && !isValidEmail(guestEmail)
+                                  }
                                 />
+                                {touched.guest && !isValidEmail(guestEmail) && guestEmail.length > 0 && (
+                                  <p className="field-error">Enter a valid email address.</p>
+                                )}
+                                {touched.guest && guestEmail.trim() === "" && (
+                                  <p className="field-error">Email is required.</p>
+                                )}
                               </div>
                             </div>
                             <div className="col-md-12">
@@ -248,15 +224,28 @@ export default function CheckOutPage() {
                                   </select>
                                   <input
                                     id="GuestPhone"
-                                    type="text"
+                                    type="tel"
                                     placeholder="Enter Number"
                                     maxLength={10}
                                     value={guestPhone}
                                     onChange={(e) =>
                                       setGuestPhone(e.target.value)
                                     }
+                                    onBlur={() =>
+                                      setTouched((p) => ({ ...p, guest: true }))
+                                    }
+                                    aria-invalid={
+                                      touched.guest &&
+                                      guestPhone.trim().length < 8
+                                    }
                                   />
                                 </div>
+                                {touched.guest && guestPhone.trim().length > 0 && guestPhone.trim().length < 8 && (
+                                  <p className="field-error">Phone must be at least 8 digits.</p>
+                                )}
+                                {touched.guest && guestPhone.trim() === "" && (
+                                  <p className="field-error">Phone number is required.</p>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -576,11 +565,12 @@ export default function CheckOutPage() {
                                   value={timeSlot}
                                   onChange={(e) => {
                                     setTimeSlot(e.target.value);
-                                    setSummary((prev) => ({
-                                      ...prev,
-                                      deliveryTimeSlot: e.target.value,
-                                    }));
+                                    setTouched((p) => ({ ...p, delivery: true }));
                                   }}
+                                  onBlur={() =>
+                                    setTouched((p) => ({ ...p, delivery: true }))
+                                  }
+                                  aria-invalid={touched.delivery && timeSlot.trim() === ""}
                                 >
                                   <option value="">
                                     PICK YOUR TIMESLOT
@@ -595,6 +585,9 @@ export default function CheckOutPage() {
                                     9 AM - 12 PM
                                   </option>
                                 </select>
+                                {touched.delivery && timeSlot.trim() === "" && (
+                                  <p className="field-error">Please select a delivery time slot.</p>
+                                )}
                               </div>
                             </div>
                             <div className="col-md-12">
@@ -625,145 +618,16 @@ export default function CheckOutPage() {
             {/* Right: order summary */}
             <div className="col-lg-6">
               <div className="order-sum-wrap">
-                <div className="order-summary">
-                  <h2>ORDER SUMMARY</h2>
-                  <div className="code-inputs">
-                    <div className="input-group d-none">
-                      <input
-                        type="text"
-                        placeholder="REFERRAL CODE"
-                        id="ReferralCode"
-                        value={referralCode}
-                        onChange={(e) => setReferralCode(e.target.value)}
-                      />
-                      <button type="button">APPLY</button>
-                    </div>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        id="PromoCode"
-                        placeholder="PROMOTIONAL CODE"
-                        value={promoCode}
-                        onChange={(e) => setPromoCode(e.target.value)}
-                      />
-                      <button type="button" onClick={handleApplyPromo}>
-                        APPLY
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="ord-qty order-desc-pera">
-                  <p>
-                    <b>Dietary preference:</b> {summary.dietaryPreference}
-                  </p>
-                  <p>
-                    <b>Meals per day:</b> {summary.mealsPerDay}
-                  </p>
-                  <p>
-                    <b>Calorie Range per meal:</b> {summary.caloriePerMeal} KCAL
-                  </p>
-                  <p>
-                    <b>Calorie per day:</b> {summary.caloriePerDay} KCAL
-                  </p>
-                  <p>
-                    <b>Program Length:</b> {summary.programLength}
-                  </p>
-                  <p>
-                    <b>days of food:</b> {summary.daysOfFood} days
-                  </p>
-                  <p>
-                    <b>weeks of food:</b> {summary.weeksOfFood} weeks
-                  </p>
-                  <p>
-                    <b>Start Date:</b> {summary.startDate}
-                  </p>
-                  <p>
-                    <b>Delivery time slot:</b> {summary.deliveryTimeSlot}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="ord-sd">
-                    <h5>SUB TOTAL</h5>
-                    <p>{summary.subTotal.toFixed(2)} AED</p>
-                  </div>
-                  <div className="ord-sd">
-                    <h5>VAT PER(5%)</h5>
-                    <p>
-                      <span id="VatAmt">
-                        {summary.vat.toFixed(2)}
-                      </span>{" "}
-                      AED
-                    </p>
-                  </div>
-                  <div className="ord-sd">
-                    <h5>DELIVERY CHARGE</h5>
-                    <p>
-                      <span id="DeliveryCharge">
-                        {summary.deliveryCharge.toFixed(2)}
-                      </span>{" "}
-                      AED
-                    </p>
-                  </div>
-                  <div className="ord-sd">
-                    <h5>TOTAL CHARGE</h5>
-                    <p>
-                      <span id="SubTotal">
-                        {(summary.subTotal + summary.vat).toFixed(2)}
-                      </span>{" "}
-                      AED
-                    </p>
-                  </div>
-                  <div className="ord-sd">
-                    <h5>PROMO CODE AMT</h5>
-                    <p>
-                      <span id="PromoAmt">
-                        {summary.promoAmt.toFixed(2)}
-                      </span>{" "}
-                      AED
-                    </p>
-                  </div>
-                </div>
-
-                <div className="ord-total-wrap">
-                  <div className="ord-total">
-                    <div className="rw-cal m_cst">
-                      <div className="ord-sd">
-                        <h5>TOTAL</h5>
-                      </div>
-                      <div className="clv-h-ico">
-                        <span id="PayableAmt">
-                          {payable.toFixed(2)}
-                        </span>{" "}
-                        AED
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="order-butt" id="Pay">
-                  <div className="ord-bt mt-2">
-                    <div className="col-md-12 text-end">
-                      <button
-                        className="check"
-                        type="button"
-                        style={{
-                          background: "#e9d99d",
-                          textTransform: "uppercase",
-                          fontWeight: 400,
-                          padding: "15px 20px",
-                          fontFamily: "Gothic60",
-                          border: "transparent",
-                        }}
-                        onClick={handleOrderNow}
-                      >
-                        ORDER NOW
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
+                <OrderSummaryPanel
+                  summary={summary}
+                  promoCode={promoCode}
+                  onPromoChange={setPromoCode}
+                  onApplyPromo={handleApplyPromo}
+                  payable={payable}
+                  onOrderNow={handleOrderNow}
+                  orderButtonLabel="ORDER NOW"
+                  orderNowDisabled={orderNowDisabled}
+                />
                 {/* Payment container placeholder for future backend integration */}
                 <div className="d-none mt-3" id="paymentContainer" />
               </div>

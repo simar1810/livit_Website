@@ -1,152 +1,42 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
+import CartFlowHeader from "@/components/CartFlowHeader";
+import { useCart } from "@/components/SiteShell";
+import { calculatePrice } from "@/lib/cartUtils";
+import type { ProteinKey, MealTypeKey } from "@/types/cart";
+import {
+  PROGRAMS,
+  PROTEINS,
+  CALORIES,
+  MEAL_TYPES,
+  DAYS_PER_WEEK,
+  WEEKS_OF_FOOD,
+  WEEKDAYS,
+  CUSTOMIZATIONS,
+} from "@/config/cartOptions";
+import { COPY } from "@/config/copy";
 
-type ProgramId = 8 | 14 | 15 | 17 | 18;
-type ProteinKey = "chicken" | "beef" | "seafood" | "vegetarian";
-type MealTypeKey = "breakfast" | "lunch" | "dinner" | "snack";
+type ProgramId = (typeof PROGRAMS)[number]["id"];
 
-interface ProgramOption {
-  id: ProgramId;
-  label: string;
-}
-
-interface ProteinOption {
-  key: ProteinKey;
-  label: string;
-}
-
-interface CalorieOption {
-  id: number;
-  label: string;
-  calories: number;
-}
-
-interface DaysPerWeekOption {
-  id: number;
-  label: string;
-  days: number;
-}
-
-interface WeekCountOption {
-  id: number;
-  label: string;
-  weeks: number;
-}
-
-interface WeekdayOption {
-  key: string;
-  label: string;
-}
-
-interface CustomizationOption {
-  id: string;
-  label: string;
-  description?: string;
-}
-
-const PROGRAMS: ProgramOption[] = [
-  { id: 8, label: "Signature Program" },
-  { id: 14, label: "RAMADAN Program" },
-  { id: 15, label: "Gut Restore" },
-  { id: 17, label: "Gut Restore x AL DAS CLINIC |" },
-  { id: 18, label: "Gut Restore x AL DAS CLINIC ||" },
-];
-
-const PROTEINS: ProteinOption[] = [
-  { key: "chicken", label: "Chicken" },
-  { key: "beef", label: "Beef" },
-  { key: "seafood", label: "Seafood" },
-  { key: "vegetarian", label: "Vegetarian" },
-];
-
-const CALORIES: CalorieOption[] = [
-  { id: 300, label: "300 KCAL", calories: 300 },
-  { id: 400, label: "400 KCAL", calories: 400 },
-  { id: 500, label: "500 KCAL", calories: 500 },
-  { id: 600, label: "600 KCAL", calories: 600 },
-  { id: 700, label: "700 KCAL", calories: 700 },
-];
-
-const MEAL_TYPES: { key: MealTypeKey; label: string }[] = [
-  { key: "breakfast", label: "Breakfast" },
-  { key: "lunch", label: "Lunch" },
-  { key: "dinner", label: "Dinner" },
-  { key: "snack", label: "Snack" },
-];
-
-const DAYS_PER_WEEK: DaysPerWeekOption[] = [
-  { id: 5, label: "5 DAYS", days: 5 },
-  { id: 6, label: "6 DAYS", days: 6 },
-  { id: 7, label: "7 DAYS", days: 7 },
-];
-
-const WEEKS_OF_FOOD: WeekCountOption[] = [
-  { id: 1, label: "1 WEEK", weeks: 1 },
-  { id: 2, label: "2 WEEKS", weeks: 2 },
-  { id: 3, label: "3 WEEKS", weeks: 3 },
-  { id: 4, label: "4 WEEKS", weeks: 4 },
-];
-
-const WEEKDAYS: WeekdayOption[] = [
-  { key: "mon", label: "MON" },
-  { key: "tue", label: "TUE" },
-  { key: "wed", label: "WED" },
-  { key: "thu", label: "THU" },
-  { key: "fri", label: "FRI" },
-];
-
-const CUSTOMIZATIONS: CustomizationOption[] = [
-  {
-    id: "standard",
-    label: "Standard",
-    description: "Chef-curated meals as per your selections.",
-  },
-  {
-    id: "gluten_dairy_free",
-    label: "Gluten free & dairy free",
-    description: "Adjusted to be both gluten and dairy free.",
-  },
-];
-
-// Simple placeholder pricing logic for UI only.
-function calculatePrice(params: {
-  calories: number;
-  mealsPerDay: number;
-  daysPerWeek: number;
-  weeks: number;
-}) {
-  const basePerMeal = 30; // AED
-  const calorieFactor = params.calories / 400; // 400 as baseline
-  const perMeal = basePerMeal * calorieFactor;
-  const totalMeals = params.mealsPerDay * params.daysPerWeek * params.weeks;
-  return perMeal * totalMeals;
-}
+const CART_TOAST_MESSAGE = "Cart updated";
 
 export default function CartPage() {
-  const [programId, setProgramId] = useState<ProgramId>(8);
-  const [selectedProteins, setSelectedProteins] = useState<ProteinKey[]>([
-    "chicken",
-  ]);
-  const [selectedCalories, setSelectedCalories] = useState<CalorieOption>(
-    CALORIES[1],
-  );
-  const [selectedMeals, setSelectedMeals] = useState<MealTypeKey[]>([
-    "breakfast",
-    "lunch",
-    "dinner",
-    "snack",
-  ]);
-  const [daysPerWeek, setDaysPerWeek] = useState<DaysPerWeekOption>(
-    DAYS_PER_WEEK[0],
-  );
-  const [weekCount, setWeekCount] = useState<WeekCountOption>(
-    WEEKS_OF_FOOD[0],
-  );
-  const [weekdays, setWeekdays] = useState<string[]>(["mon", "tue", "wed"]);
-  const [startDate, setStartDate] = useState("");
-  const [customization, setCustomization] = useState<string>("standard");
-  const [additionalInfo, setAdditionalInfo] = useState("");
+  const router = useRouter();
+  const { cartState, setCartState, showCartToast } = useCart();
+  const {
+    programId,
+    selectedProteins,
+    selectedCalories,
+    selectedMeals,
+    daysPerWeek,
+    weekCount,
+    weekdays,
+    startDate,
+    customization,
+    additionalInfo,
+  } = cartState;
 
   const mealsPerDayCount = selectedMeals.length || 1;
 
@@ -161,67 +51,55 @@ export default function CartPage() {
     [selectedCalories, mealsPerDayCount, daysPerWeek, weekCount],
   );
 
+  const updateCart = <K extends keyof typeof cartState>(
+    key: K,
+    value: (typeof cartState)[K],
+  ) => {
+    setCartState((prev) => ({ ...prev, [key]: value }));
+    showCartToast(CART_TOAST_MESSAGE);
+  };
+
   const handleToggleProtein = (key: ProteinKey) => {
-    setSelectedProteins((prev) =>
-      prev.includes(key) ? prev.filter((p) => p !== key) : [...prev, key],
-    );
+    setCartState((prev) => ({
+      ...prev,
+      selectedProteins: prev.selectedProteins.includes(key)
+        ? prev.selectedProteins.filter((p) => p !== key)
+        : [...prev.selectedProteins, key],
+    }));
+    showCartToast(CART_TOAST_MESSAGE);
   };
 
   const handleToggleMeal = (key: MealTypeKey) => {
-    setSelectedMeals((prev) =>
-      prev.includes(key) ? prev.filter((m) => m !== key) : [...prev, key],
-    );
+    setCartState((prev) => ({
+      ...prev,
+      selectedMeals: prev.selectedMeals.includes(key)
+        ? prev.selectedMeals.filter((m) => m !== key)
+        : [...prev.selectedMeals, key],
+    }));
+    showCartToast(CART_TOAST_MESSAGE);
   };
 
   const handleToggleWeekday = (key: string) => {
-    setWeekdays((prev) =>
-      prev.includes(key) ? prev.filter((d) => d !== key) : [...prev, key],
-    );
+    setCartState((prev) => ({
+      ...prev,
+      weekdays: prev.weekdays.includes(key)
+        ? prev.weekdays.filter((d) => d !== key)
+        : [...prev.weekdays, key],
+    }));
+    showCartToast(CART_TOAST_MESSAGE);
   };
 
   const handleCheckoutClick = () => {
-    // Placeholder: later this can call backend /Home/Cart APIs.
-    // For now we just log to console so you can verify selections.
-    // eslint-disable-next-line no-console
-    console.log("Cart selections", {
-      programId,
-      selectedProteins,
-      calories: selectedCalories.calories,
-      mealsPerDay: selectedMeals,
-      daysPerWeek: daysPerWeek.days,
-      weeks: weekCount.weeks,
-      weekdays,
-      startDate,
-      customization,
-      additionalInfo,
-      totalPrice,
-    });
+    router.push("/Home/CheckOut");
   };
 
   return (
-    <main>
-      <section className="cart-img">
-        <div className="cart-header">
-          <div id="cartNav" className="cart-nav">
-            <div className="cart-nav-wrap">
-              <span className="ct-wrp">
-                <span className="ct-icon">
-                  <i className="fa fa-check" />
-                </span>
-                <a href="/Home/ViewIndex">Select</a>
-              </span>
-              <span className="ct-wrp">
-                <span className="circ" />
-                <a href="/Home/Cart">Customize</a>
-              </span>
-              <span className="ct-wrp">
-                <span className="circ_blan" />
-                <a href="/Home/CheckOut">Check out</a>
-              </span>
-            </div>
-          </div>
-        </div>
-
+    <main className="has-bottom-cart">
+      <section className="cart-img" aria-labelledby="cart-page-title">
+        <h1 id="cart-page-title" className="visually-hidden">
+          {COPY.cartPageTitle}
+        </h1>
+        <CartFlowHeader currentStep="customize" />
         <div className="row cart">
           {/* Left banner image */}
           <div className="col-lg-5 imgbanner">
@@ -229,7 +107,11 @@ export default function CartPage() {
               <div className="cart-img">
                 <div className="image-box">
                   <div className="image-wrapper">
-                    <img src="/WebAssets/img/cart-img1.png" alt="Cart hero" />
+                    <img
+                      src="https://livit.ae/WebAssets/img/cart-img1.png"
+                      alt="Your meal plan"
+                      className="cart-hero-img"
+                    />
                   </div>
                 </div>
               </div>
@@ -241,7 +123,8 @@ export default function CartPage() {
             <div className="cart-desc-wrap">
               <div className="cart-desc-pro">
                 {/* Program selection */}
-                <div className="cart-rad">
+                <div className="cart-rad" role="group" aria-labelledby="program-label">
+                  <span id="program-label" className="visually-hidden">Program type</span>
                   <div className="diet-options option-group">
                     {PROGRAMS.map((p) => (
                       <span key={p.id}>
@@ -251,7 +134,7 @@ export default function CartPage() {
                           id={`program-${p.id}`}
                           className="box-option"
                           checked={programId === p.id}
-                          onChange={() => setProgramId(p.id)}
+                          onChange={() => updateCart("programId", p.id)}
                         />
                         <label htmlFor={`program-${p.id}`}>{p.label}</label>
                       </span>
@@ -262,19 +145,15 @@ export default function CartPage() {
                 {/* Program description placeholder (fillable later from backend) */}
                 <div className="lis-crt" id="PlanDescriptions">
                   <ul>
-                    <li id="DeliveryType">Balanced meals designed by our in-house nutrition team.</li>
-                    <li id="DeliveryDuration">
-                      Select your protein below and view this week&apos;s menu online.
-                    </li>
-                    <li id="ShortDescription">
-                      We deliver Monday to Friday – weekends are off.
-                    </li>
+                    <li id="DeliveryType">{COPY.planDescriptions.delivery}</li>
+                    <li id="DeliveryDuration">{COPY.planDescriptions.duration}</li>
+                    <li id="ShortDescription">{COPY.planDescriptions.short}</li>
                   </ul>
                 </div>
 
                 {/* Protein preference */}
                 <div className="cart-rad" id="DivProtein">
-                  <h3 className="cart-lil-ty">
+                  <h3 id="protein-heading" className="cart-lil-ty">
                     PROTEIN PREFERENCE
                     <span className="Pspan" id="ProteinPreference">
                       {selectedProteins.length
@@ -282,11 +161,12 @@ export default function CartPage() {
                         : ""}
                     </span>
                   </h3>
-                  <div className="diet-options">
+                  <div className="diet-options" role="group" aria-labelledby="protein-heading">
                     <div id="divTags">
                       {PROTEINS.map((p) => (
                         <label
                           key={p.key}
+                          htmlFor={`protein-${p.key}`}
                           className={`tag-label ${
                             selectedProteins.includes(p.key)
                               ? "selected"
@@ -294,12 +174,14 @@ export default function CartPage() {
                           }`}
                         >
                           <input
+                            id={`protein-${p.key}`}
                             type="checkbox"
                             className="tag-checkbox"
                             checked={selectedProteins.includes(p.key)}
                             onChange={() =>
                               handleToggleProtein(p.key as ProteinKey)
                             }
+                            aria-checked={selectedProteins.includes(p.key)}
                           />
                           <span>{p.label}</span>
                         </label>
@@ -309,8 +191,8 @@ export default function CartPage() {
                 </div>
 
                 {/* Calorie range */}
-                <div className="cart-rad" id="DivCalories">
-                  <h3 className="cart-lil-ty">
+                <div className="cart-rad" id="DivCalories" role="group" aria-labelledby="calorie-heading">
+                  <h3 id="calorie-heading" className="cart-lil-ty">
                     CALORIE RANGE PER MEAL
                     <span className="Pspan" id="CaloriesRangePerMeal">
                       {selectedCalories
@@ -318,20 +200,25 @@ export default function CartPage() {
                         : ""}
                     </span>
                   </h3>
-                  <div className="diet-options">
+                  <div className="diet-options" role="radiogroup" aria-labelledby="calorie-heading">
                     {CALORIES.map((c) => (
                       <label
                         key={c.id}
+                        htmlFor={`calorie-${c.id}`}
                         className={`tag-label ${
                           selectedCalories.id === c.id ? "selected" : ""
                         }`}
                       >
                         <input
+                          id={`calorie-${c.id}`}
                           type="radio"
                           name="Calories"
                           className="tag-checkbox"
                           checked={selectedCalories.id === c.id}
-                          onChange={() => setSelectedCalories(c)}
+                          onChange={() => {
+                                updateCart("selectedCalories", c);
+                              }}
+                          aria-checked={selectedCalories.id === c.id}
                         />
                         <span>{c.label}</span>
                       </label>
@@ -340,24 +227,27 @@ export default function CartPage() {
                 </div>
 
                 {/* Meals per day */}
-                <div className="cart-rad" id="DivMealTypes">
-                  <h3 className="cart-lil-ty">MEALS PER DAY</h3>
+                <div className="cart-rad" id="DivMealTypes" role="group" aria-labelledby="meals-heading">
+                  <h3 id="meals-heading" className="cart-lil-ty">MEALS PER DAY</h3>
                   <div className="diet-options">
                     <div id="mealTypeContainer">
                       {MEAL_TYPES.map((m) => (
                         <label
                           key={m.key}
+                          htmlFor={`meal-${m.key}`}
                           className={`meal-btn ${
                             selectedMeals.includes(m.key) ? "selected" : ""
                           }`}
                         >
                           <input
+                            id={`meal-${m.key}`}
                             type="checkbox"
                             className="meal-radio"
                             checked={selectedMeals.includes(m.key)}
                             onChange={() =>
                               handleToggleMeal(m.key as MealTypeKey)
                             }
+                            aria-checked={selectedMeals.includes(m.key)}
                           />
                           {m.label}
                         </label>
@@ -375,20 +265,23 @@ export default function CartPage() {
                     <h4>
                       <b>DAYS PER WEEK</b>
                     </h4>
-                    <div className="cart-rad option-group" id="divDays">
+                    <div className="cart-rad option-group" id="divDays" role="radiogroup" aria-labelledby="DivLength">
                       {DAYS_PER_WEEK.map((d) => (
                         <label
                           key={d.id}
+                          htmlFor={`days-${d.id}`}
                           className={`weekday-label ${
                             daysPerWeek.id === d.id ? "selected" : ""
                           }`}
                         >
                           <input
+                            id={`days-${d.id}`}
                             type="radio"
                             className="weekday-checkbox"
                             name="days"
                             checked={daysPerWeek.id === d.id}
-                            onChange={() => setDaysPerWeek(d)}
+                            onChange={() => updateCart("daysPerWeek", d)}
+                            aria-checked={daysPerWeek.id === d.id}
                           />
                           {d.label}
                         </label>
@@ -439,7 +332,7 @@ export default function CartPage() {
                             className="weekday-checkbox"
                             name="weeks"
                             checked={weekCount.id === w.id}
-                            onChange={() => setWeekCount(w)}
+                            onChange={() => updateCart("weekCount", w)}
                           />
                           {w.label}
                         </label>
@@ -455,7 +348,13 @@ export default function CartPage() {
                     id="startdate"
                     className="form-control"
                     value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
+                    onChange={(e) => {
+                    setCartState((prev) => ({
+                      ...prev,
+                      startDate: e.target.value,
+                    }));
+                    showCartToast(CART_TOAST_MESSAGE);
+                  }}
                   >
                     <option value="">START DATE</option>
                     <option value="2026-03-02">MONDAY 02/03/2026</option>
@@ -482,7 +381,7 @@ export default function CartPage() {
                             className="weekday-checkbox"
                             name="customization"
                             checked={customization === c.id}
-                            onChange={() => setCustomization(c.id)}
+                            onChange={() => updateCart("customization", c.id)}
                           />
                           {c.label}
                         </label>
@@ -517,7 +416,12 @@ export default function CartPage() {
                       className="form-control"
                       placeholder="ENTER ADDITIONAL INFO.."
                       value={additionalInfo}
-                      onChange={(e) => setAdditionalInfo(e.target.value)}
+                      onChange={(e) => {
+                      setCartState((prev) => ({
+                        ...prev,
+                        additionalInfo: e.target.value,
+                      }));
+                    }}
                     />
                     <br />
                     <p>
@@ -528,7 +432,7 @@ export default function CartPage() {
                   </div>
                 </div>
                 {/* Inline checkout button so it's always visible */}
-                <div className="cat-bt" style={{ marginTop: "24px" }}>
+                <div className="cat-bt">
                   <a className="cart-check" onClick={handleCheckoutClick}>
                     Checkout
                   </a>

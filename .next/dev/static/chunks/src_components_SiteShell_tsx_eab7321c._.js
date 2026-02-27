@@ -145,7 +145,7 @@ function SiteShell({ children }) {
                             className: "top-header",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                 className: "top_tag",
-                                children: "Announce Something Here"
+                                children: "Nature-driven meal plans to fit your day."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/SiteShell.tsx",
                                 lineNumber: 114,
@@ -171,21 +171,21 @@ function SiteShell({ children }) {
                                                         className: "navbar-brand",
                                                         href: "/Home/ViewIndex",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                            src: "https://livit.ae/WebAssets/img/logo.png",
-                                                            alt: "Livit logo"
+                                                            src: "/nature-fit/logo-primary.jpg",
+                                                            alt: "Nature Fit logo"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 122,
+                                                            lineNumber: 124,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 121,
+                                                        lineNumber: 123,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 122,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -197,12 +197,12 @@ function SiteShell({ children }) {
                                                                 children: "Menu"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 130,
+                                                                lineNumber: 132,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 129,
+                                                            lineNumber: 131,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -211,18 +211,18 @@ function SiteShell({ children }) {
                                                                 children: "Our Story"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 133,
+                                                                lineNumber: 135,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 132,
+                                                            lineNumber: 134,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 130,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -233,28 +233,28 @@ function SiteShell({ children }) {
                                                         children: "Register / Sign In"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 137,
+                                                        lineNumber: 139,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 136,
+                                                    lineNumber: 138,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 121,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 118,
+                                        lineNumber: 120,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 119,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -275,12 +275,12 @@ function SiteShell({ children }) {
                                                         className: "navbar-toggler-icon"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 155,
+                                                        lineNumber: 157,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 147,
+                                                    lineNumber: 149,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -298,21 +298,21 @@ function SiteShell({ children }) {
                                                                         className: "navbar-brand",
                                                                         href: "/Home/ViewIndex",
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                                            src: "https://livit.ae/WebAssets//img/logo.png",
-                                                                            alt: "Livit logo"
+                                                                            src: "/nature-fit/logo-primary.jpg",
+                                                                            alt: "Nature Fit logo"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 166,
+                                                                            lineNumber: 168,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                                        lineNumber: 165,
+                                                                        lineNumber: 167,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 164,
+                                                                    lineNumber: 166,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -322,13 +322,13 @@ function SiteShell({ children }) {
                                                                     "aria-label": "Close"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 172,
+                                                                    lineNumber: 174,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 163,
+                                                            lineNumber: 165,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -350,23 +350,23 @@ function SiteShell({ children }) {
                                                                                             className: "fas fa-angle-right"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                            lineNumber: 185,
+                                                                                            lineNumber: 187,
                                                                                             columnNumber: 31
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                    lineNumber: 183,
+                                                                                    lineNumber: 185,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                lineNumber: 182,
+                                                                                lineNumber: 184,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 181,
+                                                                            lineNumber: 183,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -383,14 +383,14 @@ function SiteShell({ children }) {
                                                                                                 className: "fas fa-angle-left"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                                lineNumber: 195,
+                                                                                                lineNumber: 197,
                                                                                                 columnNumber: 31
                                                                                             }, this),
                                                                                             "Programs"
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                        lineNumber: 194,
+                                                                                        lineNumber: 196,
                                                                                         columnNumber: 29
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -400,12 +400,12 @@ function SiteShell({ children }) {
                                                                                             children: "SIGNATURE PROGRAM"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                            lineNumber: 199,
+                                                                                            lineNumber: 201,
                                                                                             columnNumber: 31
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                        lineNumber: 198,
+                                                                                        lineNumber: 200,
                                                                                         columnNumber: 29
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -415,29 +415,29 @@ function SiteShell({ children }) {
                                                                                             children: "GUT RESTORE"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                            lineNumber: 202,
+                                                                                            lineNumber: 204,
                                                                                             columnNumber: 31
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                        lineNumber: 201,
+                                                                                        lineNumber: 203,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                lineNumber: 193,
+                                                                                lineNumber: 195,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 189,
+                                                                            lineNumber: 191,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 180,
+                                                                    lineNumber: 182,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -451,12 +451,12 @@ function SiteShell({ children }) {
                                                                                 children: "Our Story"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                lineNumber: 209,
+                                                                                lineNumber: 211,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 208,
+                                                                            lineNumber: 210,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -467,12 +467,12 @@ function SiteShell({ children }) {
                                                                                 children: "Contact Us"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                lineNumber: 214,
+                                                                                lineNumber: 216,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 213,
+                                                                            lineNumber: 215,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -483,46 +483,46 @@ function SiteShell({ children }) {
                                                                                 children: "Instagram"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                                lineNumber: 219,
+                                                                                lineNumber: 221,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                                            lineNumber: 218,
+                                                                            lineNumber: 220,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 207,
+                                                                    lineNumber: 209,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 179,
+                                                            lineNumber: 181,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 159,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                     className: "navbar-brand",
                                                     href: "/Home/ViewIndex",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                        src: "https://livit.ae/WebAssets/img/logo.png",
-                                                        alt: "Livit logo"
+                                                        src: "/nature-fit/logo-primary.jpg",
+                                                        alt: "Nature Fit logo"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 227,
+                                                        lineNumber: 229,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 226,
+                                                    lineNumber: 228,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -533,34 +533,34 @@ function SiteShell({ children }) {
                                                         alt: "Profile"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 233,
+                                                        lineNumber: 235,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 232,
+                                                    lineNumber: 234,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                            lineNumber: 146,
+                                            lineNumber: 148,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 147,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                    lineNumber: 144,
+                                    lineNumber: 146,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/SiteShell.tsx",
-                            lineNumber: 116,
+                            lineNumber: 118,
                             columnNumber: 11
                         }, this)
                     ]
@@ -585,17 +585,17 @@ function SiteShell({ children }) {
                             children: "join the community"
                         }, index, false, {
                             fileName: "[project]/src/components/SiteShell.tsx",
-                            lineNumber: 252,
+                            lineNumber: 254,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/SiteShell.tsx",
-                    lineNumber: 250,
+                    lineNumber: 252,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/SiteShell.tsx",
-                lineNumber: 249,
+                lineNumber: 251,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -615,16 +615,16 @@ function SiteShell({ children }) {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "ftr_logo",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                        src: "https://livit.ae/WebAssets/img/logo.png",
-                                                        alt: "Livit Logo"
+                                                        src: "/nature-fit/logo-primary.jpg",
+                                                        alt: "Nature Fit logo"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 264,
+                                                        lineNumber: 266,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 263,
+                                                    lineNumber: 265,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -632,20 +632,20 @@ function SiteShell({ children }) {
                                                         "EVERY MEAL IS MORE THAN FOOD,",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 271,
+                                                            lineNumber: 273,
                                                             columnNumber: 19
                                                         }, this),
-                                                        "IT’S YOUR DAILY RITUAL."
+                                                        "IT'S YOUR NATURE FIT RITUAL."
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 269,
+                                                    lineNumber: 271,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                            lineNumber: 262,
+                                            lineNumber: 264,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -659,18 +659,18 @@ function SiteShell({ children }) {
                                                 alt: "Order now"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 280,
+                                                lineNumber: 282,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                            lineNumber: 275,
+                                            lineNumber: 277,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                    lineNumber: 261,
+                                    lineNumber: 263,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -685,7 +685,7 @@ function SiteShell({ children }) {
                                                         children: "Quick Links"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 289,
+                                                        lineNumber: 291,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -696,12 +696,12 @@ function SiteShell({ children }) {
                                                                     children: "OUR STORY"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 292,
+                                                                    lineNumber: 294,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 291,
+                                                                lineNumber: 293,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -710,24 +710,24 @@ function SiteShell({ children }) {
                                                                     children: "CONTACT US"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 295,
+                                                                    lineNumber: 297,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 294,
+                                                                lineNumber: 296,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 290,
+                                                        lineNumber: 292,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 288,
+                                                lineNumber: 290,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -737,7 +737,7 @@ function SiteShell({ children }) {
                                                         children: "POLICIES"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 300,
+                                                        lineNumber: 302,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -748,12 +748,12 @@ function SiteShell({ children }) {
                                                                     children: "PRIVACY"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 303,
+                                                                    lineNumber: 305,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 302,
+                                                                lineNumber: 304,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -762,12 +762,12 @@ function SiteShell({ children }) {
                                                                     children: "TERMS OF SERVICE"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 306,
+                                                                    lineNumber: 308,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 305,
+                                                                lineNumber: 307,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -776,12 +776,12 @@ function SiteShell({ children }) {
                                                                     children: "SHIPPING"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 309,
+                                                                    lineNumber: 311,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 308,
+                                                                lineNumber: 310,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -790,35 +790,35 @@ function SiteShell({ children }) {
                                                                     children: "REFUNDS"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 314,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 311,
+                                                                lineNumber: 313,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                                        lineNumber: 301,
+                                                        lineNumber: 303,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 299,
+                                                lineNumber: 301,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 287,
+                                        lineNumber: 289,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                    lineNumber: 286,
+                                    lineNumber: 288,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -830,14 +830,14 @@ function SiteShell({ children }) {
                                                 children: "JOIN OUR COMMUNITY"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 320,
+                                                lineNumber: 322,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 children: "BE THE FIRST TO KNOW WHEN WE UNVEIL YOUR NEW DAILY RITUAL."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 321,
+                                                lineNumber: 323,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -849,7 +849,7 @@ function SiteShell({ children }) {
                                                             placeholder: "Name"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 326,
+                                                            lineNumber: 328,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -857,7 +857,7 @@ function SiteShell({ children }) {
                                                             placeholder: "Email"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 327,
+                                                            lineNumber: 329,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -867,65 +867,65 @@ function SiteShell({ children }) {
                                                                 children: "Join Now"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                                lineNumber: 329,
+                                                                lineNumber: 331,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 330,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                                    lineNumber: 325,
+                                                    lineNumber: 327,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                                lineNumber: 324,
+                                                lineNumber: 326,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 319,
+                                        lineNumber: 321,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SiteShell.tsx",
-                                    lineNumber: 318,
+                                    lineNumber: 320,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/SiteShell.tsx",
-                            lineNumber: 260,
+                            lineNumber: 262,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/SiteShell.tsx",
-                        lineNumber: 259,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "copyright",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            children: "© LIVIT 2025"
+                            children: "© NATURE FIT 2025"
                         }, void 0, false, {
                             fileName: "[project]/src/components/SiteShell.tsx",
-                            lineNumber: 338,
+                            lineNumber: 340,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/SiteShell.tsx",
-                        lineNumber: 337,
+                        lineNumber: 339,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/SiteShell.tsx",
-                lineNumber: 258,
+                lineNumber: 260,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -943,7 +943,7 @@ function SiteShell({ children }) {
                                         children: "Emirates"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 350,
+                                        lineNumber: 352,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -954,18 +954,18 @@ function SiteShell({ children }) {
                                             className: "fa fa-times"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/SiteShell.tsx",
-                                            lineNumber: 356,
+                                            lineNumber: 358,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 353,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                lineNumber: 349,
+                                lineNumber: 351,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -984,28 +984,28 @@ function SiteShell({ children }) {
                                         children: em
                                     }, em, false, {
                                         fileName: "[project]/src/components/SiteShell.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 371,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/SiteShell.tsx",
-                                lineNumber: 359,
+                                lineNumber: 361,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/SiteShell.tsx",
-                        lineNumber: 348,
+                        lineNumber: 350,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/SiteShell.tsx",
-                    lineNumber: 347,
+                    lineNumber: 349,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/SiteShell.tsx",
-                lineNumber: 343,
+                lineNumber: 345,
                 columnNumber: 7
             }, this)
         ]

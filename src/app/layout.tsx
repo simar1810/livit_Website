@@ -1,10 +1,11 @@
+import SiteShell from "@/components/SiteShell";
 import type { Metadata } from "next";
 import "./globals.css";
-import SiteShell from "@/components/SiteShell";
 
 export const metadata: Metadata = {
-  title: "Livit",
-  description: "Livit website clone built with Next.js",
+  title: "Nature Fit",
+  description:
+    "Nature Fit – nature-driven, balanced meal plans for everyday wellness.",
 };
 
 export default function RootLayout({

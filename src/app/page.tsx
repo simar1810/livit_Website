@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useCart } from "@/components/SiteShell";
+import PackageCard from "@/components/PackageCard";
+import { COPY } from "@/config/copy";
 
 const SLIDES = [
   "https://livit.ae/WebAssets/img/slider/1.jpg",
@@ -51,10 +53,10 @@ export default function HomePage() {
             <div className="row">
               <div className="col-md-12">
                 <div className="wra-hero-text">
-                  <h2>Your Daily Ritual</h2>
-                  <p>Delivered Daily To Your Doorstep</p>
-                  <span className="hero-cta" onClick={openCart}>
-                    Join The Journey
+                  <h1 className="hero-title">{COPY.heroTitle}</h1>
+                  <p>{COPY.heroSubtitle}</p>
+                  <span className="hero-cta" onClick={openCart} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCart(); } }}>
+                    {COPY.heroCta}
                   </span>
                 </div>
               </div>
@@ -70,56 +72,36 @@ export default function HomePage() {
             <div className="col-md-12">
               <div className="about-text">
                 <p>
-                  Wellness is a journey, not a destination
+                  {COPY.introParagraph1}
                   <img
                     src="https://livit.ae/WebAssets/img/tomato.png"
                     className="tom_t"
-                    alt="Tomato"
+                    alt=""
+                    loading="lazy"
                   />
-                  . At Livit, we encourage you to cultivate lasting, sustainable
-                  eating habits that honor your body and lifestyle.
+                  . {COPY.introParagraph2}
                 </p>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="product_wrp">
-                <div className="pro_img">
-                  <img
-                    src="https://livit.ae/WebAssets/img/drop-image/1.jpg"
-                    alt="Program 1"
-                  />
-                </div>
-                <div className="pro_con">
-                  <h2>SIGNATURE PROGRAM</h2>
-                  <p>
-                    Chef-Crafted Meals. Nutritionist-Backed, Balanced, Mindful
-                    Eating.
-                  </p>
-                  <a className="join" onClick={openCart}>
-                    JOIN THE PROGRAM
-                  </a>
-                </div>
-              </div>
+              <PackageCard
+                title="SIGNATURE PROGRAM"
+                description="Chef-Crafted Meals. Nutritionist-Backed, Balanced, Mindful Eating."
+                imageSrc="https://livit.ae/WebAssets/img/drop-image/1.jpg"
+                imageAlt="Signature Program"
+                ctaLabel="JOIN THE PROGRAM"
+                onCtaClick={openCart}
+              />
             </div>
             <div className="col-md-6">
-              <div className="product_wrp">
-                <div className="pro_img">
-                  <img
-                    src="https://livit.ae/WebAssets/img/drop-image/2.jpg"
-                    alt="Program 2"
-                  />
-                </div>
-                <div className="pro_con">
-                  <h2>GUT RESTORE PROGRAM</h2>
-                  <p>
-                    5-Day Reset. Gut-Loving, Anti-Inflammatory, and
-                    Restorative.
-                  </p>
-                  <a className="join" onClick={openCart}>
-                    JOIN THE PROGRAM
-                  </a>
-                </div>
-              </div>
+              <PackageCard
+                title="GUT RESTORE PROGRAM"
+                description="5-Day Reset. Gut-Loving, Anti-Inflammatory, and Restorative."
+                imageSrc="https://livit.ae/WebAssets/img/drop-image/2.jpg"
+                imageAlt="Gut Restore Program"
+                ctaLabel="JOIN THE PROGRAM"
+                onCtaClick={openCart}
+              />
             </div>
           </div>
         </div>
@@ -136,7 +118,7 @@ export default function HomePage() {
             <div className="col-md-12">
               <div className="tab-container">
                 <div className="dfv_view">
-                  <a href="/Home/Program">VIEW FULL WEEKLY MENU</a>
+                  <a href="/Home/Program">{COPY.menuCta}</a>
                 </div>
               </div>
             </div>
@@ -144,12 +126,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Livit image grid */}
+      {/* Why Nature Fit image grid */}
       <section className="why_livit">
         <div className="container-fluid">
-          <div className="pro-tit">
-            <h2>why livit?</h2>
-          </div>
+            <div className="pro-tit">
+              <h2>{COPY.whySectionTitle}</h2>
+            </div>
           <div className="row">
             <div className="col-md-12">
               <div className="grid_six">
@@ -158,7 +140,8 @@ export default function HomePage() {
                     <a href="#">
                       <img
                         src={`https://livit.ae/WebAssets/img/why/0${num}.png`}
-                        alt="why Livit"
+                        alt=""
+                        loading="lazy"
                       />
                     </a>
                   </div>

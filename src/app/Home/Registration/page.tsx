@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import TabButtons from "@/components/TabButtons";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 type TabKey = "register" | "signin";
+
+const REGISTRATION_TABS = [
+  { key: "register", label: "Register" },
+  { key: "signin", label: "Sign in" },
+];
 
 export default function RegistrationPage() {
   const [activeTab, setActiveTab] = useState<TabKey>("register");
@@ -16,6 +23,8 @@ export default function RegistrationPage() {
     setShowPassword((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const forgotOffcanvasRef = useFocusTrap(showForgot);
+
   return (
     <main>
       <section className="product-tab register-page">
@@ -23,30 +32,11 @@ export default function RegistrationPage() {
           <div className="row">
             <div className="col-md-8 offset-md-2">
               <div className="tab-container">
-                <div className="tab-buttons regist">
-                  <button
-                    className={
-                      activeTab === "register"
-                        ? "tab-button active"
-                        : "tab-button"
-                    }
-                    type="button"
-                    onClick={() => setActiveTab("register")}
-                  >
-                    Register
-                  </button>
-                  <button
-                    className={
-                      activeTab === "signin"
-                        ? "tab-button active"
-                        : "tab-button"
-                    }
-                    type="button"
-                    onClick={() => setActiveTab("signin")}
-                  >
-                    Sign in
-                  </button>
-                </div>
+                <TabButtons
+                  tabs={REGISTRATION_TABS}
+                  activeKey={activeTab}
+                  onSelect={(key) => setActiveTab(key as TabKey)}
+                />
 
                 {/* Register tab */}
                 <div
@@ -336,17 +326,22 @@ export default function RegistrationPage() {
       <div
         id="ForgotOffcanvas"
         className={`custom-cart-offcanvas ${showForgot ? "active" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="forgot-password-title"
+        aria-hidden={!showForgot}
       >
-        <div className="cart-content">
+        <div className="cart-content" ref={forgotOffcanvasRef}>
           <div className="cart-content-ed">
             <div className="cart-header_ad">
-              <span className="cart-title">FORGOT PASSWORD</span>
+              <span id="forgot-password-title" className="cart-title">FORGOT PASSWORD</span>
               <button
                 type="button"
                 onClick={() => setShowForgot(false)}
                 className="close-cart-btn"
+                aria-label="Close forgot password"
               >
-                <i className="fa fa-times" />
+                <i className="fa fa-times" aria-hidden />
               </button>
             </div>
             <div className="contact_form">
