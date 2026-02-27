@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>
+      Livit
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- ✅ Data Layer & Consent Mode Initialization -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default: block analytics/ads until user gives consent
+        gtag(&#39;consent&#39;, &#39;default&#39;, {
+            &#39;ad_storage&#39;: &#39;denied&#39;,
+            &#39;analytics_storage&#39;: &#39;denied&#39;,
+            &#39;personalization_storage&#39;: &#39;denied&#39;,
+            &#39;security_storage&#39;: &#39;granted&#39;
+        });
+    </script>
+    <!-- ✅ Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ &#39;gtm.start&#39;: new Date().getTime(), event: &#39;gtm.js&#39; });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != &#39;dataLayer&#39; ? &#39;&amp;l=&#39; + l : &#39;&#39;;
+            j.async = true;
+            j.src = &#39;https://www.googletagmanager.com/gtm.js?id=&#39; + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, &#39;script&#39;, &#39;dataLayer&#39;, &#39;GTM-NB3F4KWW&#39;);
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- ✅ Google Tag (GA4) - Loaded by Consent -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XQ5XHN3KKB">
+    </script>
+    <script>
+      gtag(&#39;js&#39;, new Date());
+        gtag(&#39;config&#39;, &#39;G-XQ5XHN3KKB&#39;, { &#39;anonymize_ip&#39;: true });
+    </script>
+    <link rel="stylesheet" href="/WebAssets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/WebAssets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/WebAssets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/assets/Loader/LoaderCSS.css" rel="stylesheet" />
+    <style>
+      div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm)
+        {
+            background-color: #f0e3aa !Important;
+            border-color: #d8c15d !Important;
+            color:#000000 !Important;
+            border-radius:0px !Important;
+        }
+
+        #LocationcartOffcanvas {
+            height: 100vh;
+            width: 50%;
+        }
+
+        /* Map default */
+        #map {
+            height: 700px;
+            width: 100%;
+        }
+
+        .pac-container {
+            z-index: 999999 !important;
+        }
+
+        /* Mobile view */
+        @media (max-width: 768px) {
+            #LocationcartOffcanvas {
+                width: 100%;
+                height: 100vh;
+            }
+        }
+
+
+        .swal2-container {
+    z-index: 99999 !important;
+    font-family: &#39;Gothic60&#39;;
+    text-transform: uppercase;
+}
+    </style>
+    <script src="/assets/Jquery371.js">
+    </script>
+    <script src="/assets/Loader/LoaderJS.js">
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript b-evq1m6lrwz="">
+      &lt;iframe b-evq1m6lrwz src=&#34;https://www.googletagmanager.com/ns.html?id=GTM-NB3F4KWW&#34;
+                height=&#34;0&#34; width=&#34;0&#34; style=&#34;display:none;visibility:hidden&#34;&gt;&lt;/iframe&gt;
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Cookie Consent Banner -->
+    <div b-evq1m6lrwz="" id="cookie-consent-banner" style="position:fixed;bottom:0;left:0;right:0;padding:15px;
+                background:#222;color:#fff;z-index:9999;display:none;">
+      <div b-evq1m6lrwz="" style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;
+                    align-items:center;justify-content:space-between;gap:10px;">
+        <span b-evq1m6lrwz="" style="font-family: &#39;Gothic60&#39;; text-transform:uppercase;">        We use cookies to personalize content and analyze our traffic.
+                You can accept or reject non-essential cookies.
+</span>
+        <div b-evq1m6lrwz="">
+          <button b-evq1m6lrwz="" type="button" onclick="cookieReject()" style="margin-right:8px;padding:6px 14px;border:0;
+                               background:#555;color:#fff;cursor:pointer; font-family: &#39;Gothic60&#39;;text-transform:uppercase;">
+            Reject
+          </button>
+          <button b-evq1m6lrwz="" type="button" onclick="cookieAccept()" style="padding:6px 14px;border:0;
+                               background:#28a745;color:#fff;cursor:pointer;font-family: &#39;Gothic60&#39;;text-transform:uppercase;">
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+    <header b-evq1m6lrwz="" class="page-header">
+      <div b-evq1m6lrwz="" class="header-wrap">
+        <div b-evq1m6lrwz="" class="top-header">
+          <a b-evq1m6lrwz="" class="top_tag">          Announce Something Here
+</a>
+        </div>
+        <div b-evq1m6lrwz="" class="bottom-header">
+          <div b-evq1m6lrwz="" class="warp_desktop">
+            <nav b-evq1m6lrwz="">
+              <div b-evq1m6lrwz="" class="nav-container">
+                <div b-evq1m6lrwz="" class="logo">
+                  <a b-evq1m6lrwz="" class="navbar-brand" href="/Home/ViewIndex">                  <img src="/WebAssets/img/logo.png" />
+</a>
+                </div>
+                <ul b-evq1m6lrwz="" class="menu">
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="/Home/Program">                    Menu
+</a>
+                  </li>
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="/Home/OurStory">                    Our Story
+</a>
+                  </li>
+                </ul>
+                <div b-evq1m6lrwz="" class="log_si">
+                  <a b-evq1m6lrwz="" href="/Home/Registration" id="login">                  Register / Sign In
+</a>
+                  <div b-evq1m6lrwz="" class="dropdown" id="UserName">
+                    <!-- Trigger -->
+                    <a b-evq1m6lrwz="" class="d-flex align-items-center dropdown-toggle" href="#" role="button" id="UserDropdown" data-bs-toggle="dropdown" aria-expanded="false">                    <div b-evq1m6lrwz="" class="avatar avatar-online me-2">
+                      <img src="/Content/Product/Profile.jpg" alt="Profile" class="rounded-circle" width="32" height="32" />
+                    </div>
+                    <span b-evq1m6lrwz="" class="fw-semibold"></span>
+</a>
+                    <!-- Dropdown Menu -->
+                    <ul b-evq1m6lrwz="" class="dropdown-menu dropdown-menu-end" aria-labelledby="UserDropdown">
+                      <li b-evq1m6lrwz="">
+                        <a b-evq1m6lrwz="" class="dropdown-item d-flex align-items-center" href="/User/Orders">                        <i b-evq1m6lrwz="" class="bx bx-power-off me-2"></i>
+                        <span b-evq1m6lrwz="">                        My Dashboard
+</span>
+</a>
+                      </li>
+                      <li b-evq1m6lrwz="">
+                        <a b-evq1m6lrwz="" class="dropdown-item d-flex align-items-center" onclick="Logout()">                        <i b-evq1m6lrwz="" class="bx bx-power-off me-2"></i>
+                        <span b-evq1m6lrwz="">                        Log Out
+</span>
+</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <input b-evq1m6lrwz="" type="hidden" value="0" id="MasterUserId" />
+                </div>
+              </div>
+            </nav>
+          </div>
+          <div b-evq1m6lrwz="" class="mobile-nv">
+            <nav b-evq1m6lrwz="" class="navbar">
+              <div b-evq1m6lrwz="" class="container-fluid">
+                <button b-evq1m6lrwz="" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                  <span b-evq1m6lrwz="" class="navbar-toggler-icon"></span>
+                </button>
+                <div b-evq1m6lrwz="" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                  <div b-evq1m6lrwz="" class="offcanvas-header">
+                    <div b-evq1m6lrwz="" class="logo">
+                      <a b-evq1m6lrwz="" class="navbar-brand" href="index.php">                      <img src="/WebAssets//img/logo.png" />
+</a>
+                    </div>
+                    <button b-evq1m6lrwz="" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                    </button>
+                  </div>
+                  <div b-evq1m6lrwz="" class="offcanvas-body">
+                    <div b-evq1m6lrwz="" class="menu-wrapper">
+                      <!-- Main Menu -->
+                      <div b-evq1m6lrwz="" class="menu-screen main-screen" id="mainMenu">
+                        <div b-evq1m6lrwz="" class="menu-buttons">
+                          <button b-evq1m6lrwz="" onclick="openMenu(&#39;dropdown1&#39;)">
+                            Programs
+                            <i b-evq1m6lrwz="" class="fas fa-angle-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- Dropdown 1 -->
+                      <div b-evq1m6lrwz="" class="menu-screen dropdown-screen" id="dropdown1">
+                        <div b-evq1m6lrwz="" class="dropdown-content">
+                          <button b-evq1m6lrwz="" class="back-btn" onclick="goBack(&#39;dropdown1&#39;)">
+                            <i b-evq1m6lrwz="" class="fas fa-angle-left"></i>
+                            Programs
+                          </button>
+                          <div b-evq1m6lrwz="" class="option">
+                            <a b-evq1m6lrwz="" href="/Home/Program">                            SIGNATURE PROGRAM
+</a>
+                          </div>
+                          <div b-evq1m6lrwz="" class="option">
+                            <a b-evq1m6lrwz="" href="#">                            GUT RESTORE
+</a>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Dropdown 2 -->
+                    </div>
+                    <ul b-evq1m6lrwz="" class="navbar-nav ">
+                      <li b-evq1m6lrwz="" class="nav-item">
+                        <a b-evq1m6lrwz="" class="nav-link" href="/Home/OurStory">                        Our Story
+</a>
+                      </li>
+                      <li b-evq1m6lrwz="" class="nav-item">
+                        <a b-evq1m6lrwz="" class="nav-link" href="/Home/Contact">                        Contact Us
+</a>
+                      </li>
+                      <li b-evq1m6lrwz="" class="nav-item">
+                        <a b-evq1m6lrwz="" class="nav-link" href="#">                        Instagram
+</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <a b-evq1m6lrwz="" class="navbar-brand" href="/Home/ViewIndex">                <img src="/WebAssets/img/logo.png" />
+</a>
+                <a b-evq1m6lrwz="" class="pro_f" href="/Home/Registration">                <img src="/WebAssets/img/pro.png" />
+</a>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <style type="text/css">
+      .Meal-Head-Text {
+        height: 46px;
+        text-transform: uppercase;
+    }
+
+    .tab-pro-cont h4 {
+        height: 46px;
+        text-transform: uppercase;
+    }
+
+    .tab-pro-img {
+        text-align: center;
+    }
+    </style>
+    <style>
+      .slider {
+        position: relative;
+        width: 100%;
+        /* Fill viewport on all devices */
+        height: 100vh; /* fallback */
+        height: 100svh; /* small viewport units (mobile) */
+        height: 100dvh; /* dynamic viewport (best) */
+        overflow: hidden;
+        background: #000;
+    }
+
+    .slider-track {
+        display: flex;
+        height: 100%;
+        transition: transform .5s ease;
+        will-change: transform;
+    }
+
+    .slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* fill, no black bars */
+            object-position: var(--pos-x,50%) var(--pos-y,50%); /* per-slide focal point (optional) */
+            display: block;
+            background: #000;
+        }
+
+    /* Mask over images (doesn&#39;t block clicks) */
+    .slider-mask {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.65));
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Centered overlay content (on every slide) */
+    .slider-content {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        z-index: 2;
+        padding: 0 1rem;
+    }
+
+    .wra-hero-text {
+        color: #fff;
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+        .wra-hero-text h2 {
+            margin-bottom: .5rem;
+        }
+
+        .wra-hero-text p {
+            margin-bottom: 1rem;
+            opacity: .95;
+        }
+
+        .wra-hero-text .hero-cta {
+            display: inline-block;
+            padding: .65rem 1.1rem;
+            border-radius: 999px;
+            background: #fff;
+            color: #111;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+    <div id="autoSlider" class="slider" data-interval="2000" data-pause-on-hover="false">
+      <div class="slider-track">
+        <!-- 8 slides (replace image paths). Use --pos-x/--pos-y to tweak crop if needed -->
+        <div class="slide">
+          <img src="/WebAssets/img/slider/1.jpg" alt="Slide 1" loading="eager" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/2.jpg" alt="Slide 2" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/3.jpg" alt="Slide 3" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/4.jpg" alt="Slide 4" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/5.jpg" alt="Slide 5" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/6.jpg" alt="Slide 6" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/7.jpg" alt="Slide 7" loading="lazy" style="--pos-y:50%" />
+        </div>
+        <div class="slide">
+          <img src="/WebAssets/img/slider/8.jpg" alt="Slide 8" loading="lazy" style="--pos-y:50%" />
+        </div>
+      </div>
+      <!-- Mask -->
+      <div class="slider-mask">
+      </div>
+      <!-- Centered content shown on every slide -->
+      <div class="slider-content">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="wra-hero-text">
+                <h2>
+                  Your Daily Ritual
+                </h2>
+                <p>
+                  Delivered Daily To Your Doorstep
+                </p>
+                <span class="hero-cta" onclick="openCartOffcanvas()">                Join The Journey
+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      /* Autoplay slider (no controls). Seamless loop with a clone. */
+    (function () {
+        const root = document.getElementById(&#39;autoSlider&#39;);
+        if (!root) return;
+
+        const track = root.querySelector(&#39;.slider-track&#39;);
+        const slides = Array.from(track.children);
+        const count = slides.length;
+
+        // Clone first slide for seamless wrap
+        const firstClone = slides[0].cloneNode(true);
+        track.appendChild(firstClone);
+
+        const intervalMs = parseInt(root.dataset.interval || &#39;2000&#39;, 10);
+        const pauseOnHover = (root.dataset.pauseOnHover || &#39;true&#39;) === &#39;true&#39;;
+
+        let index = 0;
+        let timer = null;
+        let isTransitioning = false;
+
+        function goTo(i) {
+            index = i;
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }
+        function next() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            goTo(index + 1);
+        }
+
+        track.addEventListener(&#39;transitionend&#39;, () =&gt; {
+            isTransitioning = false;
+            // If we hit the clone, jump back to the real first slide without animation
+            if (index === count) {
+                track.style.transition = &#39;none&#39;;
+                goTo(0);
+                // Force reflow then restore transition
+                void track.offsetWidth;
+                track.style.transition = &#39;transform .5s ease&#39;;
+            }
+        });
+
+        function start() { if (!timer) timer = setInterval(next, intervalMs); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+        //if (pauseOnHover) {
+        //    root.addEventListener(&#39;mouseenter&#39;, stop);
+        //    root.addEventListener(&#39;mouseleave&#39;, start);
+        //}
+        document.addEventListener(&#39;visibilitychange&#39;, () =&gt; {
+            document.hidden ? stop() : start();
+        });
+
+        // Init
+        goTo(0);
+        start();
+    })();
+    </script>
+    <section class="prod">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="about-text">
+              <p>
+                Wellness is a journey, not a destination
+                <img src="/WebAssets/img/tomato.png" class="tom_t" />
+                . At Livit, we encourage you
+                        to cultivate lasting, sustainable eating habits that honor your body
+                        and lifestyle.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="product_wrp">
+              <div class="pro_img">
+                <img src="/WebAssets/img/drop-image/1.jpg" />
+              </div>
+              <div class="pro_con">
+                <h2>
+                  SIGNATURE PROGRAM
+                </h2>
+                <p>
+                  Chef-Crafted Meals. Nutritionist-Backed, Balanced, Mindful Eating.
+                </p>
+                <a onclick="openCartOffcanvas()" class="join">                JOIN THE PROGRAM
+</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="product_wrp">
+              <div class="pro_img">
+                <img src="/WebAssets/img/drop-image/2.jpg" />
+              </div>
+              <div class="pro_con">
+                <h2>
+                  GUT RESTORE PROGRAM
+                </h2>
+                <p>
+                  5-Day Reset. Gut-Loving, Anti-Inflammatory, and Restorative.
+                </p>
+                <a onclick="openCartOffcanvas()" class="join">                JOIN THE PROGRAM
+</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="product-tab">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="pro-tit">
+            <h2>
+              INSIDE NEXT WEEK’S MENU
+            </h2>
+            <p>
+              A TASTE OF WHAT YOU’LL ENJOY
+            </p>
+          </div>
+          <div class="col-md-12">
+            <div class="tab-container">
+              <div class="tab-buttons  d-none">
+                <button type="button" class="tab-button active" onclick="showTabData(event, &#39;6&#39;)">
+                  Chicken
+                </button>
+                <button type="button" class="tab-button " onclick="showTabData(event, &#39;7&#39;)">
+                  Beef
+                </button>
+                <button type="button" class="tab-button " onclick="showTabData(event, &#39;8&#39;)">
+                  Seafood
+                </button>
+                <button type="button" class="tab-button " onclick="showTabData(event, &#39;9&#39;)">
+                  Vegetarian
+                </button>
+                <input type="hidden" id="TagId" value="6" />
+                <!-- container for meals -->
+              </div>
+              <div class="d-none" id="divmeal">
+              </div>
+              <div class="dfv_view">
+                <a href="/Home/Program">                VIEW FULL WEEKLY MENU
+</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="why_livit">
+      <div class="container-fluid">
+        <div class="pro-tit">
+          <h2>
+            why livit?
+          </h2>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="grid_six">
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/01.png" alt="why Livit" />
+</a>
+              </div>
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/02.png" alt="why Livit" />
+</a>
+              </div>
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/03.png" alt="why Livit" />
+</a>
+              </div>
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/04.png" alt="why Livit" />
+</a>
+              </div>
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/05.png" alt="why Livit" />
+</a>
+              </div>
+              <div class="box">
+                <a href="#">                <img src="/WebAssets/img/why/06.png" alt="why Livit" />
+</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Set your actual start and end dates (format: YYYY-MM-DDTHH:mm:ss)
+
+    $(document).ready(function () {
+        var firstTagId = $(&#39;#TagId&#39;).val();
+        if (firstTagId) {
+            BindMealList(firstTagId);
+        }
+    });
+
+    // tab click handler
+    function showTabData(event, tagId) {
+        if (event) {
+            document.querySelectorAll(&#39;.tab-button&#39;).forEach(btn =&gt; btn.classList.remove(&#39;active&#39;));
+            event.currentTarget.classList.add(&#39;active&#39;);
+        }
+
+        $(&#39;#TagId&#39;).val(tagId);
+        BindMealList(tagId);
+    }
+
+
+    // fetch meals from server
+    function BindMealList(tagId) {
+        $.ajax({
+            url: &#39;/Home/GetSampleMealList&#39;,
+            type: &#39;POST&#39;,
+            data: { TagId: tagId },
+            dataType: &#39;json&#39;,
+            success: function (result) {
+                if (result != &#34;Something went wrong !!&#34; &amp;&amp; result != &#34;&#34;) {
+                    var jsonData = JSON.parse(result);
+                    var MealTypeTable = jsonData.Table || jsonData; // agar Table property na ho
+
+                    $(&#39;#divmeal&#39;).empty();
+                    var containerHtml = &#39;&lt;div id=&#34;tab1&#34; class=&#34;tab-content active&#34;&gt;&lt;div class=&#34;row&#34;&gt;&#39;;
+
+                    for (var i = 0; i &lt; MealTypeTable.length; i++) {
+
+                        // ✅ Base64 string ko proper image src me convert karna
+                        var imgSrc = MealTypeTable[i].SampleImage &amp;&amp; MealTypeTable[i].SampleImage !== &#34;null&#34;
+                            ?  MealTypeTable[i].SampleImage
+                            : &#34;/Content/Pictures/img.png&#34;;
+
+
+                        containerHtml += `
+            &lt;div class=&#34;col-md-3&#34;&gt;
+                &lt;div class=&#34;tab-pro-wrap&#34;&gt;
+                    &lt;div class=&#34;tab-pro-img&#34;&gt;
+                        &lt;img src=&#34;${imgSrc}&#34; alt=&#34;${MealTypeTable[i].Title}&#34;&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&#34;tab-pro-cont&#34;&gt;
+                        &lt;h4&gt;${MealTypeTable[i].Name}&lt;/h4&gt;
+                        &lt;a href=&#34;javascript:void(0);&#34; class=&#34;view&#34;&gt;${MealTypeTable[i].Title}&lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;`;
+                    }
+
+                    containerHtml += &#39;&lt;/div&gt;&lt;/div&gt;&#39;;
+                    $(&#39;#divmeal&#39;).html(containerHtml);
+                }
+
+            },
+            error: function (xhr, status, error) {
+                console.log(&#34;Error: &#34; + status + &#34; &#34; + error);
+            }
+        });
+    }
+    </script>
+    <div b-evq1m6lrwz="" class="join_com">
+      <div b-evq1m6lrwz="" class="scroll-content">
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <!-- duplicated for seamless loop -->
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+        <span b-evq1m6lrwz="">        join the community
+</span>
+      </div>
+    </div>
+    <div b-evq1m6lrwz="" class="footer">
+      <div b-evq1m6lrwz="" class="container-fluid">
+        <div b-evq1m6lrwz="" class="row">
+          <div b-evq1m6lrwz="" class="col-md-4">
+            <div b-evq1m6lrwz="" class="ftr_desc">
+              <div b-evq1m6lrwz="" class="ftr_logo">
+                <img src="/WebAssets/img/logo.png" alt="Livit Logo" />
+              </div>
+              <p b-evq1m6lrwz="">
+                EVERY MEAL IS MORE THAN FOOD,
+                <br b-evq1m6lrwz="" />
+                IT’S YOUR DAILY RITUAL.
+              </p>
+            </div>
+            <div b-evq1m6lrwz="" class="gi_img" onclick="openCartOffcanvas()" style="cursor:pointer;">
+              <img src="/WebAssets/img/order-now.gif" />
+            </div>
+          </div>
+          <div b-evq1m6lrwz="" class="col-md-4">
+            <div b-evq1m6lrwz="" class="ftr_two">
+              <div b-evq1m6lrwz="" class="ftr_point">
+                <h3 b-evq1m6lrwz="">
+                  Quick Links
+                </h3>
+                <ul b-evq1m6lrwz="">
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="/Home/OurStory">                    OUR STORY
+</a>
+                  </li>
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="/home/Contact">                    CONTACT US
+</a>
+                  </li>
+                </ul>
+              </div>
+              <div b-evq1m6lrwz="" class="ftr_point">
+                <h3 b-evq1m6lrwz="">
+                  POLICIES
+                </h3>
+                <ul b-evq1m6lrwz="">
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="/Home/PrivacyPolicy">                    PRIVACY
+</a>
+                  </li>
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="#">                    TERMS OF SERVICE
+</a>
+                  </li>
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="#">                    SHIPPING
+</a>
+                  </li>
+                  <li b-evq1m6lrwz="">
+                    <a b-evq1m6lrwz="" href="#">                    REFUNDS
+</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div b-evq1m6lrwz="" class="col-md-4">
+            <div b-evq1m6lrwz="" class="ftr_point">
+              <h3 b-evq1m6lrwz="">
+                JOIN OUR COMMUNITY
+              </h3>
+              <p b-evq1m6lrwz="">
+                BE THE FIRST TO KNOW WHEN WE UNVEIL YOUR NEW DAILY RITUAL.
+              </p>
+              <form>
+                <div b-evq1m6lrwz="" class="form_group">
+                  <input b-evq1m6lrwz="" type="text" placeholder="Name" />
+                  <input b-evq1m6lrwz="" type="text" placeholder="Email" />
+                  <div b-evq1m6lrwz="" class="btn_center">
+                    <button b-evq1m6lrwz="" type="submit">
+                      Join Now
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div b-evq1m6lrwz="" class="copyright">
+        <p b-evq1m6lrwz="">
+          © LIVIT  2025
+        </p>
+      </div>
+    </div>
+    <div b-evq1m6lrwz="" id="cartOffcanvas" class="custom-cart-offcanvas">
+      <div b-evq1m6lrwz="" class="cart-content">
+        <div b-evq1m6lrwz="" class="cart-content-ed">
+          <div b-evq1m6lrwz="" class="cart-header_ad">
+            <span b-evq1m6lrwz="">            Emirates
+</span>
+            <button b-evq1m6lrwz="" onclick="closeCartOffcanvas()" class="close-cart-btn">
+              <i b-evq1m6lrwz="" class="fa fa-times"></i>
+            </button>
+          </div>
+          <div b-evq1m6lrwz="" class="emirates-grid cart-rad">
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Dubai&#39;)">
+              Dubai
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Sharjah&#39;)">
+              Sharjah
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Ajman&#39;)">
+              Ajman
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Ras Al khaimah&#39;)">
+              Ras Al khaimah
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Umm al-quwain&#39;)">
+              Umm al-quwain
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;fujairah&#39;)">
+              Fujairah
+            </h3>
+            <h3 b-evq1m6lrwz="" class="emirate-card" onclick="Continue(&#39;Abu Dhabi&#39;)">
+              Abu Dhabi
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div b-evq1m6lrwz="" id="Loader" style="display:none;">
+      <div b-evq1m6lrwz="" class="overlay">
+      </div>
+      <div b-evq1m6lrwz="" class="popup">
+        <div b-evq1m6lrwz="" class="loader-wrapper">
+          <div b-evq1m6lrwz="" class="loader">
+          </div>
+          <h3 b-evq1m6lrwz="">
+            <span b-evq1m6lrwz="" style="color:black;">            Loading...
+</span>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <script src="/WebAssets/js/main.js">
+    </script>
+    <script src="/WebAssets/js/bootstrap.js">
+    </script>
+    <script src="/WebAssets/js/bootstrap.min.js">
+    </script>
+    <script src="/WebAssets/js/bootstrap.bundle.js">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_pYq1wnepslnuDwyE3VlrQVxFPPPiRHQ&amp;callback=initMap&amp;libraries=places,marker&amp;loading=async&amp;v=weekly" async="" defer="">
+    </script>
+    <script src="/webassets/js/sweetalert2.js">
+    </script>
+    <script>
+      $(document).ready(function () {
+                $(&#39;#UserName&#39;).hide();
+                var UserId = $(&#39;#MasterUserId&#39;).val();
+
+                if (UserId &gt; 0) {
+                    $(&#39;#login&#39;).hide();
+                    $(&#39;#UserName&#39;).show();
+                }
+                GetAnnouncement();
+            });
+
+            function Logout() {
+                $(&#39;#HnUserId&#39;).val(&#39;&#39;);
+                window.location.href = &#34;/Home/Logout&#34;;
+            }
+
+            function GetAnnouncement() {
+                $.ajax({
+                    url: &#39;/Home/GetAnnouncement&#39;,
+                    type: &#39;POST&#39;,
+                    data: {},
+                    dataType: &#39;Json&#39;,
+                    success: function (result) {
+                        var data = JSON.parse(result);
+
+                        if (data.length &gt; 0) {
+                            // Set the first announcement
+                            $(&#39;.top_tag&#39;).text(data[0].Announcements);
+                        } else {
+                            $(&#39;.top_tag&#39;).text(&#34;No announcements available.&#34;);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(&#34;Result: &#34; + status + &#34; &#34; + error + &#34; &#34; + xhr.status + &#34; &#34; + xhr.statusText);
+                        alert(&#39;error&#39;, &#39;Something went wrong !!&#39;, false);
+                    }
+                });
+            }
+            
+            $(document).ajaxComplete(function (event, xhr) {
+                try {
+                    var json = null;
+                    if (xhr &amp;&amp; xhr.responseJSON) json = xhr.responseJSON;
+                    else if (xhr &amp;&amp; xhr.responseText) {
+                        try { json = JSON.parse(xhr.responseText); } catch (e) { json = null; }
+                    }
+                    if (json &amp;&amp; json.redirect) {
+                        window.location.href = json.redirect;
+                    }
+                } catch (e) {
+                    console.log(&#34;ajaxComplete handler error&#34;, e);
+                }
+            });
+
+        // SweetAlert v1 compatibility wrapper
+        window.swal = function (title, text, icon) {
+
+            return Swal.fire({
+                title: title || &#34;&#34;,
+                text: text || &#34;&#34;,
+                icon: icon || &#34;info&#34;,
+                confirmButtonText: &#34;OK&#34;
+            });
+        };
+
+
+        let map, marker, autocomplete, geocoder;
+        let mapInitialized = false;
+
+        //  OPEN OFFCANVAS
+        function openCartOffcanvasOrder(Type) {
+            $(&#39;#AddressType&#39;).val(Type);
+            document.getElementById(&#39;LocationcartOffcanvas&#39;).classList.add(&#39;active&#39;);
+
+            // Initialize map ONLY after offcanvas is visible
+            setTimeout(() =&gt; {
+                if (!mapInitialized) {
+                    initMap();
+                    mapInitialized = true;
+                } else {
+                    google.maps.event.trigger(map, &#39;resize&#39;);
+                }
+            }, 300);
+        }
+
+        // OPTIONAL CLOSE
+        function closeLocationCartOffcanvas() {
+            document.getElementById(&#39;LocationcartOffcanvas&#39;).classList.remove(&#39;active&#39;);
+        }
+
+        //  INIT MAP
+        function initMap() {
+            const defaultLocation = { lat: 28.5798547, lng: 77.3137643 };
+
+            geocoder = new google.maps.Geocoder();
+
+            map = new google.maps.Map(document.getElementById(&#34;map&#34;), {
+                zoom: 13,
+                center: defaultLocation
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+
+            //  AUTOCOMPLETE (INIT AFTER MODAL OPEN)
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById(&#34;searchInput&#34;),
+                { fields: [&#34;geometry&#34;, &#34;formatted_address&#34;] }
+            );
+
+            autocomplete.bindTo(&#34;bounds&#34;, map);
+
+            autocomplete.addListener(&#34;place_changed&#34;, () =&gt; {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) return;
+
+                setLocation(
+                    place.geometry.location.lat(),
+                    place.geometry.location.lng(),
+                    place.formatted_address
+                );
+            });
+
+            //  MAP CLICK
+            map.addListener(&#34;click&#34;, (event) =&gt; {
+                setLocation(event.latLng.lat(), event.latLng.lng());
+            });
+
+            //  MARKER DRAG
+            marker.addListener(&#34;dragend&#34;, (event) =&gt; {
+                setLocation(event.latLng.lat(), event.latLng.lng());
+            });
+
+            setLocation(defaultLocation.lat, defaultLocation.lng);
+        }
+
+        //  SET LOCATION (COMMON FUNCTION)
+        // function setLocation(lat, lng, address = &#34;&#34;) {
+        //     const position = { lat, lng };
+
+        //     marker.setPosition(position);
+        //     map.panTo(position);
+
+        //     document.getElementById(&#34;lat&#34;).value = lat;
+        //     document.getElementById(&#34;lng&#34;).value = lng;
+
+        //     if (address) {
+        //         document.getElementById(&#34;Address&#34;).value = address;
+        //     } else {
+        //         geocoder.geocode({ location: position }, (results, status) =&gt; {
+        //             if (status === &#34;OK&#34; &amp;&amp; results[0]) {
+        //                 document.getElementById(&#34;Address&#34;).value =
+        //                     results[0].formatted_address;
+        //             }
+        //         });
+        //     }
+        // }
+
+       function setLocation(lat, lng, address = &#34;&#34;) {
+            const position = { lat, lng };
+
+            marker.setPosition(position);
+            map.panTo(position);
+
+            document.getElementById(&#34;lat&#34;).value = lat;
+            document.getElementById(&#34;lng&#34;).value = lng;
+
+            //  Generate Share URL
+            const shareUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+            document.getElementById(&#34;mapUrl&#34;).value = shareUrl;
+
+            if (address) {
+                document.getElementById(&#34;Address&#34;).value = address;
+            } else {
+                geocoder.geocode({ location: position }, (results, status) =&gt; {
+                    if (status === &#34;OK&#34; &amp;&amp; results[0]) {
+                         document.getElementById(&#34;Address&#34;).value =
+                            results[0].formatted_address;
+                    }
+                });
+            }
+        }
+
+        //  USE CURRENT LOCATION
+        function useCurrentLocation() {
+            if (!navigator.geolocation) {
+                alert(&#34;Geolocation not supported&#34;);
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) =&gt; {
+                    setLocation(
+                        position.coords.latitude,
+                        position.coords.longitude
+                    );
+
+                    alert(&#34;Please adjust the pin if location is slightly incorrect&#34;);
+                },
+                (err) =&gt; {
+                    alert(&#34;Location permission denied&#34;);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        function ContinueWithLocation() {
+            var Address = $(&#39;#address&#39;).val();
+            if (!Address) {
+                swal(&#34;&#34;, &#34;Please select address&#34;, &#34;&#34;);
+                return false;
+            }
+            var AddressType = $(&#39;#AddressType&#39;).val();
+            if (AddressType == &#34;Update&#34;) {
+                $(&#39;#Address&#39;).val(Address);
+                document.getElementById(&#39;LocationcartOffcanvas&#39;).classList.remove(&#39;active&#39;);
+            }
+            else {
+                Swal.fire({
+                    title: &#34;Save Address?&#34;,
+                    text: &#34;Do you want to save this address for future use?&#34;,
+                    icon: &#34;question&#34;,
+                    showCancelButton: true,
+                    confirmButtonText: &#34;Yes&#34;,
+                    cancelButtonText: &#34;No&#34;
+                }).then((result) =&gt; {
+
+                    $.ajax({
+                        type: &#34;POST&#34;,
+                        url: &#34;/Home/StoreCurrentAddress&#34;, // ✅ FIXED
+                        data: {
+                            Address: Address,
+                            Confirmation: result.isConfirmed
+                        },
+                        dataType: &#34;json&#34;,
+                        success: function (response) {
+                            if (response.success) {
+                                window.location.href = &#34;/Home/Cart&#34;;
+                            }
+                        },
+                        error: function (err) {
+                            console.error(err);
+                        }
+                    });
+                });
+            }
+        }
+
+        function Continue(Emirate) {
+            if (Emirate == &#34;Dubai&#34;) {
+                window.location.href = &#34;/Home/Cart&#34;;
+            }
+            else {
+                // swal(&#34;&#34;, &#34;Currently, we’re not serving in your location. we&#39;ll serve you soon.&#34;, &#34;warning&#34;);
+                // return false;
+                $(&#39;#Emirate&#39;).focus();
+            }
+        }
+
+  
+        // Helper: read simple cookie
+        function getCookie(name) {
+            const value = (&#34;; &#34; + document.cookie).split(&#34;; &#34; + name + &#34;=&#34;);
+            if (value.length === 2) return value.pop().split(&#34;;&#34;).shift();
+        }
+
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = &#34;expires=&#34; + d.toUTCString();
+            document.cookie = name + &#34;=&#34; + value + &#34;;&#34; + expires + &#34;;path=/&#34;;
+        }
+
+        function cookieAccept() {
+            gtag(&#39;consent&#39;, &#39;update&#39;, {
+                &#39;ad_storage&#39;: &#39;granted&#39;,
+                &#39;analytics_storage&#39;: &#39;granted&#39;,
+                &#39;personalization_storage&#39;: &#39;granted&#39;
+            });
+            setCookie(&#34;cookie_consent&#34;, &#34;accepted&#34;, 365);
+            document.getElementById(&#39;cookie-consent-banner&#39;).style.display = &#39;none&#39;;
+        }
+
+        function cookieReject() {
+            gtag(&#39;consent&#39;, &#39;update&#39;, {
+                &#39;ad_storage&#39;: &#39;denied&#39;,
+                &#39;analytics_storage&#39;: &#39;denied&#39;,
+                &#39;personalization_storage&#39;: &#39;denied&#39;
+            });
+            setCookie(&#34;cookie_consent&#34;, &#34;rejected&#34;, 365);
+            document.getElementById(&#39;cookie-consent-banner&#39;).style.display = &#39;none&#39;;
+        }
+
+        // On load: show banner if no choice stored
+        (function () {
+            const consent = getCookie(&#34;cookie_consent&#34;);
+            if (!consent) {
+                document.getElementById(&#39;cookie-consent-banner&#39;).style.display = &#39;block&#39;;
+            } else if (consent === &#34;accepted&#34;) {
+                gtag(&#39;consent&#39;, &#39;update&#39;, {
+                    &#39;ad_storage&#39;: &#39;granted&#39;,
+                    &#39;analytics_storage&#39;: &#39;granted&#39;,
+                    &#39;personalization_storage&#39;: &#39;granted&#39;
+                });
+            } else {
+                gtag(&#39;consent&#39;, &#39;update&#39;, {
+                    &#39;ad_storage&#39;: &#39;denied&#39;,
+                    &#39;analytics_storage&#39;: &#39;denied&#39;,
+                    &#39;personalization_storage&#39;: &#39;denied&#39;
+                });
+            }
+        })();
+    </script>
+    <!--Loader End-->
+  </body>
+</html>

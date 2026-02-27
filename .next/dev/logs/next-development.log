@@ -1,0 +1,7 @@
+[00:00:02.434] Server  LOG     ✓ Ready in 1536ms
+[00:00:04.881] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:24.040] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:16.053] Server  LOG     ✓ Compiled in 603ms
+[00:03:35.979] Browser LOG     Cart selections {"additionalInfo":"","calories":600,"customization":"standard","daysPerWeek":7,"mealsPerDay":["breakfast","lunch","dinner","snack"],"programId":8,"selectedProteins":["chicken"],"startDate":"2026-03-02","totalPrice":2520,"weekdays":["mon","tue","wed","thu","fri"],"weeks":2}
+[00:03:36.731] Browser LOG     Cart selections {"additionalInfo":"","calories":600,"customization":"standard","daysPerWeek":7,"mealsPerDay":["breakfast","lunch","dinner","snack"],"programId":8,"selectedProteins":["chicken"],"startDate":"2026-03-02","totalPrice":2520,"weekdays":["mon","tue","wed","thu","fri"],"weeks":2}
+[00:03:36.883] Browser LOG     Cart selections {"additionalInfo":"","calories":600,"customization":"standard","daysPerWeek":7,"mealsPerDay":["breakfast","lunch","dinner","snack"],"programId":8,"selectedProteins":["chicken"],"startDate":"2026-03-02","totalPrice":2520,"weekdays":["mon","tue","wed","thu","fri"],"weeks":2}

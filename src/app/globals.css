@@ -1,0 +1,403 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+main {
+  min-height: 100vh;
+}
+
+/* Inline styles migrated from raw.html */
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  background-color: #f0e3aa !important;
+  border-color: #d8c15d !important;
+  color: #000000 !important;
+  border-radius: 0 !important;
+}
+
+#LocationcartOffcanvas {
+  height: 100vh;
+  width: 50%;
+}
+
+#map {
+  height: 700px;
+  width: 100%;
+}
+
+.pac-container {
+  z-index: 999999 !important;
+}
+
+@media (max-width: 768px) {
+  #LocationcartOffcanvas {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+.swal2-container {
+  z-index: 99999 !important;
+  font-family: "Gothic60", system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.Meal-Head-Text {
+  height: 46px;
+  text-transform: uppercase;
+}
+
+.tab-pro-cont h4 {
+  height: 46px;
+  text-transform: uppercase;
+}
+
+.tab-pro-img {
+  text-align: center;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000;
+}
+
+.slider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos-x, 50%) var(--pos-y, 50%);
+  display: block;
+  background: #000;
+}
+
+.slider-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.slider-content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  padding: 0 1rem;
+}
+
+.wra-hero-text {
+  color: #fff;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wra-hero-text h2 {
+  margin-bottom: 0.5rem;
+}
+
+.wra-hero-text p {
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+
+.wra-hero-text .hero-cta {
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  background: #222;
+  color: #fff;
+  z-index: 9999;
+}
+
+.cookie-banner-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cookie-banner-actions button {
+  margin-right: 8px;
+  padding: 6px 14px;
+  border: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.cookie-banner-actions .reject-btn {
+  background: #555;
+  color: #fff;
+}
+
+.cookie-banner-actions .accept-btn {
+  background: #28a745;
+  color: #fff;
+}
+
+/* Program page */
+
+.program-page {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 6rem 1.5rem 4rem;
+  background-color: #fff7d0;
+}
+
+.program-header {
+  border-bottom: 1px solid #ddd3a6;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.program-header-inner h1 {
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.program-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.program-tab {
+  min-width: 150px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0;
+  border: 1px solid #000;
+  background-color: #fff7d0;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.program-tab.active {
+  background-color: #e8d47e;
+}
+
+.program-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-group h2 {
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  padding: 0.45rem 0.9rem;
+  border-radius: 0;
+  border: 1px solid #000;
+  background-color: #fff7d0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.pill--highlight {
+  background-color: #e8d47e;
+}
+
+.pill--active {
+  background-color: #000;
+  color: #fff7d0;
+}
+
+.program-days {
+  border-top: 1px solid #ddd3a6;
+}
+
+.day-panel {
+  border-bottom: 1px solid #ddd3a6;
+}
+
+.day-header {
+  width: 100%;
+  padding: 0.9rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.day-header-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.day-header-date {
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.day-header-toggle {
+  font-size: 1.2rem;
+}
+
+.day-body {
+  padding: 1.5rem 0.25rem 2rem;
+}
+
+.day-meals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.meal-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.meal-card-header {
+  margin-bottom: 0.9rem;
+}
+
+.meal-type {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.35rem;
+}
+
+.meal-name {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.meal-nutrition h4,
+.meal-description h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.4rem;
+}
+
+.meal-nutrition dl {
+  margin: 0;
+}
+
+.nutrition-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+}
+
+.nutrition-row + .nutrition-row {
+  margin-top: 0.15rem;
+}
+
+.meal-description p {
+  margin: 0.5rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 992px) {
+  .day-meals-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .program-page {
+    padding-top: 4.5rem;
+  }
+
+  .day-meals-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Our Story page uses original .story-pera and .story-img classes from livit.ae CSS */
+
+/* Registration page password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.password-wrapper .toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+}
+

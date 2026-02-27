@@ -1,0 +1,386 @@
+/* [project]/src/app/globals.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, SF Pro Text, Helvetica Neue, Arial, sans-serif;
+}
+
+main {
+  min-height: 100vh;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  color: #000 !important;
+  background-color: #f0e3aa !important;
+  border-color: #d8c15d !important;
+  border-radius: 0 !important;
+}
+
+#LocationcartOffcanvas {
+  width: 50%;
+  height: 100vh;
+}
+
+#map {
+  width: 100%;
+  height: 700px;
+}
+
+.pac-container {
+  z-index: 999999 !important;
+}
+
+@media (max-width: 768px) {
+  #LocationcartOffcanvas {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+.swal2-container {
+  text-transform: uppercase;
+  font-family: Gothic60, system-ui, -apple-system, BlinkMacSystemFont, SF Pro Text, Helvetica Neue, Arial, sans-serif;
+  z-index: 99999 !important;
+}
+
+.Meal-Head-Text, .tab-pro-cont h4 {
+  text-transform: uppercase;
+  height: 46px;
+}
+
+.tab-pro-img {
+  text-align: center;
+}
+
+.slider {
+  background: #000;
+  width: 100%;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-track {
+  will-change: transform;
+  height: 100%;
+  transition: transform .5s;
+  display: flex;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide img {
+  object-fit: cover;
+  object-position: var(--pos-x, 50%) var(--pos-y, 50%);
+  background: #000;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.slider-mask {
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(#00000073, #000000a6);
+  position: absolute;
+  inset: 0;
+}
+
+.slider-content {
+  z-index: 2;
+  place-items: center;
+  padding: 0 1rem;
+  display: grid;
+  position: absolute;
+  inset: 0;
+}
+
+.wra-hero-text {
+  color: #fff;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wra-hero-text h2 {
+  margin-bottom: .5rem;
+}
+
+.wra-hero-text p {
+  opacity: .95;
+  margin-bottom: 1rem;
+}
+
+.wra-hero-text .hero-cta {
+  color: #111;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  background: #fff;
+  border-radius: 999px;
+  padding: .65rem 1.1rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.cookie-banner {
+  color: #fff;
+  z-index: 9999;
+  background: #222;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.cookie-banner-inner {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.cookie-banner-actions button {
+  cursor: pointer;
+  text-transform: uppercase;
+  border: 0;
+  margin-right: 8px;
+  padding: 6px 14px;
+}
+
+.cookie-banner-actions .reject-btn {
+  color: #fff;
+  background: #555;
+}
+
+.cookie-banner-actions .accept-btn {
+  color: #fff;
+  background: #28a745;
+}
+
+.program-page {
+  background-color: #fff7d0;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 6rem 1.5rem 4rem;
+}
+
+.program-header {
+  border-bottom: 1px solid #ddd3a6;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.program-header-inner h1 {
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+.program-tabs {
+  flex-wrap: wrap;
+  gap: .75rem;
+  display: flex;
+}
+
+.program-tab {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  cursor: pointer;
+  background-color: #fff7d0;
+  border: 1px solid #000;
+  border-radius: 0;
+  min-width: 150px;
+  padding: .75rem 1.25rem;
+  font-size: .78rem;
+}
+
+.program-tab.active {
+  background-color: #e8d47e;
+}
+
+.program-filters {
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+}
+
+.filter-group h2 {
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  font-size: .82rem;
+}
+
+.filter-row {
+  flex-wrap: wrap;
+  gap: .5rem;
+  display: flex;
+}
+
+.pill {
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #fff7d0;
+  border: 1px solid #000;
+  border-radius: 0;
+  padding: .45rem .9rem;
+  font-size: .78rem;
+}
+
+.pill--highlight {
+  background-color: #e8d47e;
+}
+
+.pill--active {
+  color: #fff7d0;
+  background-color: #000;
+}
+
+.program-days {
+  border-top: 1px solid #ddd3a6;
+}
+
+.day-panel {
+  border-bottom: 1px solid #ddd3a6;
+}
+
+.day-header {
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: .9rem .5rem;
+  display: flex;
+}
+
+.day-header-label {
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-size: .75rem;
+}
+
+.day-header-date {
+  color: #333;
+  font-size: .75rem;
+}
+
+.day-header-toggle {
+  font-size: 1.2rem;
+}
+
+.day-body {
+  padding: 1.5rem .25rem 2rem;
+}
+
+.day-meals-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+  display: grid;
+}
+
+.meal-card {
+  background-color: #fff;
+  border-radius: .75rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  box-shadow: 0 0 0 1px #0000000f;
+}
+
+.meal-card-header {
+  margin-bottom: .9rem;
+}
+
+.meal-type {
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  margin-bottom: .35rem;
+  font-size: .68rem;
+  display: block;
+}
+
+.meal-name {
+  text-transform: uppercase;
+  font-size: .8rem;
+  line-height: 1.4;
+}
+
+.meal-nutrition h4, .meal-description h4 {
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin: 0 0 .4rem;
+  font-size: .72rem;
+}
+
+.meal-nutrition dl {
+  margin: 0;
+}
+
+.nutrition-row {
+  justify-content: space-between;
+  font-size: .7rem;
+  display: flex;
+}
+
+.nutrition-row + .nutrition-row {
+  margin-top: .15rem;
+}
+
+.meal-description p {
+  margin: .5rem 0 0;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 992px) {
+  .day-meals-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .program-page {
+    padding-top: 4.5rem;
+  }
+
+  .day-meals-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.password-wrapper .toggle-eye {
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+/*# sourceMappingURL=src_app_globals_91e4631d.css.map*/
