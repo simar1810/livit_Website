@@ -161,6 +161,7 @@ export default function SiteShell({
                   <div className="logo">
                     <a className="navbar-brand" href="/Home/ViewIndex">
                       <img
+                        className="site-logo"
                         src="/nature-fit/logo-primary.jpg"
                         alt="Nature Fit logo"
                       />
@@ -205,6 +206,7 @@ export default function SiteShell({
                       <div className="logo">
                         <a className="navbar-brand" href="/Home/ViewIndex">
                           <img
+                            className="site-logo"
                             src="/nature-fit/logo-primary.jpg"
                             alt="Nature Fit logo"
                           />
@@ -266,6 +268,7 @@ export default function SiteShell({
                   </div>
                   <a className="navbar-brand" href="/Home/ViewIndex">
                     <img
+                      className="site-logo"
                       src="/nature-fit/logo-primary.jpg"
                       alt="Nature Fit logo"
                     />
@@ -303,6 +306,7 @@ export default function SiteShell({
               <div className="ftr_desc">
                 <div className="ftr_logo">
                   <img
+                    className="site-logo"
                     src="/nature-fit/logo-primary.jpg"
                     alt="Nature Fit logo"
                   />

@@ -23,6 +23,16 @@ main {
   min-height: 100vh;
 }
 
+img.site-logo {
+  min-width: 160px;
+  object-fit: contain !important;
+  width: auto !important;
+  max-width: 320px !important;
+  height: 140px !important;
+  max-height: 140px !important;
+  display: block !important;
+}
+
 div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   color: #000 !important;
   background-color: #f0e3aa !important;

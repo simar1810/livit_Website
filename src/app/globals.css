@@ -26,6 +26,17 @@ main {
   min-height: 100vh;
 }
 
+/* Logo – header, offcanvas, footer (use .site-logo so we always win over external CSS) */
+img.site-logo {
+  height: 140px !important;
+  max-height: 140px !important;
+  width: auto !important;
+  min-width: 160px;
+  max-width: 320px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
 /* Inline styles migrated from raw.html */
 
 div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
