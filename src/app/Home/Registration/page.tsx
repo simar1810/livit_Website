@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import TabButtons from "@/components/TabButtons";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useAuth } from "@/contexts/AuthContext";
 import { apiClient, ApiError } from "@/lib/api";
 import { isValidEmail, isValidOtp, getFieldError } from "@/lib/validation";
@@ -75,8 +74,6 @@ export default function RegistrationPage() {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [registerError, setRegisterError] = useState<string | null>(null);
 
-  const [showForgot, setShowForgot] = useState(false);
-  const forgotOffcanvasRef = useFocusTrap(showForgot);
 
   // Accept registrationToken from Checkout (redirect with token in sessionStorage)
   useEffect(() => {
@@ -276,23 +273,13 @@ export default function RegistrationPage() {
     setRegisterLoading(true);
     try {
       const name = `${firstName} ${lastName}`.trim();
-      const body: {
-        registrationToken: string;
-        type: string;
-        name: string;
-        email: string;
-        phone?: string;
-        countryCode?: string;
-      } = {
+      // Backend: do not send phone/countryCode; they are encoded in registrationToken
+      const body = {
         registrationToken,
-        type: "customer",
+        type: "customer" as const,
         name,
         email: emailVal,
       };
-      if (regPhone.trim()) {
-        body.phone = regPhone.trim();
-        body.countryCode = regCountryCode;
-      }
       const res = await apiClient.post<RegisterResponse>("auth/register", body);
       const data = res.data;
       if (data?.accessToken && data?.refreshToken) {
@@ -654,63 +641,6 @@ export default function RegistrationPage() {
                 </div>
           </div>
         </section>
-      </div>
-
-      {/* Forgot password offcanvas – kept for future backend support */}
-      <div
-        id="ForgotOffcanvas"
-        className={`custom-cart-offcanvas ${showForgot ? "active" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="forgot-password-title"
-        aria-hidden={!showForgot}
-      >
-        <div className="cart-content" ref={forgotOffcanvasRef}>
-          <div className="cart-content-ed">
-            <div className="cart-header_ad">
-              <span id="forgot-password-title" className="cart-title">
-                FORGOT PASSWORD
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowForgot(false)}
-                className="close-cart-btn"
-                aria-label="Close forgot password"
-              >
-                <i className="fa fa-times" aria-hidden />
-              </button>
-            </div>
-            <div className="contact_form">
-              <form
-                id="forgotForm"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="form-group">
-                  <label htmlFor="forgotEmail">Email <sup>*</sup></label>
-                  <input
-                    type="email"
-                    placeholder="ENTER YOUR EMAIL"
-                    id="forgotEmail"
-                    name="forgotEmail"
-                    autoComplete="email"
-                    required
-                  />
-                </div>
-              </form>
-            </div>
-            <div>
-              <div className="total-check">
-                <a
-                  className="add-checkout"
-                  style={{ backgroundColor: "#e9d99d" }}
-                  onClick={() => {}}
-                >
-                  FORGOT
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   );

@@ -296,3 +296,123 @@ Import traces:
 [00:19:51.087] Server  LOG     ✓ Compiled in 94ms
 [00:19:51.617] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:19:56.142] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:21:27.965] Server  LOG     ✓ Compiled in 371ms
+[00:21:33.437] Server  LOG     ✓ Compiled in 96ms
+[00:25:00.127] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:19.910] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:13.995] Server  LOG     ✓ Compiled in 399ms
+[00:26:14.040] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:26:15.774] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:18.260] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:21.733] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:28:31.101] Server  LOG     ✓ Compiled in 582ms
+[00:28:32.066] Browser ERROR   ./src/app/Home/CheckOut/page.tsx:1087:6
+Parsing ecmascript source code failed
+  1085 |         </div>
+  1086 |       </section>
+> 1087 |     </main>
+       |      ^^^^^^
+  1088 |   );
+  1089 | }
+  1090 |
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/CheckOut/page.tsx [Client Component Browser]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/CheckOut/page.tsx [Client Component SSR]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+[00:28:37.055] Browser ERROR   ./src/app/Home/CheckOut/page.tsx:1090:6
+Parsing ecmascript source code failed
+  1088 |         </div>
+  1089 |       </section>
+> 1090 |     </main>
+       |      ^^^^^^
+  1091 |   );
+  1092 | }
+  1093 |
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/CheckOut/page.tsx [Client Component Browser]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/CheckOut/page.tsx [Client Component SSR]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+[00:29:04.240] Server  LOG     ✓ Compiled in 95ms
+[00:29:05.050] Browser ERROR   ./src/app/Home/CheckOut/page.tsx:1025:7
+Parsing ecmascript source code failed
+  1023 |         </div>
+  1024 |         </div>
+> 1025 |       </section>
+       |       ^
+  1026 |     </main>
+  1027 |   );
+  1028 | }
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/CheckOut/page.tsx [Client Component Browser]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/CheckOut/page.tsx [Client Component SSR]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+[00:29:05.050] Browser ERROR   ./src/app/Home/CheckOut/page.tsx:1025:8
+Parsing ecmascript source code failed
+  1023 |         </div>
+  1024 |         </div>
+> 1025 |       </section>
+       |        ^^^^^^^^^
+  1026 |     </main>
+  1027 |   );
+  1028 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/CheckOut/page.tsx [Client Component Browser]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/CheckOut/page.tsx [Client Component SSR]
+    ./src/app/Home/CheckOut/page.tsx [Server Component]
+[00:29:13.325] Server  LOG     ✓ Compiled in 142ms
+[00:29:45.086] Server  LOG     ✓ Compiled in 97ms
+[00:29:54.522] Server  LOG     ✓ Compiled in 217ms
+[00:29:55.053] Browser ERROR   uncaughtError: ReferenceError: useRouter is not defined
+[00:29:55.721] Server  LOG     ✓ Compiled in 213ms
+[00:29:55.729] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:56.240] Server  ERROR   ⨯ ReferenceError: useRouter is not defined
+[00:29:56.262] Browser ERROR   uncaughtError: ReferenceError: useRouter is not defined
+[00:29:56.581] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:57.060] Browser ERROR   uncaughtError: ReferenceError: useRouter is not defined
+[00:29:57.646] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:57.664] Server  LOG     ✓ Compiled in 70ms
+[00:29:57.835] Server  ERROR   ⨯ ReferenceError: useRouter is not defined
+[00:29:57.997] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:59.050] Browser ERROR   uncaughtError: ReferenceError: useRouter is not defined
+[00:30:02.507] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:30:02.526] Server  LOG     ✓ Compiled in 68ms
+[00:30:02.903] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:29.917] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:51:38.901] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:41.687] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:43.542] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:52:54.128] Server  LOG     ✓ Compiled in 524ms
+[00:52:55.609] Server  LOG     ✓ Compiled in 154ms
+[00:55:18.654] Server  LOG     ○ Compiling /Home/CheckoutSuccess ...
+[00:55:20.669] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:27.885] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:55:31.948] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:32.510] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

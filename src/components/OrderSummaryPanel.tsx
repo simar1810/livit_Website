@@ -13,6 +13,8 @@ interface OrderSummaryPanelProps {
   orderButtonLabel?: string;
   /** When true, ORDER NOW button is disabled (e.g. until required fields are valid). */
   orderNowDisabled?: boolean;
+  /** When true, hide promo code input (backend has no promo API). */
+  hidePromoCode?: boolean;
 }
 
 export default function OrderSummaryPanel({
@@ -24,11 +26,13 @@ export default function OrderSummaryPanel({
   onOrderNow,
   orderButtonLabel = "ORDER NOW",
   orderNowDisabled = false,
+  hidePromoCode = false,
 }: OrderSummaryPanelProps) {
   return (
     <div className="order-sum-wrap">
       <div className="order-summary">
         <h2>ORDER SUMMARY</h2>
+        {!hidePromoCode && (
         <div className="code-inputs">
           <div className="input-group">
             <input
@@ -43,6 +47,7 @@ export default function OrderSummaryPanel({
             </button>
           </div>
         </div>
+        )}
       </div>
 
       <div className="ord-qty order-desc-pera">

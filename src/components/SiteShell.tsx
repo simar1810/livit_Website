@@ -400,17 +400,7 @@ export default function SiteShell({
               <div className="ftr_point">
                 <h3 id="footer-join-title">{COPY.footerJoinTitle}</h3>
                 <p>{COPY.footerJoinSubtitle}</p>
-                <form aria-labelledby="footer-join-title">
-                  <div className="form_group">
-                    <label htmlFor="footer-join-name" className="visually-hidden">Name</label>
-                    <input id="footer-join-name" type="text" placeholder="Name" aria-label="Name" />
-                    <label htmlFor="footer-join-email" className="visually-hidden">Email</label>
-                    <input id="footer-join-email" type="email" placeholder="Email" aria-label="Email" />
-                    <div className="btn_center">
-                      <button type="submit">{COPY.footerJoinCta}</button>
-                    </div>
-                  </div>
-                </form>
+                {/* Newsletter/community form removed: no backend endpoint (B12) */}
               </div>
             </div>
           </div>

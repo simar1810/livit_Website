@@ -1,6 +1,7 @@
 {
   "/Home/Cart/page": "app/Home/Cart/page.js",
   "/Home/CheckOut/page": "app/Home/CheckOut/page.js",
+  "/Home/CheckoutSuccess/page": "app/Home/CheckoutSuccess/page.js",
   "/Home/OurStory/page": "app/Home/OurStory/page.js",
   "/Home/Program/page": "app/Home/Program/page.js",
   "/Home/Registration/page": "app/Home/Registration/page.js",

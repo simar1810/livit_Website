@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CartFlowHeader from "@/components/CartFlowHeader";
 import OrderSummaryPanel from "@/components/OrderSummaryPanel";
@@ -55,7 +56,6 @@ export default function CheckOutPage() {
 
   const [activeTab, setActiveTab] = useState<CheckoutTab>("guest");
   const [promoCode, setPromoCode] = useState("");
-  const [referralCode, setReferralCode] = useState("");
   const [guestFirst, setGuestFirst] = useState("");
   const [guestLast, setGuestLast] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
@@ -82,12 +82,12 @@ export default function CheckOutPage() {
     [plans, cartState.programId]
   );
 
-  // When logged in with a real plan list but cart still has "default", sync cart to first plan
+  // When logged in with a real plan list but cart has no valid plan (empty or "default"), sync cart to first plan
   useEffect(() => {
     if (
       isAuthenticated &&
       plans.length > 0 &&
-      cartState.programId === "default"
+      (!cartState.programId?.trim() || cartState.programId === "default")
     ) {
       setCartState((prev) => ({ ...prev, programId: plans[0]._id }));
     }
@@ -122,14 +122,15 @@ export default function CheckOutPage() {
     isValidEmail(guestEmail) &&
     guestPhone.trim().length >= 8;
   const deliveryValid = timeSlot.trim() !== "";
-  // When logged in and cart has placeholder "default", use first real plan so checkout can proceed
+  // When logged in and cart has no valid plan (empty or "default"), use first real plan so checkout can proceed
+  const hasNoValidPlanId =
+    !cartState.programId?.trim() || cartState.programId === "default";
   const effectiveProgramId =
-    isAuthenticated && plans.length > 0 && cartState.programId === "default"
+    isAuthenticated && plans.length > 0 && hasNoValidPlanId
       ? plans[0]._id
-      : cartState.programId;
-  const hasValidPlan =
-    (effectiveProgramId && effectiveProgramId !== "default") ||
-    (cartState.programId && cartState.programId !== "default");
+      : cartState.programId?.trim() || "";
+  // Treat any selected programId (including "default" from Cart) as valid so we don't show the no-plan banner
+  const hasValidPlan = Boolean(effectiveProgramId);
   const orderNowDisabled =
     !hasValidPlan ||
     !deliveryValid ||
@@ -138,12 +139,8 @@ export default function CheckOutPage() {
   const handleOrderNow = async () => {
     if (orderNowDisabled || checkoutLoading) return;
     const planId = effectiveProgramId;
-    if (!planId || planId === "default") {
-      setCheckoutError(
-        isAuthenticated
-          ? "Please go to the Cart and select a plan, or try refreshing the page."
-          : "To checkout as a guest, please sign in once to select a plan, or ask support to enable guest checkout."
-      );
+    if (!planId) {
+      setCheckoutError("Please go to the Cart and select a plan first.");
       return;
     }
     if (totalFils <= 0) {
@@ -361,24 +358,52 @@ export default function CheckOutPage() {
     { key: "register", label: "Create account" },
   ];
 
+  const showNoPlanBanner =
+    !hasValidPlan &&
+    sessionRestored &&
+    (!isAuthenticated || plans.length === 0);
+
   return (
-    <main>
+    <main className="checkout-page">
       <h1 id="checkout-page-title" className="visually-hidden">Checkout</h1>
-      <section className="cart-img" aria-labelledby="checkout-page-title">
+      <section className="cart-img checkout-header" aria-labelledby="checkout-page-title">
         <CartFlowHeader currentStep="checkout" />
+        <div className="checkout-nav">
+          <Link href="/Home/Cart" className="checkout-back-link">
+            ← Back to cart
+          </Link>
+        </div>
       </section>
 
+      {/* No plan in cart: send user to Cart first */}
+      {showNoPlanBanner && (
+        <section className="pro_d">
+          <div className="container-fluid">
+            <div className="checkout-alert-card">
+              <p className="mb-2">Your cart doesn’t have a plan selected yet.</p>
+              <Link href="/Home/Cart" className="btn btn-primary rounded-pill px-4">
+                Go to Cart to choose a plan
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Checkout main content */}
-      <section className="pro_d">
+      {!showNoPlanBanner && (
+      <section className="pro_d checkout-main">
         <div className="container-fluid">
-          <div className="row">
-            {/* Left: checkout + delivery */}
+          <div className="row g-4">
+            {/* Left: contact + delivery cards */}
             <div className="col-lg-6">
-              <div className="check-left-wrap">
-                {/* Checkout: wait for session restore so we don't flash login for logged-in users */}
-                <div className="product-tab register-page checkout-card">
-                  <div className="ty_d">
-                    <h2>CHECKOUT</h2>
+              <div className="checkout-cards">
+                {/* Card 1: Contact */}
+                <div className="checkout-card">
+                  <div className="checkout-card-head">
+                    <span className="checkout-card-num">1</span>
+                    <h2 className="checkout-card-title">Contact</h2>
+                  </div>
+                  <div className="ty_d checkout-card-body">
                     {!sessionRestored ? (
                       <p className="text-muted mb-0 mt-1" style={{ fontSize: "0.95rem" }}>
                         Checking sign-in…
@@ -855,184 +880,120 @@ export default function CheckOutPage() {
                     </div>
                   </div>
                   ) : null}
+                </div>
 
-                {/* Delivery section (UI only, map omitted) */}
-                <div className="del-wrap">
-                  <div className="del-form">
-                    <div className="crt-ty">
-                      <h2>DELIVERY</h2>
-                    </div>
-                    <div className="text-end">
-                      <button
-                        id="btnExisting"
-                        className="check active"
-                        type="button"
-                      >
-                        Existing Address
-                      </button>
-                      <button
-                        id="btnNew"
-                        className="check"
-                        type="button"
-                        style={{ marginLeft: 20 }}
-                      >
-                        New Address
-                      </button>
-                    </div>
-
-                    <div className="contact_page cust_g">
-                      <div className="contact_form">
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
+                {/* Card 2: Delivery — time slot required, address optional */}
+                <div className="checkout-card checkout-card-delivery">
+                  <div className="checkout-card-head">
+                    <span className="checkout-card-num">2</span>
+                    <h2 className="checkout-card-title">Delivery</h2>
+                  </div>
+                  <div className="del-form checkout-card-body">
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      <div className="form-group checkout-time-slot">
+                        <label htmlFor="TimeSlot">
+                          Delivery time slot <sup>*</sup>
+                        </label>
+                        <select
+                          id="TimeSlot"
+                          className="form-select checkout-time-select"
+                          value={timeSlot}
+                          onChange={(e) => {
+                            setTimeSlot(e.target.value);
+                            setTouched((p) => ({ ...p, delivery: true }));
                           }}
+                          onBlur={() =>
+                            setTouched((p) => ({ ...p, delivery: true }))
+                          }
+                          aria-invalid={touched.delivery && timeSlot.trim() === ""}
                         >
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label htmlFor="CountryId">
-                                  Country
-                                  <sup>*</sup>
-                                </label>
-                                <select
-                                  id="CountryId"
-                                  className="custom-dropdown"
-                                  defaultValue="1"
-                                >
-                                  <option value="1">
-                                    United Arab Emirates
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label htmlFor="CityId">
-                                  City
-                                  <sup>*</sup>
-                                </label>
-                                <select
-                                  id="CityId"
-                                  className="custom-dropdown"
-                                  defaultValue="Dubai"
-                                >
-                                  <option value="Dubai">Dubai</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="Address">
-                                  Address
-                                  <sup>*</sup>
-                                </label>
-                                <input
-                                  id="Address"
-                                  type="text"
-                                  placeholder="ex. 123 W. Main St"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="BuildingNo">
-                                  Building Name/Villa Number
-                                  <sup>*</sup>
-                                </label>
-                                <input
-                                  id="BuildingNo"
-                                  type="text"
-                                  placeholder="32"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="Floor">Floor Number</label>
-                                <input
-                                  id="Floor"
-                                  type="text"
-                                  placeholder="Enter floor"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="AppartmentNum">
-                                  Apartment Number
-                                </label>
-                                <input
-                                  id="AppartmentNum"
-                                  type="text"
-                                  placeholder=""
-                                />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="TimeSlot">
-                                  select your time slot
-                                  <sup>*</sup>
-                                </label>
-                                <select
-                                  id="TimeSlot"
-                                  className="custom-dropdown"
-                                  value={timeSlot}
-                                  onChange={(e) => {
-                                    setTimeSlot(e.target.value);
-                                    setTouched((p) => ({ ...p, delivery: true }));
-                                  }}
-                                  onBlur={() =>
-                                    setTouched((p) => ({ ...p, delivery: true }))
-                                  }
-                                  aria-invalid={touched.delivery && timeSlot.trim() === ""}
-                                >
-                                  <option value="">
-                                    PICK YOUR TIMESLOT
-                                  </option>
-                                  <option value="3 AM - 6 AM">
-                                    3 AM - 6 AM
-                                  </option>
-                                  <option value="6 AM - 9 AM">
-                                    6 AM - 9 AM
-                                  </option>
-                                  <option value="9 AM - 12 PM">
-                                    9 AM - 12 PM
-                                  </option>
-                                </select>
-                                {touched.delivery && timeSlot.trim() === "" && (
-                                  <p className="field-error">Please select a delivery time slot.</p>
-                                )}
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="ExtraInformation">
-                                  Extra Information
-                                </label>
-                                <textarea
-                                  id="ExtraInformation"
-                                  style={{ lineHeight: "50px" }}
-                                  placeholder="Enter Extra Information"
-                                  value={extraInfo}
-                                  onChange={(e) =>
-                                    setExtraInfo(e.target.value)
-                                  }
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </form>
+                          <option value="">Select your time slot</option>
+                          <option value="3 AM - 6 AM">3 AM – 6 AM</option>
+                          <option value="6 AM - 9 AM">6 AM – 9 AM</option>
+                          <option value="9 AM - 12 PM">9 AM – 12 PM</option>
+                          <option value="12 PM - 3 PM">12 PM – 3 PM</option>
+                          <option value="3 PM - 6 PM">3 PM – 6 PM</option>
+                        </select>
+                        {touched.delivery && timeSlot.trim() === "" && (
+                          <p className="field-error">Please select a delivery time slot.</p>
+                        )}
                       </div>
-                    </div>
+                      <p className="checkout-delivery-note text-muted small mb-3">
+                        Optional: add address details below for delivery instructions.
+                      </p>
+                      <div className="row g-2">
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="CountryId">Country</label>
+                            <select id="CountryId" className="form-select" defaultValue="1">
+                              <option value="1">United Arab Emirates</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="CityId">City</label>
+                            <select id="CityId" className="form-select" defaultValue="Dubai">
+                              <option value="Dubai">Dubai</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group">
+                            <label htmlFor="Address">Address</label>
+                            <input
+                              id="Address"
+                              type="text"
+                              className="form-control"
+                              placeholder="e.g. 123 Main St"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="BuildingNo">Building / Villa no.</label>
+                            <input
+                              id="BuildingNo"
+                              type="text"
+                              className="form-control"
+                              placeholder="32"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="Floor">Floor</label>
+                            <input
+                              id="Floor"
+                              type="text"
+                              className="form-control"
+                              placeholder="Optional"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group">
+                            <label htmlFor="ExtraInformation">Extra instructions</label>
+                            <textarea
+                              id="ExtraInformation"
+                              className="form-control"
+                              rows={2}
+                              placeholder="Gate code, landmarks, etc."
+                              value={extraInfo}
+                              onChange={(e) => setExtraInfo(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right: order summary */}
+            {/* Right: order summary + pay */}
             <div className="col-lg-6">
-              <div className="order-sum-wrap">
+              <div className="checkout-summary-card order-sum-wrap">
                 {checkoutError && (
                   <div className="alert alert-danger mb-3" role="alert">
                     {checkoutError}
@@ -1043,20 +1004,30 @@ export default function CheckOutPage() {
                   promoCode={promoCode}
                   onPromoChange={setPromoCode}
                   onApplyPromo={handleApplyPromo}
+                  hidePromoCode
                   payable={payable}
                   onOrderNow={handleOrderNow}
-                  orderButtonLabel={checkoutLoading ? "Processing…" : "Pay with Stripe"}
+                  orderButtonLabel={checkoutLoading ? "Processing…" : "Continue to payment"}
                   orderNowDisabled={orderNowDisabled || checkoutLoading}
                 />
-                <p className="text-muted small mt-2 mb-0" style={{ fontSize: "0.8rem" }}>
-                  Payment is secure via Stripe. You’ll be redirected to complete payment.
+                {orderNowDisabled && !checkoutLoading && (
+                  <p className="checkout-hint text-muted small mt-2 mb-0">
+                    {!deliveryValid
+                      ? "Select a delivery time slot above to continue."
+                      : !isAuthenticated && activeTab === "guest" && !guestValid
+                        ? "Fill in your contact details above to continue."
+                        : "Complete the form to continue."}
+                  </p>
+                )}
+                <p className="text-muted small mt-2 mb-0 checkout-secure">
+                  Secure payment via Stripe. You’ll be redirected to complete payment.
                 </p>
               </div>
             </div>
           </div>
         </div>
-        </div>
       </section>
+      )}
     </main>
   );
 }
