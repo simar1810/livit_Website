@@ -416,3 +416,327 @@ Import traces:
 [00:55:27.885] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
 [00:55:31.948] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:55:32.510] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:40.218] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:57:04.149] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:58:25.177] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:58:33.204] Server  LOG     ✓ Compiled in 238ms
+[00:58:45.208] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:02.343] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:59:38.924] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:39.117] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:39.766] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:40.480] Server  LOG     ○ Compiling /Home/PrivacyPolicy ...
+[00:59:41.840] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:56.991] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:01:15.605] Server  LOG     ✓ Compiled in 956ms
+[01:01:29.893] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:01:29.913] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:01:30.470] Server  ERROR   ⨯ ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+
+[01:01:30.517] Server  LOG     ✓ Compiled in 1096ms
+[01:01:31.060] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:31.060] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:33.054] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:33.054] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:33.524] Server  LOG     ○ Compiling /_error ...
+[01:01:34.756] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:34.756] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:35.492] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:01:35.492] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:35.492] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:35.500] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:01:35.500] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:35.500] Browser ERROR   ./src/app/Home/PrivacyPolicy/page.tsx:481:17
+Parsing ecmascript source code failed
+  479 |               </div>
+  480 |             </div>
+> 481 |           </div>
+      |                 ^
+> 482 |         </div>
+      | ^^^^^^^^^
+  483 |       </section>
+  484 |     </main>
+  485 |   );
+
+Expected '</', got 'jsx text'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component Browser]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/Home/PrivacyPolicy/page.tsx [Client Component SSR]
+    ./src/app/Home/PrivacyPolicy/page.tsx [Server Component]
+[01:01:37.677] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:01:37.840] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:02:22.229] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:02:25.195] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:02:27.984] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:04:17.950] Server  LOG     ✓ Compiled in 643ms
+[01:04:36.450] Server  LOG     ✓ Compiled in 123ms
+[01:04:40.572] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:13:56.774] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:13:58.502] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:14:14.687] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:14:15.189] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:14:16.115] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:14:21.117] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:14:59.996] Server  LOG     ✓ Compiled in 321ms
+[01:15:00.000] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:15:01.311] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:02.907] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:15:02.918] Server  LOG     ✓ Compiled in 78ms
+[01:15:03.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:05.386] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:15:05.411] Server  LOG     ✓ Compiled in 77ms
+[01:15:06.155] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:11.100] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:15:11.125] Server  LOG     ✓ Compiled in 48ms
+[01:15:11.693] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:12.664] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:15:12.688] Server  LOG     ✓ Compiled in 50ms
+[01:15:13.196] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:15:33.819] Server  LOG     ✓ Compiled in 203ms
+[01:16:14.462] Server  LOG     ✓ Compiled in 71ms
+[01:17:01.815] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:05.471] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:07.580] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:09.660] Server  LOG     ✓ Compiled in 140ms
+[01:17:18.518] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:36.278] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:54.250] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:17:58.114] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:00.046] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:46.498] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:59.939] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:18:59.946] Server  LOG     ✓ Compiled in 490ms
+[01:19:00.933] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:01.372] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:19:01.389] Server  LOG     ✓ Compiled in 111ms
+[01:19:02.094] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:02.887] Server  LOG     ✓ Compiled in 101ms
+[01:19:02.889] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:19:03.468] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:26.018] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:20:12.286] Server  LOG     ✓ Compiled in 490ms
+[01:20:19.082] Server  LOG     ✓ Compiled in 131ms
+[01:20:24.894] Server  LOG     ✓ Compiled in 89ms
+[01:20:41.717] Server  LOG     ✓ Compiled in 783ms
+[01:20:41.779] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/components/SiteShell.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:20:45.952] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:11.513] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:27.742] Server  LOG     ✓ Compiled in 193ms
+[01:22:01.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:22:04.738] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

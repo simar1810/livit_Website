@@ -1,9 +1,14 @@
 {
+  "/Home/Account/page": "app/Home/Account/page.js",
   "/Home/Cart/page": "app/Home/Cart/page.js",
   "/Home/CheckOut/page": "app/Home/CheckOut/page.js",
   "/Home/CheckoutSuccess/page": "app/Home/CheckoutSuccess/page.js",
   "/Home/OurStory/page": "app/Home/OurStory/page.js",
+  "/Home/PrivacyPolicy/page": "app/Home/PrivacyPolicy/page.js",
   "/Home/Program/page": "app/Home/Program/page.js",
+  "/Home/Refunds/page": "app/Home/Refunds/page.js",
   "/Home/Registration/page": "app/Home/Registration/page.js",
+  "/Home/Shipping/page": "app/Home/Shipping/page.js",
+  "/Home/TermsOfService/page": "app/Home/TermsOfService/page.js",
   "/page": "app/page.js"
 }

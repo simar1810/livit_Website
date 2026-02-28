@@ -1,14 +1,20 @@
 "use client";
 
+import Link from "next/link";
+
 export default function PrivacyPolicyPage() {
   return (
-    <main>
-      <section className="sec_privacy">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="wr_p">
-                <h2>Privacy Policy</h2>
+    <main className="policy-page-wrap">
+      <section className="policy-hero">
+        <div className="policy-hero-inner">
+          <h1 className="policy-title">Privacy Policy</h1>
+          <p className="policy-meta">How we collect, use, and protect your information</p>
+        </div>
+      </section>
+      <section className="policy-content">
+        <div className="policy-container">
+          <div className="policy-body">
+            <h2 className="visually-hidden">Privacy Policy</h2>
                 <p>
                   This Privacy Policy describes how LIVIT (the &quot;Site&quot;,
                   &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects,
@@ -470,8 +476,10 @@ export default function PrivacyPolicyPage() {
                   the rights available to you, please call or email us at
                   info@livit.ae
                 </p>
-              </div>
-            </div>
+
+                <p className="policy-back">
+                  <Link href="/" className="policy-back-link">← Back to home</Link>
+                </p>
           </div>
         </div>
       </section>

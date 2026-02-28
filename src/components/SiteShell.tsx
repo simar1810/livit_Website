@@ -158,16 +158,11 @@ export default function SiteShell({
       {/* Header */}
       <header className="page-header">
         <div className="header-wrap">
-          <div className="top-header">
-            <a className="top_tag">
-              Nature-driven meal plans to fit your day.
-            </a>
-          </div>
           <div className="bottom-header">
             <div className="warp_desktop">
-              <nav>
+              <nav className="nav-bar">
                 <div className="nav-container">
-                  <div className="logo">
+                  <div className="nav-brand">
                     <a className="navbar-brand" href="/Home/ViewIndex">
                       <img
                         className="site-logo"
@@ -175,6 +170,7 @@ export default function SiteShell({
                         alt="Nature Fit logo"
                       />
                     </a>
+                    <span className="nav-tagline">Nature-driven meal plans to fit your day.</span>
                   </div>
                   <ul className="menu">
                     <li>
@@ -187,6 +183,9 @@ export default function SiteShell({
                   <div className="log_si">
                     {isAuthenticated && user ? (
                       <>
+                        <a href="/Home/Account" className="nav-link-account" title="Account settings">
+                          Account
+                        </a>
                         <span className="user-name" title={user.email ?? user.phone ?? ""}>
                           {user.name || user.email || "Account"}
                         </span>
@@ -307,8 +306,8 @@ export default function SiteShell({
                   </a>
                   <a
                     className="pro_f"
-                    href={isAuthenticated ? "/Home/Registration" : "/Home/Registration"}
-                    aria-label={isAuthenticated ? "Profile" : "Register / Sign In"}
+                    href={isAuthenticated ? "/Home/Account" : "/Home/Registration"}
+                    aria-label={isAuthenticated ? "Account settings" : "Register / Sign In"}
                   >
                     <img
                       src="https://livit.ae/WebAssets/img/pro.png"
@@ -370,7 +369,7 @@ export default function SiteShell({
                   <h3>Quick Links</h3>
                   <ul>
                     <li>
-                      <a href="/Home/OurStory">OUR STORY</a>
+                      <a href="/Home/OurStory">Our Story</a>
                     </li>
                     <li>
                       <a href="/home/Contact">CONTACT US</a>
@@ -384,13 +383,13 @@ export default function SiteShell({
                       <a href="/Home/PrivacyPolicy">PRIVACY</a>
                     </li>
                     <li>
-                      <a href="#">TERMS OF SERVICE</a>
+                      <a href="/Home/TermsOfService">TERMS OF SERVICE</a>
                     </li>
                     <li>
-                      <a href="#">SHIPPING</a>
+                      <a href="/Home/Shipping">SHIPPING</a>
                     </li>
                     <li>
-                      <a href="#">REFUNDS</a>
+                      <a href="/Home/Refunds">REFUNDS</a>
                     </li>
                   </ul>
                 </div>
