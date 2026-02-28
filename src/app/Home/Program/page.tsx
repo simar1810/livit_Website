@@ -1,13 +1,10 @@
 "use client";
 
-import { useState } from "react";
-
-type ProgramKey =
-  | "signature"
-  | "ramadan"
-  | "gut"
-  | "gut_al_das_i"
-  | "gut_al_das_ii";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePlans } from "@/hooks/usePlans";
+import { useMenuList } from "@/hooks/useMenuList";
+import { getFallbackPrograms } from "@/config/cartOptions";
 
 type CalorieBand = 300 | 400 | 500 | 600 | 700;
 type ProteinPreference = "chicken" | "beef" | "seafood";
@@ -259,17 +256,27 @@ const DAYS: DayInfo[] = [
 ];
 
 export default function ProgramPage() {
-  const [selectedProgram, setSelectedProgram] = useState<ProgramKey>("signature");
+  const { plans, loading: plansLoading } = usePlans();
+  const fallbackPrograms = getFallbackPrograms();
+  const programOptions = plans.length > 0
+    ? plans.map((p) => ({ id: p._id, label: p.title }))
+    : fallbackPrograms;
+
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("");
   const [selectedWeek, setSelectedWeek] = useState<"current" | "next">("current");
   const [selectedCalorieBand, setSelectedCalorieBand] =
     useState<CalorieBand | null>(400);
   const [selectedProtein, setSelectedProtein] =
     useState<ProteinPreference | null>("chicken");
-  const [openDayIndex, setOpenDayIndex] = useState(0);
 
-  const handleDayToggle = (index: number) => {
-    setOpenDayIndex((prev) => (prev === index ? -1 : index));
-  };
+  const { data: menuData, loading: menuLoading } = useMenuList(selectedPlanId);
+
+  useEffect(() => {
+    if (programOptions.length === 0) return;
+    if (!selectedPlanId || !programOptions.some((p) => p.id === selectedPlanId)) {
+      setSelectedPlanId(programOptions[0].id);
+    }
+  }, [programOptions, selectedPlanId]);
 
   return (
     <main>
@@ -279,73 +286,29 @@ export default function ProgramPage() {
             <div className="cart-rad p-4">
               <h3 className="cart-lil-ty">PROGRAM</h3>
 
-              {/* Program selection */}
+              {/* Program selection – from API or fallback */}
               <div className="diet-options pt-3">
-                <div>
-                  <input
-                    type="radio"
-                    id="Plan_8"
-                    name="Plan"
-                    value="8"
-                    checked={selectedProgram === "signature"}
-                    onChange={() => setSelectedProgram("signature")}
-                  />
-                  <label htmlFor="Plan_8" style={{ fontSize: 20 }}>
-                    <span>Signature Program</span>
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="Plan_14"
-                    name="Plan"
-                    value="14"
-                    checked={selectedProgram === "ramadan"}
-                    onChange={() => setSelectedProgram("ramadan")}
-                  />
-                  <label htmlFor="Plan_14" style={{ fontSize: 20 }}>
-                    <span>RAMADAN Program</span>
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="Plan_15"
-                    name="Plan"
-                    value="15"
-                    checked={selectedProgram === "gut"}
-                    onChange={() => setSelectedProgram("gut")}
-                  />
-                  <label htmlFor="Plan_15" style={{ fontSize: 20 }}>
-                    <span>Gut Restore</span>
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="Plan_17"
-                    name="Plan"
-                    value="17"
-                    checked={selectedProgram === "gut_al_das_i"}
-                    onChange={() => setSelectedProgram("gut_al_das_i")}
-                  />
-                  <label htmlFor="Plan_17" style={{ fontSize: 20 }}>
-                    <span>Gut Restore x AL DAS CLINIC |</span>
-                  </label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="Plan_18"
-                    name="Plan"
-                    value="18"
-                    checked={selectedProgram === "gut_al_das_ii"}
-                    onChange={() => setSelectedProgram("gut_al_das_ii")}
-                  />
-                  <label htmlFor="Plan_18" style={{ fontSize: 20 }}>
-                    <span>Gut Restore x AL DAS CLINIC ||</span>
-                  </label>
-                </div>
+                {plansLoading && programOptions.length === 0 && (
+                  <p className="text-muted">Loading plans…</p>
+                )}
+                {!plansLoading && programOptions.length === 0 && (
+                  <p className="text-muted">Sign in to see available programs.</p>
+                )}
+                {programOptions.map((p) => (
+                  <div key={p.id}>
+                    <input
+                      type="radio"
+                      id={`Plan_${p.id}`}
+                      name="Plan"
+                      value={p.id}
+                      checked={selectedPlanId === p.id}
+                      onChange={() => setSelectedPlanId(p.id)}
+                    />
+                    <label htmlFor={`Plan_${p.id}`} style={{ fontSize: 20 }}>
+                      <span>{p.label}</span>
+                    </label>
+                  </div>
+                ))}
               </div>
 
               {/* Menu of week */}
@@ -433,124 +396,40 @@ export default function ProgramPage() {
                 )}
               </div>
 
-              {/* Accordion of days / meals */}
-              <br />
-              <div className="accordion" id="mealAccordion">
-                {DAYS.map((day, index) => {
-                  const isFirst = index === 0;
-                  const isOpen = openDayIndex === index;
-                  const collapseId = `collapse_day_${index}`;
-                  const headingId = `heading_day_${index}`;
-                  return (
-                    <div className="accordion-item" key={day.label}>
-                      <h2 className="accordion-header" id={headingId}>
-                        <button
-                          className={`accordion-button ${
-                            isOpen ? "" : "collapsed"
-                          }`}
-                          type="button"
-                          onClick={() => handleDayToggle(index)}
-                          aria-expanded={isOpen}
-                          aria-controls={collapseId}
-                        >
-                          {day.label} | {day.dateLabel}
-                        </button>
-                      </h2>
-                      <div
-                        id={collapseId}
-                        className={`accordion-collapse collapse ${
-                          isOpen ? "show" : ""
-                        }`}
-                        aria-labelledby={headingId}
-                        data-bs-parent="#mealAccordion"
-                      >
-                        <div className="accordion-body">
-                          <div className="row">
-                            {day.meals.map((meal) => (
-                              <div className="col-md-3 mb-3" key={meal.type}>
-                                <div className="card h-100 shadow-sm border-0 rounded-3">
-                                  <div className="card-header bg-light text-center">
-                                    <h6
-                                      className="mb-0"
-                                      style={{
-                                        textTransform: "uppercase",
-                                        display: "none",
-                                      }}
-                                    >
-                                      {meal.type}
-                                    </h6>
-                                    <p className="text-muted">{meal.name}</p>
-                                  </div>
-                                  <div className="card-body">
-                                    <h6 className="fw-bold mb-2">
-                                      Nutrition Facts
-                                    </h6>
-                                    <table
-                                      className="table table-sm mb-3"
-                                      style={{
-                                        fontFamily: "PPNeueMontrealMono",
-                                      }}
-                                    >
-                                      <tbody>
-                                        <tr>
-                                          <td>
-                                            <small>Calories</small>
-                                          </td>
-                                          <td className="text-end">
-                                            <small>
-                                              {meal.calories.toFixed(1)} kcal
-                                            </small>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>
-                                            <small>Protein</small>
-                                          </td>
-                                          <td className="text-end">
-                                            <small>
-                                              {meal.protein.toFixed(1)} g
-                                            </small>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>
-                                            <small>Carbohydrates</small>
-                                          </td>
-                                          <td className="text-end">
-                                            <small>
-                                              {meal.carbs.toFixed(1)} g
-                                            </small>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>
-                                            <small>Fat</small>
-                                          </td>
-                                          <td className="text-end">
-                                            <small>
-                                              {meal.fat.toFixed(1)} g
-                                            </small>
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                    <h6 className="fw-bold mb-2">
-                                      Description
-                                    </h6>
-                                    <div className="small text-muted mb-0">
-                                      {meal.description}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+              {/* Weekly menu – from API when available, else placeholder */}
+              <h3 className="cart-lil-ty mt-4">WEEKLY MENU</h3>
+              {menuLoading && selectedPlanId && selectedPlanId !== "default" && (
+                <p className="text-muted">Loading menu…</p>
+              )}
+              {menuData?.templates && Array.isArray(menuData.templates) && menuData.templates.length > 0 && (
+                <div className="row g-3 mt-2">
+                  {(menuData.templates as { title?: string; name?: string }[]).slice(0, 7).map((item, i) => (
+                    <div className="col-12 col-md-6" key={i}>
+                      <div className="card border-0 shadow-sm rounded-3 p-3">
+                        <p className="mb-0 fw-medium">{item.title ?? item.name ?? `Day ${i + 1}`}</p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              )}
+              {!menuLoading && (!menuData?.templates?.length || (selectedPlanId === "default" || !selectedPlanId)) && (
+                <div className="border rounded-3 p-4 mt-2 bg-light bg-opacity-50">
+                  <p className="mb-2">
+                    Your plan’s weekly menu is based on your selections. Customize program, calories, and protein in the Cart, then place your order to get started.
+                  </p>
+                  <Link href="/Home/Cart" className="btn btn-primary rounded-pill px-4">
+                    Go to Cart
+                  </Link>
+                </div>
+              )}
+              {!menuLoading && menuData?.templates && Array.isArray(menuData.templates) && menuData.templates.length === 0 && selectedPlanId && selectedPlanId !== "default" && (
+                <div className="border rounded-3 p-4 mt-2 bg-light bg-opacity-50">
+                  <p className="mb-2">No menu items for this plan yet. Add your choices in the Cart and checkout.</p>
+                  <Link href="/Home/Cart" className="btn btn-primary rounded-pill px-4">
+                    Go to Cart
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

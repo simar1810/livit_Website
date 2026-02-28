@@ -8,10 +8,12 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useRouter } from "next/navigation";
 import type { CartState } from "@/types/cart";
 import { defaultCartState } from "@/lib/defaultCartState";
 import { COPY } from "@/config/copy";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useAuth } from "@/contexts/AuthContext";
 
 type CookieChoice = "accepted" | "rejected" | null;
 
@@ -40,7 +42,14 @@ export default function SiteShell({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const { user, isAuthenticated, clearTokens } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleLogout = useCallback(() => {
+    clearTokens();
+    router.push("/");
+  }, [clearTokens, router]);
   const [cookieChoice, setCookieChoice] = useState<CookieChoice>(null);
   const [cartState, setCartState] = useState<CartState>(defaultCartState);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -176,9 +185,32 @@ export default function SiteShell({
                     </li>
                   </ul>
                   <div className="log_si">
-                    <a href="/Home/Registration" id="login">
-                      Register / Sign In
-                    </a>
+                    {isAuthenticated && user ? (
+                      <>
+                        <span className="user-name" title={user.email ?? user.phone ?? ""}>
+                          {user.name || user.email || "Account"}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleLogout}
+                          className="logout-btn"
+                          style={{
+                            marginLeft: 8,
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            font: "inherit",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Log out
+                        </button>
+                      </>
+                    ) : (
+                      <a href="/Home/Registration" id="login">
+                        Register / Sign In
+                      </a>
+                    )}
                   </div>
                 </div>
               </nav>
@@ -273,10 +305,14 @@ export default function SiteShell({
                       alt="Nature Fit logo"
                     />
                   </a>
-                  <a className="pro_f" href="/Home/Registration">
+                  <a
+                    className="pro_f"
+                    href={isAuthenticated ? "/Home/Registration" : "/Home/Registration"}
+                    aria-label={isAuthenticated ? "Profile" : "Register / Sign In"}
+                  >
                     <img
                       src="https://livit.ae/WebAssets/img/pro.png"
-                      alt="Profile"
+                      alt={isAuthenticated ? "Profile" : "Register / Sign In"}
                     />
                   </a>
                 </div>

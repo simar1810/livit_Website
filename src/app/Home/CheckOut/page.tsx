@@ -1,24 +1,60 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import CartFlowHeader from "@/components/CartFlowHeader";
 import OrderSummaryPanel from "@/components/OrderSummaryPanel";
 import TabButtons from "@/components/TabButtons";
 import { useCart } from "@/components/SiteShell";
-import { buildOrderSummaryFromCartState } from "@/lib/cartUtils";
+import { useAuth } from "@/contexts/AuthContext";
+import { usePlans } from "@/hooks/usePlans";
+import { getFallbackProgramLabel } from "@/config/cartOptions";
+import { buildOrderSummaryFromCartState, getPayableFromSummary } from "@/lib/cartUtils";
+import { isValidEmail } from "@/lib/validation";
+import { apiClient, ApiError } from "@/lib/api";
+import type { User } from "@/contexts/AuthContext";
 
 type CheckoutTab = "guest" | "register" | "signin";
+type SignInOtpMode = "phone" | "email";
 
-/** Inline validation: non-empty string, email format for email. */
-function isValidEmail(s: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
+const CHECKOUT_COUNTRY_CODES = [
+  { value: "+971", label: "🇦🇪 (+971)" },
+  { value: "+1", label: "🇺🇸 (+1)" },
+  { value: "+44", label: "🇬🇧 (+44)" },
+  { value: "+91", label: "🇮🇳 (+91)" },
+  { value: "+61", label: "🇦🇺 (+61)" },
+  { value: "+81", label: "🇯🇵 (+81)" },
+  { value: "+49", label: "🇩🇪 (+49)" },
+  { value: "+33", label: "🇫🇷 (+33)" },
+  { value: "+86", label: "🇨🇳 (+86)" },
+];
+
+const REGISTRATION_TOKEN_STORAGE_KEY = "livit_registration_token";
+
+interface VerifyResponse {
+  isNewUser: boolean;
+  accessToken?: string;
+  refreshToken?: string;
+  user?: User;
+  registrationToken?: string;
+}
+
+
+const CHECKOUT_SESSION_PATH = "checkout/session";
+
+interface CheckoutSessionResponse {
+  url: string;
+  orderId: string;
 }
 
 export default function CheckOutPage() {
-  const { cartState } = useCart();
+  const router = useRouter();
+  const { cartState, setCartState } = useCart();
+  const { tenantId, tenantReady, setTokens, setUser, user, isAuthenticated, accessToken, sessionRestored } = useAuth();
+  const { plans, getPlanLabel } = usePlans();
+
   const [activeTab, setActiveTab] = useState<CheckoutTab>("guest");
   const [promoCode, setPromoCode] = useState("");
-  const [promoAmt, setPromoAmt] = useState(0);
   const [referralCode, setReferralCode] = useState("");
   const [guestFirst, setGuestFirst] = useState("");
   const [guestLast, setGuestLast] = useState("");
@@ -27,23 +63,58 @@ export default function CheckOutPage() {
   const [timeSlot, setTimeSlot] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
   const [touched, setTouched] = useState({ guest: false, delivery: false });
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
+  // Sign-in OTP state
+  const [signInOtpMode, setSignInOtpMode] = useState<SignInOtpMode>("phone");
+  const [signInStep, setSignInStep] = useState<"input" | "otp">("input");
+  const [signInPhone, setSignInPhone] = useState("");
+  const [signInCountryCode, setSignInCountryCode] = useState("+971");
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInOtp, setSignInOtp] = useState("");
+  const [signInError, setSignInError] = useState<string | null>(null);
+  const [signInSuccess, setSignInSuccess] = useState<string | null>(null);
+  const [signInLoading, setSignInLoading] = useState(false);
+
+  const selectedPlan = useMemo(
+    () => plans.find((p) => p._id === cartState.programId) ?? null,
+    [plans, cartState.programId]
+  );
+
+  // When logged in with a real plan list but cart still has "default", sync cart to first plan
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      plans.length > 0 &&
+      cartState.programId === "default"
+    ) {
+      setCartState((prev) => ({ ...prev, programId: plans[0]._id }));
+    }
+  }, [isAuthenticated, plans, cartState.programId, setCartState]);
 
   const summary = useMemo(
     () =>
       buildOrderSummaryFromCartState(cartState, {
         deliveryTimeSlot: timeSlot,
-        promoAmt,
+        promoAmt: 0,
+        plan: selectedPlan,
+        programName:
+          getPlanLabel(cartState.programId) ||
+          getFallbackProgramLabel(cartState.programId) ||
+          undefined,
       }),
-    [cartState, timeSlot, promoAmt],
+    [cartState, timeSlot, getPlanLabel, selectedPlan],
+  );
+
+  const { totalAed: payable, totalFils } = useMemo(
+    () => getPayableFromSummary(summary),
+    [summary]
   );
 
   const handleApplyPromo = () => {
-    const hasPromo = promoCode.trim().length > 0;
-    setPromoAmt(hasPromo ? 50 : 0);
+    // No promo API: discount always 0 (Step 8.3)
   };
-
-  const payable =
-    summary.subTotal + summary.vat + summary.deliveryCharge - summary.promoAmt;
 
   const guestValid =
     guestFirst.trim() !== "" &&
@@ -51,30 +122,243 @@ export default function CheckOutPage() {
     isValidEmail(guestEmail) &&
     guestPhone.trim().length >= 8;
   const deliveryValid = timeSlot.trim() !== "";
+  // When logged in and cart has placeholder "default", use first real plan so checkout can proceed
+  const effectiveProgramId =
+    isAuthenticated && plans.length > 0 && cartState.programId === "default"
+      ? plans[0]._id
+      : cartState.programId;
+  const hasValidPlan =
+    (effectiveProgramId && effectiveProgramId !== "default") ||
+    (cartState.programId && cartState.programId !== "default");
   const orderNowDisabled =
-    activeTab === "guest"
-      ? !guestValid || !deliveryValid
-      : !deliveryValid;
+    !hasValidPlan ||
+    !deliveryValid ||
+    (!isAuthenticated && activeTab === "guest" ? !guestValid : false);
 
-  const handleOrderNow = () => {
-    // Placeholder: later this will trigger real checkout API.
-    // eslint-disable-next-line no-console
-    console.log("Checkout payload", {
-      mode: activeTab,
-      guest: { guestFirst, guestLast, guestEmail, guestPhone },
-      timeSlot,
-      extraInfo,
-      summary,
-      referralCode,
-      promoCode,
-      payable,
-    });
+  const handleOrderNow = async () => {
+    if (orderNowDisabled || checkoutLoading) return;
+    const planId = effectiveProgramId;
+    if (!planId || planId === "default") {
+      setCheckoutError(
+        isAuthenticated
+          ? "Please go to the Cart and select a plan, or try refreshing the page."
+          : "To checkout as a guest, please sign in once to select a plan, or ask support to enable guest checkout."
+      );
+      return;
+    }
+    if (totalFils <= 0) {
+      setCheckoutError("Order total must be greater than zero.");
+      return;
+    }
+    setCheckoutError(null);
+    setCheckoutLoading(true);
+
+    const origin =
+      typeof window !== "undefined" ? window.location.origin : "";
+    const successUrl = `${origin}/Home/CheckoutSuccess?session_id={CHECKOUT_SESSION_ID}`;
+    const cancelUrl = `${origin}/Home/CheckoutCancel`;
+
+    const productName = `${summary.programName} – ${summary.weeksOfFood} weeks`;
+
+    const body: {
+      templateId: string;
+      amount: number;
+      currency: string;
+      productName: string;
+      successUrl: string;
+      cancelUrl: string;
+      userId?: string;
+      tenantId?: string;
+    } = {
+      templateId: planId,
+      amount: totalFils,
+      currency: "aed",
+      productName,
+      successUrl,
+      cancelUrl,
+    };
+    if (isAuthenticated && user?._id) body.userId = user._id;
+    if (tenantId) body.tenantId = tenantId;
+
+    try {
+      const res = await apiClient.post<CheckoutSessionResponse>(
+        CHECKOUT_SESSION_PATH,
+        body,
+        isAuthenticated && accessToken ? { token: accessToken } : {}
+      );
+      const url = res.data?.url;
+      if (url) {
+        window.location.href = url;
+        return;
+      }
+      setCheckoutError("Invalid response from server.");
+    } catch (err) {
+      setCheckoutError(
+        err instanceof ApiError ? err.message : "Could not start checkout. Please try again."
+      );
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
+  const resetSignInOtpState = () => {
+    setSignInStep("input");
+    setSignInOtp("");
+    setSignInError(null);
+    setSignInSuccess(null);
+  };
+
+  const handleCheckoutSendPhoneOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tenantId || !tenantReady) {
+      setSignInError("Please wait, loading…");
+      return;
+    }
+    const trimmed = signInPhone.trim();
+    if (!trimmed || trimmed.length < 8) {
+      setSignInError("Enter a valid phone number.");
+      return;
+    }
+    setSignInError(null);
+    setSignInSuccess(null);
+    setSignInLoading(true);
+    try {
+      await apiClient.post(
+        "auth/otp",
+        { phone: trimmed, countryCode: signInCountryCode, tenantId },
+        { tenantId }
+      );
+      setSignInSuccess("OTP sent. Check your phone.");
+      setSignInStep("otp");
+    } catch (err) {
+      setSignInError(err instanceof ApiError ? err.message : "Failed to send OTP.");
+    } finally {
+      setSignInLoading(false);
+    }
+  };
+
+  const handleCheckoutSendEmailOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tenantId || !tenantReady) {
+      setSignInError("Please wait, loading…");
+      return;
+    }
+    const trimmed = signInEmail.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setSignInError("Enter a valid email address.");
+      return;
+    }
+    setSignInError(null);
+    setSignInSuccess(null);
+    setSignInLoading(true);
+    try {
+      await apiClient.post(
+        "auth/email",
+        { email: trimmed, tenantId },
+        { tenantId }
+      );
+      setSignInSuccess("OTP sent. Check your email.");
+      setSignInStep("otp");
+    } catch (err) {
+      setSignInError(err instanceof ApiError ? err.message : "Failed to send OTP.");
+    } finally {
+      setSignInLoading(false);
+    }
+  };
+
+  const handleCheckoutVerifyPhoneOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tenantId || !tenantReady) return;
+    const trimmedOtp = signInOtp.trim();
+    if (trimmedOtp.length < 4) {
+      setSignInError("Enter the 6-digit code.");
+      return;
+    }
+    setSignInError(null);
+    setSignInLoading(true);
+    try {
+      const res = await apiClient.put<VerifyResponse>(
+        "auth/otp",
+        {
+          phone: signInPhone.trim(),
+          countryCode: signInCountryCode,
+          otp: trimmedOtp,
+          tenantId,
+        },
+        { tenantId }
+      );
+      const data = res.data;
+      if (!data) {
+        setSignInError("Invalid response.");
+        return;
+      }
+      if (data.isNewUser && data.registrationToken) {
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem(REGISTRATION_TOKEN_STORAGE_KEY, data.registrationToken);
+        }
+        router.push("/Home/Registration");
+      } else if (!data.isNewUser && data.accessToken && data.refreshToken) {
+        setTokens(data.accessToken, data.refreshToken);
+        if (data.user) setUser(data.user);
+        resetSignInOtpState();
+      } else {
+        setSignInError("Could not complete sign in.");
+      }
+    } catch (err) {
+      setSignInError(err instanceof ApiError ? err.message : "Verification failed.");
+    } finally {
+      setSignInLoading(false);
+    }
+  };
+
+  const handleCheckoutVerifyEmailOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tenantId || !tenantReady) return;
+    const trimmedOtp = signInOtp.trim();
+    if (trimmedOtp.length < 4) {
+      setSignInError("Enter the 6-digit code.");
+      return;
+    }
+    setSignInError(null);
+    setSignInLoading(true);
+    try {
+      const res = await apiClient.put<VerifyResponse>(
+        "auth/email",
+        {
+          email: signInEmail.trim(),
+          otp: trimmedOtp,
+          tenantId,
+        },
+        { tenantId }
+      );
+      const data = res.data;
+      if (!data) {
+        setSignInError("Invalid response.");
+        return;
+      }
+      if (data.isNewUser && data.registrationToken) {
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem(REGISTRATION_TOKEN_STORAGE_KEY, data.registrationToken);
+        }
+        router.push("/Home/Registration");
+      } else if (!data.isNewUser && data.accessToken && data.refreshToken) {
+        setTokens(data.accessToken, data.refreshToken);
+        if (data.user) setUser(data.user);
+        resetSignInOtpState();
+      } else {
+        setSignInError("Could not complete sign in.");
+      }
+    } catch (err) {
+      setSignInError(err instanceof ApiError ? err.message : "Verification failed.");
+    } finally {
+      setSignInLoading(false);
+    }
   };
 
   const checkoutTabs = [
-    { key: "guest", label: "Continue as Guest" },
-    { key: "register", label: "Register" },
-    { key: "signin", label: "Sign in" },
+    { key: "guest", label: "Continue as Guest (no account)" },
+    { key: "signin", label: "I have an account" },
+    { key: "register", label: "Create account" },
   ];
 
   return (
@@ -91,19 +375,33 @@ export default function CheckOutPage() {
             {/* Left: checkout + delivery */}
             <div className="col-lg-6">
               <div className="check-left-wrap">
-                {/* Checkout tabs */}
-                <div className="product-tab register-page">
+                {/* Checkout: wait for session restore so we don't flash login for logged-in users */}
+                <div className="product-tab register-page checkout-card">
                   <div className="ty_d">
                     <h2>CHECKOUT</h2>
+                    {!sessionRestored ? (
+                      <p className="text-muted mb-0 mt-1" style={{ fontSize: "0.95rem" }}>
+                        Checking sign-in…
+                      </p>
+                    ) : isAuthenticated && user?.email ? (
+                      <p className="text-muted mb-0 mt-1" style={{ fontSize: "0.95rem" }}>
+                        You’re signed in as <strong>{user.email}</strong>. Complete delivery details below.
+                      </p>
+                    ) : (
+                      <p className="text-muted mb-0 mt-1" style={{ fontSize: "0.95rem" }}>
+                        Choose how you’d like to complete your order. No account needed for guest checkout.
+                      </p>
+                    )}
                   </div>
-                  <div className="tab-container">
+                  {sessionRestored && !isAuthenticated ? (
+                    <div className="tab-container">
                     <TabButtons
                       tabs={checkoutTabs}
                       activeKey={activeTab}
                       onSelect={(key) => setActiveTab(key as CheckoutTab)}
                     />
 
-                    {/* Guest tab */}
+                    {/* Guest tab – default, no account */}
                     <div
                       id="tab1"
                       className={
@@ -377,7 +675,7 @@ export default function CheckOutPage() {
                       </div>
                     </div>
 
-                    {/* Sign-in tab – UI only */}
+                    {/* Sign-in tab – Phone / Email OTP */}
                     <div
                       id="tab3"
                       className={
@@ -387,59 +685,176 @@ export default function CheckOutPage() {
                       }
                     >
                       <div className="contact_form" id="LogInPage">
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                          }}
-                        >
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="txtEmail">
-                                  Email
-                                  <sup>*</sup>
-                                </label>
+                        <p className="text-muted mb-2">
+                          Sign in with a one-time code sent to your phone or email.
+                        </p>
+                        {!tenantReady && <p className="text-muted">Loading…</p>}
+                        {tenantReady && (
+                          <>
+                            <div className="diet-options option-group mb-3">
+                              <label className="me-3">
                                 <input
-                                  id="txtEmail"
-                                  type="text"
-                                  placeholder="Enter your email or Mobile"
-                                  autoComplete="off"
+                                  type="radio"
+                                  name="checkoutOtpMode"
+                                  checked={signInOtpMode === "phone"}
+                                  onChange={() => {
+                                    setSignInOtpMode("phone");
+                                    resetSignInOtpState();
+                                  }}
                                 />
-                              </div>
+                                <span className="ms-1">Phone OTP</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  name="checkoutOtpMode"
+                                  checked={signInOtpMode === "email"}
+                                  onChange={() => {
+                                    setSignInOtpMode("email");
+                                    resetSignInOtpState();
+                                  }}
+                                />
+                                <span className="ms-1">Email OTP</span>
+                              </label>
                             </div>
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="txtPassword">
-                                  Password
-                                  <sup>*</sup>
-                                </label>
-                                <div className="password-wrapper">
-                                  <input
-                                    id="txtPassword"
-                                    type="password"
-                                    placeholder="******"
-                                    autoComplete="off"
-                                  />
-                                  <i className="fa fa-eye toggle-eye" />
+                            {signInError && (
+                              <div className="alert alert-danger" role="alert">
+                                {signInError}
+                              </div>
+                            )}
+                            {signInSuccess && (
+                              <div className="alert alert-success" role="status">
+                                {signInSuccess}
+                              </div>
+                            )}
+                            {signInStep === "input" && signInOtpMode === "phone" && (
+                              <form onSubmit={handleCheckoutSendPhoneOtp}>
+                                <div className="form-group">
+                                  <label htmlFor="checkout-otp-phone">
+                                    Phone number <sup>*</sup>
+                                  </label>
+                                  <div className="phone_country">
+                                    <select
+                                      id="checkout-otp-country"
+                                      value={signInCountryCode}
+                                      onChange={(e) =>
+                                        setSignInCountryCode(e.target.value)
+                                      }
+                                      aria-label="Country code"
+                                    >
+                                      {CHECKOUT_COUNTRY_CODES.map((c) => (
+                                        <option key={c.value} value={c.value}>
+                                          {c.label}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    <input
+                                      id="checkout-otp-phone"
+                                      type="tel"
+                                      placeholder="Enter number"
+                                      value={signInPhone}
+                                      onChange={(e) =>
+                                        setSignInPhone(e.target.value)
+                                      }
+                                      autoComplete="tel-national"
+                                      maxLength={15}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div className="btrf">
-                              <div className="form-group">
-                                <button
-                                  type="button"
-                                  className="contact_send cdr"
-                                >
-                                  Log In
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
+                                <div className="btrf">
+                                  <button
+                                    type="submit"
+                                    className="contact_send"
+                                    disabled={signInLoading}
+                                  >
+                                    {signInLoading ? "Sending…" : "Send OTP"}
+                                  </button>
+                                </div>
+                              </form>
+                            )}
+                            {signInStep === "input" && signInOtpMode === "email" && (
+                              <form onSubmit={handleCheckoutSendEmailOtp}>
+                                <div className="form-group">
+                                  <label htmlFor="checkout-otp-email">
+                                    Email <sup>*</sup>
+                                  </label>
+                                  <input
+                                    id="checkout-otp-email"
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={signInEmail}
+                                    onChange={(e) =>
+                                      setSignInEmail(e.target.value)
+                                    }
+                                    autoComplete="email"
+                                  />
+                                </div>
+                                <div className="btrf">
+                                  <button
+                                    type="submit"
+                                    className="contact_send"
+                                    disabled={signInLoading}
+                                  >
+                                    {signInLoading ? "Sending…" : "Send OTP"}
+                                  </button>
+                                </div>
+                              </form>
+                            )}
+                            {signInStep === "otp" && (
+                              <form
+                                onSubmit={
+                                  signInOtpMode === "phone"
+                                    ? handleCheckoutVerifyPhoneOtp
+                                    : handleCheckoutVerifyEmailOtp
+                                }
+                              >
+                                <div className="form-group">
+                                  <label htmlFor="checkout-otp-code">Code</label>
+                                  <input
+                                    id="checkout-otp-code"
+                                    type="text"
+                                    inputMode="numeric"
+                                    autoComplete="one-time-code"
+                                    placeholder="000000"
+                                    value={signInOtp}
+                                    onChange={(e) =>
+                                      setSignInOtp(
+                                        e.target.value
+                                          .replace(/\D/g, "")
+                                          .slice(0, 6)
+                                      )
+                                    }
+                                    maxLength={6}
+                                  />
+                                </div>
+                                <div className="btrf">
+                                  <button
+                                    type="button"
+                                    className="contact_send me-2"
+                                    onClick={resetSignInOtpState}
+                                    disabled={signInLoading}
+                                  >
+                                    Back
+                                  </button>
+                                  <button
+                                    type="submit"
+                                    className="contact_send cdr"
+                                    disabled={
+                                      signInLoading ||
+                                      signInOtp.trim().length < 4
+                                    }
+                                  >
+                                    {signInLoading ? "Verifying…" : "Verify"}
+                                  </button>
+                                </div>
+                              </form>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
-                </div>
+                  ) : null}
 
                 {/* Delivery section (UI only, map omitted) */}
                 <div className="del-wrap">
@@ -618,6 +1033,11 @@ export default function CheckOutPage() {
             {/* Right: order summary */}
             <div className="col-lg-6">
               <div className="order-sum-wrap">
+                {checkoutError && (
+                  <div className="alert alert-danger mb-3" role="alert">
+                    {checkoutError}
+                  </div>
+                )}
                 <OrderSummaryPanel
                   summary={summary}
                   promoCode={promoCode}
@@ -625,14 +1045,16 @@ export default function CheckOutPage() {
                   onApplyPromo={handleApplyPromo}
                   payable={payable}
                   onOrderNow={handleOrderNow}
-                  orderButtonLabel="ORDER NOW"
-                  orderNowDisabled={orderNowDisabled}
+                  orderButtonLabel={checkoutLoading ? "Processing…" : "Pay with Stripe"}
+                  orderNowDisabled={orderNowDisabled || checkoutLoading}
                 />
-                {/* Payment container placeholder for future backend integration */}
-                <div className="d-none mt-3" id="paymentContainer" />
+                <p className="text-muted small mt-2 mb-0" style={{ fontSize: "0.8rem" }}>
+                  Payment is secure via Stripe. You’ll be redirected to complete payment.
+                </p>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </main>

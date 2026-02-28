@@ -1,13 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CartFlowHeader from "@/components/CartFlowHeader";
 import { useCart } from "@/components/SiteShell";
 import { calculatePrice } from "@/lib/cartUtils";
 import type { ProteinKey, MealTypeKey } from "@/types/cart";
+import type { ProgramOption } from "@/types/cart";
 import {
-  PROGRAMS,
+  getFallbackPrograms,
   PROTEINS,
   CALORIES,
   MEAL_TYPES,
@@ -16,15 +17,15 @@ import {
   WEEKDAYS,
   CUSTOMIZATIONS,
 } from "@/config/cartOptions";
+import { usePlans } from "@/hooks/usePlans";
 import { COPY } from "@/config/copy";
-
-type ProgramId = (typeof PROGRAMS)[number]["id"];
 
 const CART_TOAST_MESSAGE = "Cart updated";
 
 export default function CartPage() {
   const router = useRouter();
   const { cartState, setCartState, showCartToast } = useCart();
+  const { plans, loading: plansLoading } = usePlans();
   const {
     programId,
     selectedProteins,
@@ -39,6 +40,23 @@ export default function CartPage() {
   } = cartState;
 
   const mealsPerDayCount = selectedMeals.length || 1;
+
+  const programOptions: ProgramOption[] = useMemo(() => {
+    if (plans.length > 0) {
+      return plans.map((p) => ({ id: p._id, label: p.title }));
+    }
+    return getFallbackPrograms();
+  }, [plans]);
+
+  // When we have plans from API (logged in), ensure cart has a real plan id – replace "default" or invalid id
+  useEffect(() => {
+    if (plansLoading || programOptions.length === 0) return;
+    const currentValid = programOptions.some((p) => p.id === programId);
+    if (!currentValid) {
+      setCartState((prev) => ({ ...prev, programId: programOptions[0].id }));
+      showCartToast(CART_TOAST_MESSAGE);
+    }
+  }, [plansLoading, programId, programOptions, setCartState, showCartToast]);
 
   const totalPrice = useMemo(
     () =>
@@ -125,8 +143,11 @@ export default function CartPage() {
                 {/* Program selection */}
                 <div className="cart-rad" role="group" aria-labelledby="program-label">
                   <span id="program-label" className="visually-hidden">Program type</span>
+                  {programOptions.length === 0 && !plansLoading && (
+                    <p className="text-muted small">Sign in to see available plans.</p>
+                  )}
                   <div className="diet-options option-group">
-                    {PROGRAMS.map((p) => (
+                    {programOptions.map((p) => (
                       <span key={p.id}>
                         <input
                           type="radio"

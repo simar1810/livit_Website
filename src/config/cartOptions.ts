@@ -1,6 +1,7 @@
 /**
  * Shared option lists for Cart and Checkout. Re-export types from types/cart
  * for convenience; option shapes stay in sync with CartState.
+ * Program options come from API (usePlans) or fallback when guest.
  */
 import type {
   ProteinKey,
@@ -9,17 +10,27 @@ import type {
   DaysPerWeekOption,
   WeekCountOption,
   CustomizationOption,
+  ProgramOption,
 } from "@/types/cart";
 
 export type { ProteinKey, MealTypeKey };
 
-export const PROGRAMS = [
-  { id: 8, label: "Signature Program" },
-  { id: 14, label: "RAMADAN Program" },
-  { id: 15, label: "Gut Restore" },
-  { id: 17, label: "Gut Restore x AL DAS CLINIC |" },
-  { id: 18, label: "Gut Restore x AL DAS CLINIC ||" },
-] as const;
+/** Default plan _id for guest checkout when no API plans. Set NEXT_PUBLIC_DEFAULT_TEMPLATE_ID in .env.local. */
+export function getDefaultTemplateId(): string {
+  return (typeof process !== "undefined" && process.env.NEXT_PUBLIC_DEFAULT_TEMPLATE_ID) || "";
+}
+
+/** Fallback program list when not authenticated (guest). Always one option so guests can proceed; use NEXT_PUBLIC_DEFAULT_TEMPLATE_ID for real checkout. */
+export function getFallbackPrograms(): ProgramOption[] {
+  const id = getDefaultTemplateId() || "default";
+  return [{ id, label: "Signature Program" }];
+}
+
+/** Resolve program label by id from fallback only. Use usePlans().getPlanLabel when authenticated. */
+export function getFallbackProgramLabel(id: string): string {
+  const list = getFallbackPrograms();
+  return list.find((p) => p.id === id)?.label ?? "";
+}
 
 export const PROTEINS: { key: ProteinKey; label: string }[] = [
   { key: "chicken", label: "Chicken" },

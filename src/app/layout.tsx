@@ -1,4 +1,5 @@
 import SiteShell from "@/components/SiteShell";
+import { AuthProvider } from "@/contexts/AuthContext";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -47,7 +48,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SiteShell>{children}</SiteShell>
+        <AuthProvider>
+          <SiteShell>{children}</SiteShell>
+        </AuthProvider>
       </body>
     </html>
   );

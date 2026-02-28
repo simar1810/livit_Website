@@ -1,8 +1,8 @@
 import type { CartState } from "@/types/cart";
-import { CALORIES, DAYS_PER_WEEK, WEEKS_OF_FOOD } from "@/config/cartOptions";
+import { CALORIES, DAYS_PER_WEEK, WEEKS_OF_FOOD, getDefaultTemplateId } from "@/config/cartOptions";
 
 export const defaultCartState: CartState = {
-  programId: 8,
+  programId: getDefaultTemplateId(),
   selectedProteins: ["chicken"],
   selectedCalories: CALORIES[1], // 400 KCAL
   selectedMeals: ["breakfast", "lunch", "dinner", "snack"],

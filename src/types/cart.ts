@@ -7,7 +7,7 @@ export type ProteinKey = "chicken" | "beef" | "seafood" | "vegetarian";
 export type MealTypeKey = "breakfast" | "lunch" | "dinner" | "snack";
 
 export interface ProgramOption {
-  id: number;
+  id: string;
   label: string;
 }
 
@@ -35,9 +35,9 @@ export interface CustomizationOption {
   description?: string;
 }
 
-/** Normalized cart selections (Cart page state). */
+/** Normalized cart selections (Cart page state). programId = backend plan _id. */
 export interface CartState {
-  programId: number;
+  programId: string;
   selectedProteins: ProteinKey[];
   selectedCalories: CalorieOption;
   selectedMeals: MealTypeKey[];

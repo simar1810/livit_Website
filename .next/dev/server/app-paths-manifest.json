@@ -2,7 +2,7 @@
   "/Home/Cart/page": "app/Home/Cart/page.js",
   "/Home/CheckOut/page": "app/Home/CheckOut/page.js",
   "/Home/OurStory/page": "app/Home/OurStory/page.js",
+  "/Home/Program/page": "app/Home/Program/page.js",
   "/Home/Registration/page": "app/Home/Registration/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js"
 }

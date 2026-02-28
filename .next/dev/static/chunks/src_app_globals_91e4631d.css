@@ -303,6 +303,119 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   font-size: .8rem;
 }
 
+.auth-page-wrap {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.auth-page-wrap .product-tab.register-page {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 20px #00000014;
+}
+
+.auth-page-wrap .tab-container {
+  margin-top: 0;
+}
+
+.auth-page-wrap .crt-ty h2 {
+  letter-spacing: .02em;
+  margin-bottom: .35rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.auth-page-wrap .crt-ty p.text-muted {
+  margin-bottom: 1.25rem;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.auth-page-wrap .contact_form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-page-wrap .contact_form .form-group label {
+  color: #374151;
+  margin-bottom: .35rem;
+  font-size: .9rem;
+  font-weight: 500;
+  display: block;
+}
+
+.auth-page-wrap .contact_form input[type="text"], .auth-page-wrap .contact_form input[type="email"], .auth-page-wrap .contact_form input[type="tel"], .auth-page-wrap .contact_form select {
+  border: 1px solid #d1d5db;
+  border-radius: .5rem;
+  width: 100%;
+  padding: .65rem .9rem;
+  font-size: 1rem;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.auth-page-wrap .contact_form input:focus, .auth-page-wrap .contact_form select:focus {
+  border-color: #145a32;
+  outline: none;
+  box-shadow: 0 0 0 3px #145a3226;
+}
+
+.auth-page-wrap .phone_country {
+  gap: .5rem;
+  display: flex;
+}
+
+.auth-page-wrap .phone_country select {
+  flex: none;
+  width: auto;
+  min-width: 100px;
+}
+
+.auth-page-wrap .phone_country input {
+  flex: 1;
+  min-width: 0;
+}
+
+.auth-page-wrap .btrf {
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.5rem;
+  display: flex;
+}
+
+.auth-page-wrap .diet-options.option-group {
+  gap: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.auth-page-wrap .diet-options.option-group label {
+  cursor: pointer;
+  align-items: center;
+  gap: .35rem;
+  font-size: .95rem;
+  display: flex;
+}
+
+.auth-page-wrap .alert {
+  border-radius: .5rem;
+  margin-bottom: 1rem;
+  padding: .75rem 1rem;
+  font-size: .9rem;
+}
+
+.auth-page-wrap .alert-danger {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.auth-page-wrap .alert-success {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
 .visually-hidden {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -631,15 +744,38 @@ section.cart-img .row.cart {
 section.pro_d {
   background: #f4f7f5;
   min-height: auto;
-  padding: 1rem 0 2rem;
+  padding: 2rem 0 3rem;
+}
+
+section.pro_d .container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .check-left-wrap {
   background: #fff;
-  border: 1px solid #145a321a;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 1px 3px #145a3214;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 2px 8px #0000000f;
+}
+
+.check-left-wrap .checkout-card .ty_d {
+  margin-bottom: .5rem;
+}
+
+.check-left-wrap .del-wrap {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+}
+
+.check-left-wrap .del-wrap .del-form .text-end {
+  margin-bottom: 1rem;
+}
+
+.check-left-wrap .del-wrap .contact_page.cust_g {
+  margin-top: 0;
 }
 
 .check-left-wrap .ty_d h2, .check-left-wrap .crt-ty h2, .check-left-wrap .del-wrap .crt-ty h2 {
