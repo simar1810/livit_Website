@@ -1,8 +1,8 @@
-\"use client\";
+"use client";
 
-import { useEffect, useState } from \"react\";
-import Link from \"next/link\";
-import { apiClient, ApiError } from \"@/lib/api\";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { apiClient, ApiError } from "@/lib/api";
 
 /** Stripe Checkout Session shape (subset we use). */
 interface SessionData {
@@ -26,7 +26,7 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
   useEffect(() => {
     if (!sessionId) {
       setLoading(false);
-      setError(\"No session ID.\");
+      setError("No session ID.");
       return;
     }
     let cancelled = false;
@@ -37,7 +37,7 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
       })
       .catch((err) => {
         if (!cancelled) {
-          setError(err instanceof ApiError ? err.message : \"Could not load order details.\");
+          setError(err instanceof ApiError ? err.message : "Could not load order details.");
         }
       })
       .finally(() => {
@@ -49,46 +49,46 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
   }, [sessionId]);
 
   const orderId = session?.metadata?.orderId ?? session?.id;
-  const paid = session?.payment_status === \"paid\" || session?.status === \"complete\";
+  const paid = session?.payment_status === "paid" || session?.status === "complete";
 
   return (
-    <main className=\"container-fluid py-5\">
-      <section className=\"row justify-content-center\">
-        <div className=\"col-md-8 col-lg-6\">
-          <h1 className=\"mb-4\">Thank you for your order</h1>
+    <main className="container-fluid py-5">
+      <section className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <h1 className="mb-4">Thank you for your order</h1>
 
           {loading && (
-            <p className=\"text-muted\">Confirming your payment…</p>
+            <p className="text-muted">Confirming your payment…</p>
           )}
 
           {error && (
-            <div className=\"alert alert-warning\" role=\"alert\">
-              <p className=\"mb-0\">{error}</p>
-              <p className=\"mb-0 mt-2 small\">
+            <div className="alert alert-warning" role="alert">
+              <p className="mb-0">{error}</p>
+              <p className="mb-0 mt-2 small">
                 If you completed payment, your order may still have been received. Please check your email or contact support with your session or order details.
               </p>
             </div>
           )}
 
           {!loading && !error && session && (
-            <div className=\"card border-0 shadow-sm\">
-              <div className=\"card-body p-4\">
-                <p className=\"mb-2\">
-                  <strong>Payment status:</strong>{\" "}
-                  <span className={paid ? \"text-success\" : \"text-muted\">
-                    {session.payment_status ?? session.status ?? \"—\"}
+            <div className="card border-0 shadow-sm">
+              <div className="card-body p-4">
+                <p className="mb-2">
+                  <strong>Payment status:</strong>{" "}
+                  <span className={paid ? "text-success" : "text-muted"}>
+                    {session.payment_status ?? session.status ?? "—"}
                   </span>
                 </p>
                 {orderId && (
-                  <p className=\"mb-2\">
+                  <p className="mb-2">
                     <strong>Order ID:</strong> <code>{orderId}</code>
                   </p>
                 )}
                 {session.amount_total != null && (
-                  <p className=\"mb-0\">
-                    <strong>Amount:</strong>{\" "}
-                    {(session.amount_total / 100).toFixed(2)}{\" \"}
-                    {session.currency?.toUpperCase() ?? \"AED\"}
+                  <p className="mb-0">
+                    <strong>Amount:</strong>{" "}
+                    {(session.amount_total / 100).toFixed(2)}{" "}
+                    {session.currency?.toUpperCase() ?? "AED"}
                   </p>
                 )}
               </div>
@@ -96,11 +96,11 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
           )}
 
           {!loading && (
-            <div className=\"mt-4\">
-              <Link href=\"/\" className=\"btn btn-primary me-2\">
+            <div className="mt-4">
+              <Link href="/" className="btn btn-primary me-2">
                 Back to home
               </Link>
-              <Link href=\"/Home/Cart\" className=\"btn btn-outline-secondary\">
+              <Link href="/Home/Cart" className="btn btn-outline-secondary">
                 View cart
               </Link>
             </div>
@@ -110,4 +110,3 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
     </main>
   );
 }
-
