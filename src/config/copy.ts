@@ -10,9 +10,9 @@ export const COPY = {
   heroCta: "Start with Nature Fit",
 
   /** Home intro */
-  introParagraph1: "Wellness is a journey, not a destination",
+  introParagraph1: "Designed for real days, not perfect ones.",
   introParagraph2:
-    "At Nature Fit, we encourage you to cultivate lasting, sustainable eating habits that honor your body and lifestyle.",
+    "Nature Fit keeps your meals balanced, seasonal, and ready when life is full – so you can focus on feeling good, not deciding what to eat.",
 
   /** Home sections */
   menuSectionTitle: "INSIDE NEXT WEEK'S MENU",

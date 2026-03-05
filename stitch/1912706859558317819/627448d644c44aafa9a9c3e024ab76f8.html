@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gourmet Health | Bold Chef-Crafted Meal Programs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1b4332", 
+                        accent: "#e9c46a", // Gold secondary
+                        warm: "#f4a261", // Peach accent
+                        "background-light": "#faf9f6",
+                        "background-dark": "#0f1110",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .marquee {
+                display: flex;
+                overflow: hidden;
+                user-select: none;
+                gap: 2rem;
+            }
+            .marquee-content {
+                flex-shrink: 0;
+                display: flex;
+                justify-content: space-around;
+                gap: 2rem;
+                min-width: 100%;
+                animation: scroll 20s linear infinite;
+            }
+            @keyframes scroll {
+                from { transform: translateX(0); }
+                to { transform: translateX(-100%); }
+            }
+            .vertical-text {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+            }
+            .asymmetric-grid {
+                display: grid;
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 4rem;
+            }
+            @media (max-width: 768px) {
+                .asymmetric-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-slate-900 font-sans selection:bg-accent selection:text-primary">
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="text-2xl font-display font-black tracking-tighter text-primary italic">NOURISH.</div>
+<div class="hidden md:flex space-x-12 text-[10px] font-bold uppercase tracking-[0.2em]">
+<a class="hover:text-warm transition-colors" href="#">Programs</a>
+<a class="hover:text-warm transition-colors" href="#">Philosophy</a>
+<a class="hover:text-warm transition-colors" href="#">Menu</a>
+<a class="hover:text-warm transition-colors" href="#">Journal</a>
+</div>
+<div>
+<button class="bg-primary text-white px-8 py-3 rounded-full text-xs font-bold tracking-widest hover:bg-black transition-all">
+                    START YOUR PLAN
+                </button>
+</div>
+</div>
+</nav>
+<header class="relative bg-background-dark text-white min-h-[90vh] flex flex-col md:flex-row overflow-hidden">
+<div class="md:w-1/2 flex flex-col justify-center px-8 lg:px-24 py-20 relative z-10">
+<div class="inline-flex items-center space-x-3 mb-8">
+<span class="h-px w-8 bg-warm"></span>
+<span class="text-warm font-bold tracking-[0.4em] uppercase text-xs">The New Standard of Eating</span>
+</div>
+<h1 class="font-display text-6xl lg:text-8xl font-black leading-[0.9] mb-8">
+                Eat Like <br/>A <span class="italic text-accent">Visionary.</span>
+</h1>
+<p class="text-lg text-slate-400 max-w-md leading-relaxed mb-12 border-l-2 border-accent/30 pl-6">
+                Redefining the relationship between high-end culinary arts and bio-individual nutrition. Zero prep. Pure performance.
+            </p>
+<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+<a class="bg-accent text-primary px-10 py-5 font-black text-center text-sm uppercase tracking-widest hover:scale-105 transition-transform" href="#programs">Choose Your Program</a>
+<a class="group flex items-center justify-center space-x-3 px-10 py-5 font-bold text-sm uppercase tracking-widest hover:text-warm transition-colors" href="#">
+<span>Watch the Process</span>
+<span class="material-symbols-outlined scale-125">play_circle</span>
+</a>
+</div>
+</div>
+<div class="md:w-1/2 relative min-h-[50vh] md:min-h-full">
+<img alt="Chef preparing meal" class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN0o9M3atbSzCqvxDGdEiSpRy93K1tnXJRxE3LLvxkl6InytyT8s_Mt5n0tDufKe5z6exhECOx51xTrwIzhnOQtrKP-1NBiF7WaLy_kaFhsNV1DA7rg_8BiWxaCNg1M9N1i1DPjSLnJ32Ugsk5_K3pjnk77OckZyRcdsk8B758prVGmBEM6DRzsspMrcKjN5eeDApqsT7BQtBjXBlgU9dKTHzTj-IYq05U4Cz3LZKRIuYOPndKJpEcT7pTSUJF9IBl-lUi9MXycqU"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark via-transparent to-transparent"></div>
+<div class="absolute bottom-12 right-12 bg-white text-primary p-8 hidden lg:block max-w-xs">
+<span class="material-symbols-outlined text-4xl mb-4">format_quote</span>
+<p class="font-display italic text-xl mb-4">"The best investment you'll ever make is in the molecules that build you."</p>
+<p class="text-[10px] font-bold uppercase tracking-widest">— Executive Chef Marco</p>
+</div>
+</div>
+</header>
+<section class="bg-accent py-6 border-y-2 border-black overflow-hidden">
+<div class="marquee font-display font-black text-3xl italic uppercase tracking-tighter text-primary">
+<div class="marquee-content">
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+</div>
+<div aria-hidden="true" class="marquee-content">
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+<span>Join the Community</span>
+<span class="text-white">●</span>
+</div>
+</div>
+</section>
+<section class="py-32 px-6 max-w-7xl mx-auto" id="programs">
+<div class="flex flex-col md:flex-row items-end justify-between mb-24 border-b border-slate-200 pb-12">
+<div class="max-w-2xl">
+<h2 class="font-display text-5xl lg:text-7xl font-black mb-6">Designed for <br/>Results.</h2>
+<p class="text-slate-500 text-xl font-light">Two paths to optimal vitality. Curated by experts, delivered fresh daily.</p>
+</div>
+<div class="mt-8 md:mt-0">
+<span class="text-[10px] font-bold uppercase tracking-[0.5em] text-warm">Scroll for details</span>
+</div>
+</div>
+<div class="asymmetric-grid items-start">
+<div class="group relative bg-white border border-slate-100 p-8 pt-0">
+<div class="aspect-[16/10] -mt-12 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:-translate-y-4">
+<img alt="Signature Program" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxyvYzTySV0RcQr96w26SAXiwMsRPiIgdmn769U85_RFJdlQHsNjITQBHb3zWhVN0MPRGtQJlNUHYM0qY_A9mBn3zmrtbaq512-ujJIH1uH38RaYlTxYrQEAzIIvlVpCYhUC-U5vpPwAdVR20XfQgEmWxzxtcL1oODk8DroUsp3fLWY9mRMYTLdrCixrDYDUslnjbfzao51eq4lHEs6ZnNLZNIpfTjWwXy0A8l20oMtWwsSLGRyCw37OEDegu41e6BMzGB5lyFEdI"/>
+</div>
+<div class="mt-12">
+<div class="flex items-center space-x-4 mb-6">
+<span class="w-12 h-px bg-primary"></span>
+<span class="font-bold text-xs tracking-widest uppercase">Elite Nutrition</span>
+</div>
+<h3 class="font-display text-4xl font-bold mb-6">The Signature</h3>
+<p class="text-slate-600 mb-10 leading-relaxed text-lg italic">
+                        The ultimate culinary experience. Our most comprehensive program featuring 120+ rotating seasonal recipes designed for sustained energy and cognitive clarity.
+                    </p>
+<ul class="space-y-4 mb-12 text-sm font-medium text-slate-500">
+<li class="flex items-center space-x-3"><span class="material-symbols-outlined text-warm">check_circle</span><span>Macronutrient balanced for performance</span></li>
+<li class="flex items-center space-x-3"><span class="material-symbols-outlined text-warm">check_circle</span><span>Zero processed sugars or refined oils</span></li>
+<li class="flex items-center space-x-3"><span class="material-symbols-outlined text-warm">check_circle</span><span>Personalized delivery schedule</span></li>
+</ul>
+<button class="w-full bg-primary text-white py-5 font-bold uppercase tracking-widest hover:bg-accent hover:text-primary transition-all">
+                        SELECT SIGNATURE
+                    </button>
+</div>
+</div>
+<div class="group relative bg-primary text-white p-8 mt-24 md:mt-48">
+<div class="aspect-square -mt-20 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-105">
+<img alt="Gut Restore" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbV_PU8XC1Ja2kbdSvFs-BSv4J2QMBpdNNSCVReTWrH2adi4uI2zhdzmrnaS50_bLsSkR8hWZ_Q4yvHJVX_zPRNeBeTZ4E3odtLr9KqyMQ7461-wZPpD9nQZ0xJN9zZ2uLEIVWG1_J06gAwaQPjeZEOXKLsiTtg9xEBi2OmqVljOyvSbX9k0bAk4qtN6fVnC5hxMkLTiSZten1bBqjd1wi-HMG2ssL8q3Ai7_6t4HGbZ0HiXVlbAI_PQvyqZqooXn1s1ePxQlnoHQ"/>
+</div>
+<div class="mt-10">
+<span class="inline-block bg-accent text-primary text-[10px] font-black px-4 py-1 uppercase mb-6">Restorative Protocol</span>
+<h3 class="font-display text-3xl font-bold mb-4">Gut Restore</h3>
+<p class="text-slate-300 mb-10 text-sm leading-relaxed italic">
+                        A targeted 5-day reset using bio-fermented ingredients and anti-inflammatory compounds to soothe digestion and reset your metabolic engine.
+                    </p>
+<button class="w-full border border-white/30 text-white py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-primary transition-all">
+                        EXPLORE RESET
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-background-dark py-32 overflow-hidden">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="relative">
+<div class="aspect-[3/4] relative z-10 overflow-hidden">
+<img alt="Lifestyle - Person enjoying meal" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4ibWFeGuWXq4_aAX9z0AAAa2HpMtaZzdhe1Zc0wW0xoNOpIZ1SNRnHFxYSSOYYY5E8XA-sx1mhs4AkGXbodiGvjR5hh65I34PSKD65cGsK1tLxD9VQBxQtbPg1TKU8uClS8zAoSdiIlX6RnrYpTHlQYaCZQ3GMcMdNDcl0uwigJDNiuRr8agsOs-srndiHwsrLH7CGP_cRMk-LIzxDYDbC3c0m8fbIhOyvE3mkevCuDCQcZp6pWrv4VS3rAFqv01JQ_8LTfCHFbg"/>
+</div>
+<div class="absolute -top-10 -right-10 w-64 h-64 border border-accent/20 -z-10"></div>
+<div class="absolute -bottom-10 -left-10 w-64 h-64 border border-warm/20 -z-10"></div>
+</div>
+<div class="text-white">
+<h2 class="font-display text-5xl lg:text-6xl font-black mb-12 italic leading-tight">Beyond Food. <br/><span class="text-accent not-italic">A Lifestyle of Vitality.</span></h2>
+<div class="space-y-12">
+<div class="flex items-start space-x-6">
+<span class="text-warm font-display text-4xl font-black">01</span>
+<div>
+<h4 class="text-xl font-bold mb-3 uppercase tracking-widest">Sourced with Intent</h4>
+<p class="text-slate-400 leading-relaxed">We partner exclusively with regenerative farms that prioritize soil health and nutrient density over volume.</p>
+</div>
+</div>
+<div class="flex items-start space-x-6">
+<span class="text-warm font-display text-4xl font-black">02</span>
+<div>
+<h4 class="text-xl font-bold mb-3 uppercase tracking-widest">Chef-Led Innovation</h4>
+<p class="text-slate-400 leading-relaxed">Our kitchen is led by Michelin-trained veterans who believe healthy food should be a masterpiece of flavor.</p>
+</div>
+</div>
+<div class="flex items-start space-x-6">
+<span class="text-warm font-display text-4xl font-black">03</span>
+<div>
+<h4 class="text-xl font-bold mb-3 uppercase tracking-widest">Scientific Precision</h4>
+<p class="text-slate-400 leading-relaxed">Every recipe is vetted by clinical nutritionists to ensure maximum bioavailability of key micro-nutrients.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-primary py-6 border-y-2 border-black overflow-hidden">
+<div class="marquee font-display font-black text-3xl italic uppercase tracking-tighter text-white" style="direction: rtl;">
+<div class="marquee-content">
+<span>The Nutrition Revolution</span>
+<span class="text-accent">●</span>
+<span>The Nutrition Revolution</span>
+<span class="text-accent">●</span>
+<span>The Nutrition Revolution</span>
+<span class="text-accent">●</span>
+<span>The Nutrition Revolution</span>
+<span class="text-accent">●</span>
+</div>
+</div>
+</section>
+<footer class="bg-white py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row justify-between items-start mb-24">
+<div class="mb-16 lg:mb-0">
+<div class="text-5xl font-display font-black text-primary italic mb-10 tracking-tighter">NOURISH.</div>
+<p class="text-slate-500 max-w-sm text-lg leading-relaxed mb-10">
+                        Crafting the future of human performance through the most sophisticated meal delivery system on earth.
+                    </p>
+<div class="flex space-x-6">
+<a class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-16 lg:gap-24">
+<div>
+<h5 class="font-black mb-8 uppercase tracking-[0.2em] text-[10px] text-slate-400">The Lab</h5>
+<ul class="space-y-4 text-sm font-bold uppercase tracking-widest">
+<li><a class="hover:text-warm transition-colors" href="#">Sourcing</a></li>
+<li><a class="hover:text-warm transition-colors" href="#">Nutrition</a></li>
+<li><a class="hover:text-warm transition-colors" href="#">Menu Lab</a></li>
+<li><a class="hover:text-warm transition-colors" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-black mb-8 uppercase tracking-[0.2em] text-[10px] text-slate-400">Experience</h5>
+<ul class="space-y-4 text-sm font-bold uppercase tracking-widest">
+<li><a class="hover:text-warm transition-colors" href="#">Gifting</a></li>
+<li><a class="hover:text-warm transition-colors" href="#">Concierge</a></li>
+<li><a class="hover:text-warm transition-colors" href="#">Corporate</a></li>
+</ul>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<h5 class="font-black mb-8 uppercase tracking-[0.2em] text-[10px] text-slate-400">Newsletter</h5>
+<form class="relative">
+<input class="w-full bg-slate-50 border-0 border-b-2 border-slate-200 py-4 px-0 focus:ring-0 focus:border-primary font-medium" placeholder="Your email address" type="email"/>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 text-primary hover:text-warm transition-colors">
+<span class="material-symbols-outlined">east</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+<div class="pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+<p>© 2024 NOURISH WORLDWIDE. ALL RIGHTS RESERVED.</p>
+<div class="flex space-x-12 mt-8 md:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Accessibility</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

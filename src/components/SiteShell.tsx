@@ -44,7 +44,7 @@ export default function SiteShell({
 }) {
   const router = useRouter();
   const { user, isAuthenticated, clearTokens } = useAuth();
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const handleLogout = useCallback(() => {
     clearTokens();
@@ -54,7 +54,6 @@ export default function SiteShell({
   const [cartState, setCartState] = useState<CartState>(defaultCartState);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const emiratesOffcanvasRef = useFocusTrap(isCartOpen);
 
   const showCartToast = useCallback((message: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -96,23 +95,13 @@ export default function SiteShell({
     }
   }, []);
 
-  const openCartOffcanvas = useCallback(() => {
-    setIsCartOpen(true);
-  }, []);
-
-  const closeCartOffcanvas = useCallback(() => {
-    setIsCartOpen(false);
-  }, []);
-
-  const handleEmirateClick = useCallback((emirate: string) => {
-    if (emirate.toLowerCase() === "dubai") {
-      window.location.href = "/Home/Cart";
-    }
-  }, []);
+  const openCartFlow = useCallback(() => {
+    router.push("/Home/CartEntry");
+  }, [router]);
 
   const cartContextValue: CartContextValue = {
-    openCart: openCartOffcanvas,
-    closeCart: closeCartOffcanvas,
+    openCart: openCartFlow,
+    closeCart: () => {},
     cartState,
     setCartState,
     showCartToast,
@@ -131,7 +120,7 @@ export default function SiteShell({
       {cookieChoice === null && (
         <div id="cookie-consent-banner" className="cookie-banner">
           <div className="cookie-banner-inner">
-            <span style={{ fontFamily: "Gothic60", textTransform: "uppercase" }}>
+            <span style={{ textTransform: "uppercase" }}>
               We use cookies to personalize content and analyze our traffic. You
               can accept or reject non-essential cookies.
             </span>
@@ -158,165 +147,116 @@ export default function SiteShell({
       {/* Header */}
       <header className="page-header">
         <div className="header-wrap">
-          <div className="bottom-header">
-            <div className="warp_desktop">
-              <nav className="nav-bar">
-                <div className="nav-container">
-                  <div className="nav-brand">
-                    <a className="navbar-brand" href="/Home/ViewIndex">
-                      <img
-                        className="site-logo"
-                        src="/nature-fit/logo-primary.jpg"
-                        alt="Nature Fit logo"
-                      />
-                    </a>
-                    <span className="nav-tagline">Nature-driven meal plans to fit your day.</span>
-                  </div>
-                  <ul className="menu">
-                    <li>
-                      <a href="/Home/Program">Menu</a>
-                    </li>
-                    <li>
-                      <a href="/Home/OurStory">Our Story</a>
-                    </li>
-                  </ul>
-                  <div className="log_si">
-                    {isAuthenticated && user ? (
-                      <>
-                        <a href="/Home/Account" className="nav-link-account" title="Account settings">
-                          Account
-                        </a>
-                        <span className="user-name" title={user.email ?? user.phone ?? ""}>
-                          {user.name || user.email || "Account"}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={handleLogout}
-                          className="logout-btn"
-                          style={{
-                            marginLeft: 8,
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer",
-                            font: "inherit",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Log out
-                        </button>
-                      </>
-                    ) : (
-                      <a href="/Home/Registration" id="login">
-                        Register / Sign In
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </nav>
-            </div>
-            <div className="mobile-nv">
-              <nav className="navbar">
-                <div className="container-fluid">
-                  <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar"
-                    aria-label="Toggle navigation"
-                  >
-                    <span className="navbar-toggler-icon" />
-                  </button>
-                  <div
-                    className="offcanvas offcanvas-end"
-                    tabIndex={-1}
-                    id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel"
-                  >
-                    <div className="offcanvas-header">
-                      <div className="logo">
-                        <a className="navbar-brand" href="/Home/ViewIndex">
-                          <img
-                            className="site-logo"
-                            src="/nature-fit/logo-primary.jpg"
-                            alt="Nature Fit logo"
-                          />
-                        </a>
-                      </div>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="offcanvas"
-                        aria-label="Close"
-                      />
-                    </div>
-                    <div className="offcanvas-body">
-                      <div className="menu-wrapper">
-                        <div className="menu-screen main-screen" id="mainMenu">
-                          <div className="menu-buttons">
-                            <button type="button">
-                              Programs
-                              <i className="fas fa-angle-right" />
-                            </button>
-                          </div>
-                        </div>
-                        <div
-                          className="menu-screen dropdown-screen"
-                          id="dropdown1"
-                        >
-                          <div className="dropdown-content">
-                            <button className="back-btn" type="button">
-                              <i className="fas fa-angle-left" />
-                              Programs
-                            </button>
-                            <div className="option">
-                              <a href="/Home/Program">SIGNATURE PROGRAM</a>
-                            </div>
-                            <div className="option">
-                              <a href="#">GUT RESTORE</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <ul className="navbar-nav ">
-                        <li className="nav-item">
-                          <a className="nav-link" href="/Home/OurStory">
-                            Our Story
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a className="nav-link" href="/Home/Contact">
-                            Contact Us
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a className="nav-link" href="#">
-                            Instagram
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <a className="navbar-brand" href="/Home/ViewIndex">
-                    <img
-                      className="site-logo"
-                      src="/nature-fit/logo-primary.jpg"
-                      alt="Nature Fit logo"
-                    />
-                  </a>
+          <div className="nf-header">
+            <a
+              href="/Home/ViewIndex"
+              className="nf-logo"
+              aria-label="Nature Fit home"
+            >
+              <img
+                className="site-logo"
+                src="/nature-fit/logo-primary.jpg"
+                alt="Nature Fit logo"
+              />
+            </a>
+
+            <nav className="nf-nav nf-nav-desktop" aria-label="Main navigation">
+              <a href="/Home/Program">Programs</a>
+              <a href="/Home/OurStory">Our Story</a>
+              <a href="/Home/Contact">Contact</a>
+            </nav>
+
+            <div className="nf-actions">
+              <button
+                type="button"
+                className="order-btn"
+                onClick={openCartFlow}
+              >
+                Start your plan
+              </button>
+
+              {isAuthenticated && user ? (
+                <>
                   <a
-                    className="pro_f"
-                    href={isAuthenticated ? "/Home/Account" : "/Home/Registration"}
-                    aria-label={isAuthenticated ? "Account settings" : "Register / Sign In"}
+                    href="/Home/Account"
+                    className="nav-link-account"
+                    title="Account settings"
                   >
-                    <img
-                      src="https://livit.ae/WebAssets/img/pro.png"
-                      alt={isAuthenticated ? "Profile" : "Register / Sign In"}
-                    />
+                    Account
                   </a>
-                </div>
-              </nav>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="logout-btn"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <a href="/Home/Registration" id="login">
+                  Register / Sign In
+                </a>
+              )}
+
+              <button
+                type="button"
+                className="nf-mobile-toggle"
+                aria-label="Toggle navigation"
+                aria-expanded={isMobileNavOpen}
+                onClick={() => setIsMobileNavOpen((open) => !open)}
+              >
+                <span />
+                <span />
+              </button>
             </div>
+          </div>
+        </div>
+
+        <div
+          className={`nf-mobile-nav ${
+            isMobileNavOpen ? "nf-mobile-nav--open" : ""
+          }`}
+        >
+          <nav aria-label="Mobile navigation">
+            <a href="/Home/Program">Programs</a>
+            <a href="/Home/OurStory">Our Story</a>
+            <a href="/Home/Contact">Contact</a>
+          </nav>
+
+          <div className="nf-mobile-cta">
+            <button
+              type="button"
+              className="primary-btn"
+              onClick={openCartFlow}
+            >
+              Start your plan
+            </button>
+
+            {isAuthenticated && user ? (
+              <>
+                <a
+                  href="/Home/Account"
+                  className="nav-link-account"
+                  title="Account settings"
+                >
+                  Account
+                </a>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="logout-btn"
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <a
+                href="/Home/Registration"
+                className="primary-btn nf-mobile-auth"
+              >
+                Register / Sign In
+              </a>
+            )}
           </div>
         </div>
       </header>
@@ -336,125 +276,96 @@ export default function SiteShell({
       {/* Footer */}
       <footer className="footer">
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-4">
-              <div className="ftr_desc">
-                <div className="ftr_logo">
-                  <img
-                    className="site-logo"
-                    src="/nature-fit/logo-primary.jpg"
-                    alt="Nature Fit logo"
-                  />
-                </div>
-                <p>
-                  {COPY.footerTaglineLine1}
-                  <br />
-                  {COPY.footerTaglineLine2}
-                </p>
-              </div>
-              <div
-                className="gi_img"
-                onClick={openCartOffcanvas}
-                style={{ cursor: "pointer" }}
+          <div className="footer-panel">
+            <div className="footer-hero">
+              <p className="footer-kicker">YOUR DAILY RITUAL</p>
+              <h2>
+                Every meal is more than food — it&apos;s your{" "}
+                <span>Nature Fit ritual.</span>
+              </h2>
+              <button
+                type="button"
+                className="primary-btn footer-order-btn"
+                onClick={openCartFlow}
               >
-                <img
-                  src="https://livit.ae/WebAssets/img/order-now.gif"
-                  alt="Order now"
-                />
-              </div>
+                Start your plan
+              </button>
             </div>
-            <div className="col-md-4">
-              <div className="ftr_two">
+
+            <div className="row footer-columns">
+              <div className="col-md-3">
+                <div className="ftr_desc">
+                  <div className="ftr_logo">
+                    <img
+                      className="site-logo"
+                      src="/nature-fit/logo-primary.jpg"
+                      alt="Nature Fit logo"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-3">
                 <div className="ftr_point">
-                  <h3>Quick Links</h3>
+                  <h3>Explore</h3>
                   <ul>
+                    <li>
+                      <a href="/Home/Program">Programs</a>
+                    </li>
                     <li>
                       <a href="/Home/OurStory">Our Story</a>
                     </li>
                     <li>
-                      <a href="/home/Contact">CONTACT US</a>
+                      <a href="/home/Contact">Contact</a>
                     </li>
                   </ul>
                 </div>
+              </div>
+
+              <div className="col-md-3">
                 <div className="ftr_point">
-                  <h3>POLICIES</h3>
+                  <h3>Policies</h3>
                   <ul>
                     <li>
-                      <a href="/Home/PrivacyPolicy">PRIVACY</a>
+                      <a href="/Home/PrivacyPolicy">Privacy</a>
                     </li>
                     <li>
-                      <a href="/Home/TermsOfService">TERMS OF SERVICE</a>
+                      <a href="/Home/TermsOfService">Terms of Service</a>
                     </li>
                     <li>
-                      <a href="/Home/Shipping">SHIPPING</a>
+                      <a href="/Home/Shipping">Shipping</a>
                     </li>
                     <li>
-                      <a href="/Home/Refunds">REFUNDS</a>
+                      <a href="/Home/Refunds">Refunds</a>
                     </li>
                   </ul>
                 </div>
               </div>
-            </div>
-            <div className="col-md-4">
-              <div className="ftr_point">
-                <h3 id="footer-join-title">{COPY.footerJoinTitle}</h3>
-                <p>{COPY.footerJoinSubtitle}</p>
-                {/* Newsletter/community form removed: no backend endpoint (B12) */}
+
+              <div className="col-md-3">
+                <div className="ftr_point ftr_join">
+                  <h3 id="footer-join-title">{COPY.footerJoinTitle}</h3>
+                  <p>{COPY.footerJoinSubtitle}</p>
+                  <a
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="footer-social"
+                  >
+                    <i className="bi bi-instagram" aria-hidden="true" />
+                    <span>Follow on Instagram</span>
+                  </a>
+                </div>
               </div>
             </div>
+
+            <div className="copyright">
+              <p>{COPY.footerCopyright}</p>
+            </div>
           </div>
-        </div>
-        <div className="copyright">
-          <p>{COPY.footerCopyright}</p>
         </div>
       </footer>
 
-      {/* Emirates offcanvas */}
-      <div
-        id="cartOffcanvas"
-        className={`custom-cart-offcanvas ${isCartOpen ? "active" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cartOffcanvasTitle"
-        aria-hidden={!isCartOpen}
-      >
-        <div className="cart-content" ref={emiratesOffcanvasRef}>
-          <div className="cart-content-ed">
-            <div className="cart-header_ad">
-              <span id="cartOffcanvasTitle">Emirates</span>
-              <button
-                type="button"
-                onClick={closeCartOffcanvas}
-                className="close-cart-btn"
-                aria-label="Close Emirates selection"
-              >
-                <i className="fa fa-times" aria-hidden />
-              </button>
-            </div>
-            <div className="emirates-grid cart-rad">
-              {[
-                "Dubai",
-                "Sharjah",
-                "Ajman",
-                "Ras Al khaimah",
-                "Umm al-quwain",
-                "Fujairah",
-                "Abu Dhabi",
-              ].map((em) => (
-                <button
-                  key={em}
-                  type="button"
-                  className="emirate-card"
-                  onClick={() => handleEmirateClick(em)}
-                  aria-label={`Select ${em}`}
-                >
-                  {em}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </CartContext.Provider>
   );
 }
