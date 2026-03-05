@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { CartState } from "@/types/cart";
 import { defaultCartState } from "@/lib/defaultCartState";
 import { COPY } from "@/config/copy";
@@ -43,6 +43,7 @@ export default function SiteShell({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated, clearTokens } = useAuth();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
@@ -106,6 +107,8 @@ export default function SiteShell({
     setCartState,
     showCartToast,
   };
+
+  const showJoinMarquee = pathname !== "/Home/Registration";
 
   return (
     <CartContext.Provider value={cartContextValue}>
@@ -265,13 +268,15 @@ export default function SiteShell({
       {children}
 
       {/* Join the community marquee */}
-      <div className="join_com" aria-hidden="true">
-        <div className="scroll-content">
-          {Array.from({ length: 16 }).map((_, index) => (
-            <span key={index}>{COPY.joinMarquee}</span>
-          ))}
+      {showJoinMarquee && (
+        <div className="join_com" aria-hidden="true">
+          <div className="scroll-content">
+            {Array.from({ length: 16 }).map((_, index) => (
+              <span key={index}>{COPY.joinMarquee}</span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Footer */}
       <footer className="footer">

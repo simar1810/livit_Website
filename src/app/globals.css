@@ -59,8 +59,8 @@ main {
 
 /* Logo – header, offcanvas, footer (use .site-logo so we always win over external CSS) */
 img.site-logo {
-  height: 140px !important;
-  max-height: 140px !important;
+  height: 110px !important;
+  max-height: 110px !important;
   width: auto !important;
   min-width: 160px;
   max-width: 320px !important;
@@ -2208,11 +2208,11 @@ section.pro_d .container-fluid {
 }
 
 .ftr_logo .site-logo {
-  height: 150px !important;
-  max-height: 150px !important;
+  height: 64px !important;
+  max-height: 64px !important;
   min-width: 0;
   max-width: 260px !important;
-  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.9));
+  filter: none;
 }
 
 .ftr_desc p {
@@ -2900,23 +2900,6 @@ section.pro_d .container-fluid {
   margin: 0;
 }
 
-.ourstory-content {
-  padding: 2.5rem 1.5rem;
-}
-
-.ourstory-container {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.ourstory-block {
-  background: #fff;
-  border-radius: 14px;
-  padding: 2rem 2.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e8ebe9;
-}
-
 .ourstory-heading {
   font-size: 1.25rem;
   font-weight: 600;
@@ -2930,46 +2913,170 @@ section.pro_d .container-fluid {
   line-height: 1.65;
   color: #374151;
   margin: 0;
+
+  /* About page body copy should feel airy on larger screens */
 }
 
-.ourstory-image-section {
-  padding: 0 1.5rem 2rem;
+.ourstory-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 0;
+  min-height: 520px;
 }
 
-.ourstory-image-wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  border-radius: 14px;
+.ourstory-split--first .ourstory-split-media {
+  order: 1;
+}
+
+.ourstory-split--first .ourstory-split-content {
+  order: 2;
+}
+
+.ourstory-split--second .ourstory-split-media {
+  order: 2;
+}
+
+.ourstory-split--second .ourstory-split-content {
+  order: 1;
+}
+
+.ourstory-split-media {
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.ourstory-img {
+.ourstory-split-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
 }
 
-.ourstory-cta {
-  padding: 2rem 1.5rem 4rem;
+.ourstory-split:hover .ourstory-split-media img {
+  transform: scale(1.04);
+}
+
+.ourstory-split-content {
+  padding: 3rem 2.5rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ourstory-kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #145a32;
+  font-weight: 700;
+}
+
+.ourstory-highlight {
+  padding: 3rem 1.5rem 4rem;
+  background: #e7f5ec;
+}
+
+.ourstory-highlight-inner {
+  max-width: 840px;
+  margin: 0 auto;
   text-align: center;
+}
+
+.ourstory-highlight-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  margin-bottom: 1.5rem;
 }
 
 .ourstory-cta-btn {
   display: inline-block;
-  padding: 0.7rem 1.5rem;
+  padding: 0.9rem 2.4rem;
   background: #145a32;
   color: #fff;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: background 0.2s;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.18s ease, transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .ourstory-cta-btn:hover {
   background: #0d3d21;
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(15, 63, 36, 0.4);
+}
+
+.ourstory-marquee {
+  padding: 1.75rem 0;
+  background: #ffffff;
+  border-block: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.ourstory-marquee-track {
+  display: inline-flex;
+  gap: 3rem;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: ourstory-ticker 26s linear infinite;
+  font-family: "Playfair Display", system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  color: #d1d5db;
+  font-style: italic;
+}
+
+.ourstory-marquee-track span {
+  letter-spacing: 0.12em;
+}
+
+@keyframes ourstory-ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .ourstory-split {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .ourstory-split-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .ourstory-split-media img {
+    position: relative;
+    height: 320px;
+  }
+
+  .ourstory-highlight {
+    padding-inline: 1rem;
+  }
+
+  .ourstory-highlight-image {
+    max-height: 320px;
+  }
+
+  .ourstory-marquee-track {
+    font-size: 1.3rem;
+  }
 }
 
 /* Legacy program / day panel (keep for any other usage) */
@@ -3087,5 +3194,329 @@ section.pro_d .container-fluid {
   cursor: pointer;
   color: #888;
   font-size: 18px;
+}
+
+
+/* Registration split-screen sign-in layout (Premium Meal Program landing style) */
+.registration-page-wrap {
+  min-height: 100vh;
+  background-color: #f9f8f6;
+  color: #111827;
+}
+
+.registration-split {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.registration-split-media {
+  position: relative;
+  flex: 1;
+  display: none;
+}
+
+.registration-split-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.registration-split-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 69, 47, 0.32);
+  mix-blend-mode: multiply;
+}
+
+.registration-split-caption {
+  position: absolute;
+  left: 4rem;
+  bottom: 4rem;
+  max-width: 26rem;
+  color: #ffffff;
+}
+
+.registration-split-caption h2 {
+  margin: 0 0 0.75rem;
+  font-family: "Playfair Display", system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 2.8rem;
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.registration-split-caption p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.registration-split-form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2rem 3.5rem 2.5rem;
+}
+
+.registration-card {
+  width: 100%;
+  max-width: 460px;
+  background-color: #ffffff;
+  border-radius: 1.1rem;
+  padding: 2.2rem 2.4rem 2rem;
+  box-shadow:
+    0 30px 80px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(15, 23, 42, 0.02);
+}
+
+.registration-card .contact_form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.registration-card .contact_form .form-group label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9ca3af;
+}
+
+.registration-card .contact_form input[type="text"],
+.registration-card .contact_form input[type="email"],
+.registration-card .contact_form input[type="tel"],
+.registration-card .contact_form select {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #e5e7eb;
+  border-radius: 0;
+  padding: 0.55rem 0;
+  font-size: 0.95rem;
+  background-color: transparent;
+}
+
+.registration-card .contact_form input::placeholder {
+  color: #d1d5db;
+}
+
+.registration-card .contact_form input:focus,
+.registration-card .contact_form select:focus {
+  outline: none;
+  border-bottom-color: #145a32;
+}
+
+.registration-card .phone_country {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.registration-card .phone_country select {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 110px;
+  border: none;
+  padding: 0.4rem 0;
+  background: transparent;
+}
+
+.registration-card .phone_country input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 0.4rem 0;
+}
+
+.registration-card .btrf {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.registration-card .contact_send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.9rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #145a32;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* Primary CTA – single button row (Send one-time code) */
+.registration-card .btrf > .contact_send:only-child {
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.6rem;
+  box-shadow: 0 18px 40px rgba(15, 63, 36, 0.5);
+}
+
+.registration-card .contact_send.cdr {
+  background-color: #111827;
+}
+
+.registration-card .contact_send:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+}
+
+.registration-card .contact_send:not(:disabled):hover {
+  background-color: #0d3d21;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(15, 63, 36, 0.35);
+}
+
+.registration-card-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1.8rem;
+}
+
+.registration-tab {
+  flex: 1;
+  padding-bottom: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #9ca3af;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.registration-tab--active {
+  color: #145a32;
+  border-bottom-color: #145a32;
+}
+
+.registration-panel {
+  display: none;
+}
+
+.registration-panel--active {
+  display: block;
+}
+
+.registration-panel-header h1 {
+  margin: 0 0 0.4rem;
+  font-family: "Playfair Display", system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 2rem;
+}
+
+.registration-panel-header p {
+  margin: 0 0 1.3rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.registration-otp-toggle {
+  display: flex;
+  gap: 1.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.registration-otp-option {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.registration-otp-option input {
+  margin-right: 0.45rem;
+}
+
+.registration-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f3f4f6;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9ca3af;
+}
+
+.registration-footer-links a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.registration-footer-links a:hover {
+  color: #145a32;
+}
+
+@media (min-width: 960px) {
+  .registration-split-media {
+    display: block;
+  }
+
+  .registration-split-form {
+    padding-inline: 4rem;
+  }
+}
+
+@media (max-width: 959px) {
+  .registration-nav {
+    padding-inline: 1.5rem;
+  }
+
+  .registration-nav-links {
+    display: none;
+  }
+
+  .registration-split {
+    padding-top: 4.5rem;
+  }
+
+  .registration-split-form {
+    flex: 1 1 auto;
+    padding: 2.5rem 1.5rem 3rem;
+  }
+
+  .registration-card {
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.24),
+      0 0 0 1px rgba(15, 23, 42, 0.02);
+  }
+}
+
+@media (max-width: 640px) {
+  .registration-nav-cta {
+    display: none;
+  }
+
+  .registration-card {
+    padding-inline: 1.6rem;
+  }
+
+  .registration-panel-header h1 {
+    font-size: 1.7rem;
+  }
 }
 
