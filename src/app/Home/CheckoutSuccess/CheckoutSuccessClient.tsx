@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient, ApiError } from "@/lib/api";
 
-/** Stripe Checkout Session shape (subset we use). */
 interface SessionData {
   id?: string;
   payment_status?: string;
@@ -52,61 +51,74 @@ export default function CheckoutSuccessClient({ sessionId }: CheckoutSuccessClie
   const paid = session?.payment_status === "paid" || session?.status === "complete";
 
   return (
-    <main className="container-fluid py-5">
-      <section className="row justify-content-center">
-        <div className="col-md-8 col-lg-6">
-          <h1 className="mb-4">Thank you for your order</h1>
+    <main className="checkout-result-page">
+      <div className="checkout-result-card">
+        <div className="checkout-result-icon checkout-result-icon--success">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#145a32" />
+            <path d="M14 25l7 7 13-13" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
 
-          {loading && (
-            <p className="text-muted">Confirming your payment…</p>
-          )}
+        <h1 className="checkout-result-title">Thank you for your order!</h1>
 
-          {error && (
-            <div className="alert alert-warning" role="alert">
-              <p className="mb-0">{error}</p>
-              <p className="mb-0 mt-2 small">
-                If you completed payment, your order may still have been received. Please check your email or contact support with your session or order details.
-              </p>
+        {loading && (
+          <p className="checkout-result-subtitle">Confirming your payment…</p>
+        )}
+
+        {error && (
+          <div className="checkout-result-alert checkout-result-alert--warn">
+            <p>{error}</p>
+            <p className="checkout-result-alert-sub">
+              If you completed payment, your order may still have been received.
+              Please check your email or contact support.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && session && (
+          <div className="checkout-result-details">
+            <div className="checkout-result-row">
+              <span className="checkout-result-label">Status</span>
+              <span className={`checkout-result-value ${paid ? "checkout-result-value--success" : ""}`}>
+                {paid ? "Payment confirmed" : (session.payment_status ?? session.status ?? "Pending")}
+              </span>
             </div>
-          )}
-
-          {!loading && !error && session && (
-            <div className="card border-0 shadow-sm">
-              <div className="card-body p-4">
-                <p className="mb-2">
-                  <strong>Payment status:</strong>{" "}
-                  <span className={paid ? "text-success" : "text-muted"}>
-                    {session.payment_status ?? session.status ?? "—"}
-                  </span>
-                </p>
-                {orderId && (
-                  <p className="mb-2">
-                    <strong>Order ID:</strong> <code>{orderId}</code>
-                  </p>
-                )}
-                {session.amount_total != null && (
-                  <p className="mb-0">
-                    <strong>Amount:</strong>{" "}
-                    {(session.amount_total / 100).toFixed(2)}{" "}
-                    {session.currency?.toUpperCase() ?? "AED"}
-                  </p>
-                )}
+            {orderId && (
+              <div className="checkout-result-row">
+                <span className="checkout-result-label">Order ID</span>
+                <span className="checkout-result-value checkout-result-value--mono">{orderId}</span>
               </div>
-            </div>
-          )}
+            )}
+            {session.amount_total != null && (
+              <div className="checkout-result-row">
+                <span className="checkout-result-label">Amount paid</span>
+                <span className="checkout-result-value">
+                  {(session.amount_total / 100).toFixed(2)} {session.currency?.toUpperCase() ?? "AED"}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
 
-          {!loading && (
-            <div className="mt-4">
-              <Link href="/" className="btn btn-primary me-2">
+        {!loading && (
+          <>
+            <p className="checkout-result-subtitle">
+              {paid
+                ? "Your meal plan is being prepared. We'll send a confirmation to your email shortly."
+                : "We're processing your order. You'll receive an email once it's confirmed."}
+            </p>
+            <div className="checkout-result-actions">
+              <Link href="/" className="primary-btn">
                 Back to home
               </Link>
-              <Link href="/Home/Cart" className="btn btn-outline-secondary">
-                View cart
+              <Link href="/Home/Cart" className="checkout-result-link">
+                Start a new plan
               </Link>
             </div>
-          )}
-        </div>
-      </section>
+          </>
+        )}
+      </div>
     </main>
   );
 }

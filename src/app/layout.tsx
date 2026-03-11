@@ -1,5 +1,4 @@
 import SiteShell from "@/components/SiteShell";
-import { AuthProvider } from "@/contexts/AuthContext";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -7,6 +6,9 @@ export const metadata: Metadata = {
   title: "Nature Fit",
   description:
     "Nature Fit – nature-driven, balanced meal plans for everyday wellness.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -61,9 +63,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <AuthProvider>
-          <SiteShell>{children}</SiteShell>
-        </AuthProvider>
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

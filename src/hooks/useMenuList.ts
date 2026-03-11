@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { apiClient } from "@/lib/api";
 
 const MENU_LIST_PATH = "menu/list";
@@ -20,23 +19,15 @@ export interface UseMenuListResult {
 }
 
 export function useMenuList(planId?: string): UseMenuListResult {
-  const { accessToken, isAuthenticated } = useAuth();
   const [data, setData] = useState<MenuListData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchList = useCallback(async () => {
-    if (!isAuthenticated || !accessToken) {
-      setData(null);
-      setLoading(false);
-      return;
-    }
     setLoading(true);
     setError(null);
     try {
-      const res = await apiClient.get<MenuListData>(MENU_LIST_PATH, {
-        token: accessToken,
-      });
+      const res = await apiClient.get<MenuListData>(MENU_LIST_PATH);
       setData(res.data ?? null);
     } catch {
       setError("Could not load menu.");
@@ -44,7 +35,7 @@ export function useMenuList(planId?: string): UseMenuListResult {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, accessToken]);
+  }, []);
 
   useEffect(() => {
     if (planId && planId !== "default") fetchList();

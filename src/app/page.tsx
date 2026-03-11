@@ -49,9 +49,6 @@ export default function HomePage() {
               >
                 {COPY.heroCta}
               </button>
-              <a href="/Home/Program" className="nf-hero-secondary">
-                View programs
-              </a>
             </div>
           </div>
 
@@ -167,9 +164,6 @@ export default function HomePage() {
               <p className="menu-preview-subtitle">
                 Chef-crafted, seasonally led meals designed to keep your routine effortless.
               </p>
-              <a className="menu-preview-link" href="/Home/Program">
-                {COPY.menuCta}
-              </a>
             </div>
 
             <div className="menu-preview-grid">

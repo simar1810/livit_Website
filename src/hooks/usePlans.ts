@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { apiClient } from "@/lib/api";
 import type { Plan } from "@/types/plan";
 
@@ -17,23 +16,15 @@ export interface UsePlansResult {
 }
 
 export function usePlans(): UsePlansResult {
-  const { accessToken, isAuthenticated } = useAuth();
   const [plans, setPlans] = useState<Plan[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchPlans = useCallback(async () => {
-    if (!isAuthenticated || !accessToken) {
-      setPlans([]);
-      setLoading(false);
-      return;
-    }
     setLoading(true);
     setError(null);
     try {
-      const res = await apiClient.get<Plan[]>(MENU_PLANS_PATH, {
-        token: accessToken,
-      });
+      const res = await apiClient.get<Plan[]>(MENU_PLANS_PATH);
       setPlans(Array.isArray(res.data) ? res.data : []);
     } catch {
       setError("Could not load plans.");
@@ -41,7 +32,7 @@ export function usePlans(): UsePlansResult {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, accessToken]);
+  }, []);
 
   useEffect(() => {
     fetchPlans();

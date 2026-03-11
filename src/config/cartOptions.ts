@@ -10,27 +10,10 @@ import type {
   DaysPerWeekOption,
   WeekCountOption,
   CustomizationOption,
-  ProgramOption,
 } from "@/types/cart";
 
 export type { ProteinKey, MealTypeKey };
 
-/** Default plan _id for guest checkout when no API plans. Set NEXT_PUBLIC_DEFAULT_TEMPLATE_ID in .env.local. */
-export function getDefaultTemplateId(): string {
-  return (typeof process !== "undefined" && process.env.NEXT_PUBLIC_DEFAULT_TEMPLATE_ID) || "";
-}
-
-/** Fallback program list when not authenticated (guest). Always one option so guests can proceed; use NEXT_PUBLIC_DEFAULT_TEMPLATE_ID for real checkout. */
-export function getFallbackPrograms(): ProgramOption[] {
-  const id = getDefaultTemplateId() || "default";
-  return [{ id, label: "Signature Program" }];
-}
-
-/** Resolve program label by id from fallback only. Use usePlans().getPlanLabel when authenticated. */
-export function getFallbackProgramLabel(id: string): string {
-  const list = getFallbackPrograms();
-  return list.find((p) => p.id === id)?.label ?? "";
-}
 
 export const PROTEINS: { key: ProteinKey; label: string }[] = [
   { key: "chicken", label: "Chicken" },
@@ -73,6 +56,8 @@ export const WEEKDAYS = [
   { key: "wed", label: "WED" },
   { key: "thu", label: "THU" },
   { key: "fri", label: "FRI" },
+  { key: "sat", label: "SAT" },
+  { key: "sun", label: "SUN" },
 ] as const;
 
 export const CUSTOMIZATIONS: CustomizationOption[] = [

@@ -5,11 +5,8 @@
 import type { CartState, OrderSummary } from "@/types/cart";
 import type { Plan } from "@/types/plan";
 import {
-  getFallbackProgramLabel,
   PROTEINS,
   MEAL_TYPES,
-  DAYS_PER_WEEK,
-  WEEKS_OF_FOOD,
 } from "@/config/cartOptions";
 
 const VAT_RATE = 0.05;
@@ -85,9 +82,7 @@ export function buildOrderSummaryFromCartState(
   overrides: Partial<OrderSummary> & { plan?: Plan | null } = {}
 ): OrderSummary {
   const programName =
-    overrides.programName ??
-    getFallbackProgramLabel(state.programId) ??
-    "Program";
+    overrides.programName ?? "Program";
   const dietaryPreference = state.selectedProteins
     .map((k) => PROTEINS.find((p) => p.key === k)?.label ?? k)
     .join(", ")

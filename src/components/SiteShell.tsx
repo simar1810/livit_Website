@@ -12,10 +12,6 @@ import { usePathname, useRouter } from "next/navigation";
 import type { CartState } from "@/types/cart";
 import { defaultCartState } from "@/lib/defaultCartState";
 import { COPY } from "@/config/copy";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { useAuth } from "@/contexts/AuthContext";
-
-type CookieChoice = "accepted" | "rejected" | null;
 
 type CartContextValue = {
   openCart: () => void;
@@ -44,14 +40,9 @@ export default function SiteShell({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated, clearTokens } = useAuth();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const isCartPage = pathname === "/Home/Cart";
 
-  const handleLogout = useCallback(() => {
-    clearTokens();
-    router.push("/");
-  }, [clearTokens, router]);
-  const [cookieChoice, setCookieChoice] = useState<CookieChoice>(null);
   const [cartState, setCartState] = useState<CartState>(defaultCartState);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -71,31 +62,6 @@ export default function SiteShell({
     };
   }, []);
 
-  // Cookie consent stored in localStorage
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(
-      "cookie_consent",
-    ) as CookieChoice;
-    if (stored === "accepted" || stored === "rejected") {
-      setCookieChoice(stored);
-    }
-  }, []);
-
-  const handleCookieAccept = useCallback(() => {
-    setCookieChoice("accepted");
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("cookie_consent", "accepted");
-    }
-  }, []);
-
-  const handleCookieReject = useCallback(() => {
-    setCookieChoice("rejected");
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("cookie_consent", "rejected");
-    }
-  }, []);
-
   const openCartFlow = useCallback(() => {
     router.push("/Home/CartEntry");
   }, [router]);
@@ -108,8 +74,6 @@ export default function SiteShell({
     showCartToast,
   };
 
-  const showJoinMarquee = pathname !== "/Home/Registration";
-
   return (
     <CartContext.Provider value={cartContextValue}>
       {/* Cart summary toast */}
@@ -119,36 +83,8 @@ export default function SiteShell({
         </div>
       )}
 
-      {/* Cookie banner */}
-      {cookieChoice === null && (
-        <div id="cookie-consent-banner" className="cookie-banner">
-          <div className="cookie-banner-inner">
-            <span style={{ textTransform: "uppercase" }}>
-              We use cookies to personalize content and analyze our traffic. You
-              can accept or reject non-essential cookies.
-            </span>
-            <div className="cookie-banner-actions">
-              <button
-                type="button"
-                className="reject-btn"
-                onClick={handleCookieReject}
-              >
-                Reject
-              </button>
-              <button
-                type="button"
-                className="accept-btn"
-                onClick={handleCookieAccept}
-              >
-                Accept
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Header */}
-      <header className="page-header">
+      <header className={`page-header${isCartPage ? " page-header--immersive" : ""}`}>
         <div className="header-wrap">
           <div className="nf-header">
             <a
@@ -164,7 +100,6 @@ export default function SiteShell({
             </a>
 
             <nav className="nf-nav nf-nav-desktop" aria-label="Main navigation">
-              <a href="/Home/Program">Programs</a>
               <a href="/Home/OurStory">Our Story</a>
               <a href="/Home/Contact">Contact</a>
             </nav>
@@ -177,29 +112,6 @@ export default function SiteShell({
               >
                 Start your plan
               </button>
-
-              {isAuthenticated && user ? (
-                <>
-                  <a
-                    href="/Home/Account"
-                    className="nav-link-account"
-                    title="Account settings"
-                  >
-                    Account
-                  </a>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="logout-btn"
-                  >
-                    Log out
-                  </button>
-                </>
-              ) : (
-                <a href="/Home/Registration" id="login">
-                  Register / Sign In
-                </a>
-              )}
 
               <button
                 type="button"
@@ -221,7 +133,6 @@ export default function SiteShell({
           }`}
         >
           <nav aria-label="Mobile navigation">
-            <a href="/Home/Program">Programs</a>
             <a href="/Home/OurStory">Our Story</a>
             <a href="/Home/Contact">Contact</a>
           </nav>
@@ -234,32 +145,6 @@ export default function SiteShell({
             >
               Start your plan
             </button>
-
-            {isAuthenticated && user ? (
-              <>
-                <a
-                  href="/Home/Account"
-                  className="nav-link-account"
-                  title="Account settings"
-                >
-                  Account
-                </a>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="logout-btn"
-                >
-                  Log out
-                </button>
-              </>
-            ) : (
-              <a
-                href="/Home/Registration"
-                className="primary-btn nf-mobile-auth"
-              >
-                Register / Sign In
-              </a>
-            )}
           </div>
         </div>
       </header>
@@ -267,19 +152,8 @@ export default function SiteShell({
       {/* Page content */}
       {children}
 
-      {/* Join the community marquee */}
-      {showJoinMarquee && (
-        <div className="join_com" aria-hidden="true">
-          <div className="scroll-content">
-            {Array.from({ length: 16 }).map((_, index) => (
-              <span key={index}>{COPY.joinMarquee}</span>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Footer */}
-      <footer className="footer">
+      <footer className={`footer${isCartPage ? " footer--immersive" : ""}`}>
         <div className="container-fluid">
           <div className="footer-panel">
             <div className="footer-hero">
@@ -297,75 +171,58 @@ export default function SiteShell({
               </button>
             </div>
 
-            <div className="row footer-columns">
-              <div className="col-md-3">
-                <div className="ftr_desc">
-                  <div className="ftr_logo">
-                    <img
-                      className="site-logo"
-                      src="/nature-fit/logo-primary.jpg"
-                      alt="Nature Fit logo"
-                    />
-                  </div>
+            <div className="footer-columns">
+              <div className="ftr_desc">
+                <div className="ftr_logo">
+                  <img
+                    className="site-logo"
+                    src="/nature-fit/logo-primary.jpg"
+                    alt="Nature Fit logo"
+                  />
                 </div>
               </div>
 
-              <div className="col-md-3">
-                <div className="ftr_point">
-                  <h3>Explore</h3>
-                  <ul>
-                    <li>
-                      <a href="/Home/Program">Programs</a>
-                    </li>
-                    <li>
-                      <a href="/Home/OurStory">Our Story</a>
-                    </li>
-                    <li>
-                      <a href="/home/Contact">Contact</a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="ftr_point">
+                <h3>Explore</h3>
+                <ul>
+                  <li>
+                    <a href="/Home/OurStory">Our Story</a>
+                  </li>
+                  <li>
+                    <a href="/home/Contact">Contact</a>
+                  </li>
+                </ul>
               </div>
 
-              <div className="col-md-3">
-                <div className="ftr_point">
-                  <h3>Policies</h3>
-                  <ul>
-                    <li>
-                      <a href="/Home/PrivacyPolicy">Privacy</a>
-                    </li>
-                    <li>
-                      <a href="/Home/TermsOfService">Terms of Service</a>
-                    </li>
-                    <li>
-                      <a href="/Home/Shipping">Shipping</a>
-                    </li>
-                    <li>
-                      <a href="/Home/Refunds">Refunds</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="col-md-3">
-                <div className="ftr_point ftr_join">
-                  <h3 id="footer-join-title">{COPY.footerJoinTitle}</h3>
-                  <p>{COPY.footerJoinSubtitle}</p>
-                  <a
-                    href="https://www.instagram.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="footer-social"
-                  >
-                    <i className="bi bi-instagram" aria-hidden="true" />
-                    <span>Follow on Instagram</span>
-                  </a>
-                </div>
+              <div className="ftr_point">
+                <h3>Policies</h3>
+                <ul>
+                  <li>
+                    <a href="/Home/PrivacyPolicy">Privacy</a>
+                  </li>
+                  <li>
+                    <a href="/Home/TermsOfService">Terms of Service</a>
+                  </li>
+                  <li>
+                    <a href="/Home/Shipping">Shipping</a>
+                  </li>
+                  <li>
+                    <a href="/Home/Refunds">Refunds</a>
+                  </li>
+                </ul>
               </div>
             </div>
 
             <div className="copyright">
               <p>{COPY.footerCopyright}</p>
+            </div>
+
+            <div className="made-with-love">
+              <p>
+                Made with <span className="love-heart" aria-label="love">❤️</span> by{" "}
+                <img src="/wlogo.svg" alt="WellnessZ" className="wellnessz-logo-inline" />{" "}
+                in India <span aria-label="India flag">🇮🇳</span>
+              </p>
             </div>
           </div>
         </div>

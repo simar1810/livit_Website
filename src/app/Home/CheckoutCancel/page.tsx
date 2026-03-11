@@ -4,26 +4,33 @@ import Link from "next/link";
 
 export default function CheckoutCancelPage() {
   return (
-    <main className="container-fluid py-5">
-      <section className="row justify-content-center">
-        <div className="col-md-8 col-lg-6 text-center">
-          <h1 className="mb-3">Payment canceled</h1>
-          <p className="text-muted mb-4">
-            Your payment was not completed. You can return to checkout or continue shopping.
-          </p>
-          <div>
-            <Link href="/Home/CheckOut" className="btn btn-primary me-2">
-              Back to checkout
-            </Link>
-            <Link href="/Home/Cart" className="btn btn-outline-secondary me-2">
-              View cart
-            </Link>
-            <Link href="/" className="btn btn-outline-secondary">
-              Back to home
-            </Link>
-          </div>
+    <main className="checkout-result-page">
+      <div className="checkout-result-card">
+        <div className="checkout-result-icon checkout-result-icon--cancel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#dc3545" />
+            <path d="M16 16l16 16M32 16L16 32" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+          </svg>
         </div>
-      </section>
+
+        <h1 className="checkout-result-title">Payment cancelled</h1>
+        <p className="checkout-result-subtitle">
+          Your payment was not completed. No charges have been made.
+          You can return to checkout or keep browsing.
+        </p>
+
+        <div className="checkout-result-actions">
+          <Link href="/Home/CheckOut" className="primary-btn">
+            Back to checkout
+          </Link>
+          <Link href="/Home/Cart" className="checkout-result-link">
+            Edit your plan
+          </Link>
+          <Link href="/" className="checkout-result-link">
+            Back to home
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

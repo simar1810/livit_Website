@@ -15,8 +15,8 @@ export default function OurStoryPage() {
       <section className="ourstory-split ourstory-split--first">
         <div className="ourstory-split-media">
           <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhLINHZZdG0_fW8JCI0Q4ZYrwueHl8vHIBCW9LPS-DXs6QXQRlnw_yQ6uzHa4a5ThnCGhkEE0z3OgVAsNdseCB7kTsnvbO_HDyIylLh8P9v_QXYYU8Wc3KPDeHwdBk7_jZoxlCnnq2Teuf5I5rl8PlsDXK09l3ESSBy2V1wLbSNIzgffavr3F7MB5NVafbmZelrtqPyoWdk4BsWGTyXFmpN-7hTZwZjd9PbdU_Sc4rMm5svuTV9O-Xpv0ULsIf1OYfzfVdnHuhdsA"
-            alt="Fresh farm ingredients"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX5CEJB6V_3EXzHVVmnprBcNOXSiaQ8SwK_2XxXMBGXdzu2J_gzwTjl9wAzX8OX-7uuVsuvLyuuub7liVddD2q8zBK5iQYzMyNa_pTDaLaM7CTIazSaK1G2oLIcDe9pYip_3740muyP4l5RCyrvTiPeqW8tegZOdsSRJp6VIv6PqcyQBFGnrDwtgZjzPfSQ4h5-86OZh5MxMB_cVMK7IHcyeFILJUoF9EJD3GP3OSdyZJWcZBt578oAdUcexCKmYfjXYAvcb4pMxQ"
+            alt="Vibrant healthy food"
           />
         </div>
         <div className="ourstory-split-content">
@@ -62,18 +62,6 @@ export default function OurStoryPage() {
         </div>
       </section>
 
-      <section className="ourstory-highlight">
-        <div className="ourstory-highlight-inner">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX5CEJB6V_3EXzHVVmnprBcNOXSiaQ8SwK_2XxXMBGXdzu2J_gzwTjl9wAzX8OX-7uuVsuvLyuuub7liVddD2q8zBK5iQYzMyNa_pTDaLaM7CTIazSaK1G2oLIcDe9pYip_3740muyP4l5RCyrvTiPeqW8tegZOdsSRJp6VIv6PqcyQBFGnrDwtgZjzPfSQ4h5-86OZh5MxMB_cVMK7IHcyeFILJUoF9EJD3GP3OSdyZJWcZBt578oAdUcexCKmYfjXYAvcb4pMxQ"
-            alt="Vibrant healthy food"
-            className="ourstory-highlight-image"
-          />
-          <a href="/Home/Program" className="ourstory-cta-btn">
-            View our program
-          </a>
-        </div>
-      </section>
     </main>
   );
 }
